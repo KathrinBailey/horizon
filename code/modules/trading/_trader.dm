@@ -17,9 +17,9 @@
 	var/list/possible_sold_goods
 	/// Associative list of bought goods datums, key is type, value is chance that the datum will apply
 	var/list/possible_bought_goods
-	/// List of sold good datums
+	/// List of sold good datums. If you want all of them to be guaranteed, make sure `target_sold_goods_amount` is greater than the amount of items in here
 	var/list/sold_goods = list()
-	/// List of bought goods datums
+	/// List of bought goods datums. If you want all of them to be guaranteed, make sure `target_bought_goods_amount` is greater than the amount of items in here
 	var/list/bought_goods = list()
 	/// Cash they hold, they won't be able to pay out if it gets too low
 	var/current_credits = DEFAULT_TRADER_CREDIT_AMOUNT
@@ -34,11 +34,11 @@
 	/// Maximum percent that the merchant will be able to drop the price. Randomized between 0 and this
 	var/haggle_percent = 15
 	/// A percentage of the price variance on all sold and bought goods
-	var/price_variance = 25
+	var/price_variance = 20
 	/// How much more items are valuable to the merchant for purchasing (in %)
 	var/buy_margin = 1
 	/// How much more items are expensive for the users to purchase (in %)
-	var/sell_margin = 1.3
+	var/sell_margin = 1.15
 	/// How much more, or less items will he have on stock. Minimum of 1 per datum
 	var/quantity_multiplier = 1
 	/// Amount of disposition gained per each trade
@@ -57,6 +57,24 @@
 	var/rotates_stock = TRUE
 	/// What's the chance the vendor will rotate stock
 	var/rotate_stock_chance = 100
+
+	/// Current listed bounties
+	var/list/bounties
+	/// All possible bounties, associative to weight
+	var/list/possible_bounties
+	/// Chance to gain a bounty per stock rotation
+	var/bounty_gain_chance = 15
+	/// Chance to gain a bounty when the trader is spawned in
+	var/initial_bounty_gain_chance = 50
+
+	/// Current listed deliveries
+	var/list/deliveries
+	/// All possible deliveries, associative to weight
+	var/list/possible_deliveries
+	/// Chance to gain a delivery per stock rotation
+	var/delivery_gain_chance = 15
+	/// Chance to gain a delivery when the trader is spawned in
+	var/initial_delivery_gain_chance = 50
 
 	/// An associative list of unique responses
 	var/list/speech
@@ -79,7 +97,7 @@
 /datum/trader/proc/get_matching_bought_datum(atom/movable/AM)
 	for(var/b in bought_goods)
 		var/datum/bought_goods/goodie = bought_goods[b]
-		if(goodie.Validate(AM))
+		if(goodie.Validate(AM) && goodie.CheckAmount(AM))
 			return goodie
 
 /datum/trader/proc/requested_barter(mob/user, obj/machinery/computer/trade_console/console, datum/sold_goods/goodie)
@@ -94,13 +112,20 @@
 	var/total_value = 0
 	var/list/valid_items = list()
 
+	var/bartered_items
+	var/bartered_item_count = 0
+
 	for(var/i in items_on_pad)
 		var/atom/movable/AM = i
-		for(var/b in bought_goods)
-			var/datum/bought_goods/bought_goodie = get_matching_bought_datum(AM)
-			if(bought_goodie)
-				total_value += bought_goodie.GetCost(AM)
-				valid_items += AM
+		var/datum/bought_goods/bought_goodie = get_matching_bought_datum(AM)
+		if(bought_goodie)
+			total_value += bought_goodie.GetCost(AM)
+			valid_items += AM
+			if(!bartered_items)
+				bartered_items = "[bought_goodie.name]"
+			else
+				bartered_items += ", [bought_goodie.name]"
+			bartered_item_count += bought_goodie.GetAmount(AM)
 
 	total_value *= TRADE_BARTER_EXTRA_MARGIN
 	//Always treat barter as if it's haggling
@@ -127,7 +152,8 @@
 		console.linked_pad.do_teleport_effect()
 		AfterTrade(user,console)
 		randomize_haggle()
-	valid_items = null
+		console.write_manifest(bartered_items, "[bartered_item_count] total", total_value, TRUE, user.name)
+		console.write_manifest(goodie.name, 1, total_value, FALSE, user.name)
 
 /datum/trader/proc/requested_sell(mob/user, obj/machinery/computer/trade_console/console, datum/bought_goods/goodie, haggled_price)
 	if(!(trade_flags & TRADER_MONEY))
@@ -137,7 +163,7 @@
 	var/item_value
 	for(var/i in items_on_pad)
 		var/atom/movable/AM = i
-		if(goodie.Validate(AM))
+		if(goodie.Validate(AM) && goodie.CheckAmount(AM))
 			chosen_item = AM
 			item_value = goodie.GetCost(AM)
 			break
@@ -156,12 +182,14 @@
 			return get_response("too_much_value", "No way I'm paying that much for this", user)
 		else if (haggled_price > item_value*(haggle_percent-TRADE_HARD_BARGAIN_MARGIN))
 			hard_bargain = TRUE
+	goodie.SubtractAmount(chosen_item)
 	qdel(chosen_item)
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	console.credits_held += proposed_cost
 	current_credits -= proposed_cost
 	randomize_haggle()
+	console.write_manifest(goodie.name, goodie.GetAmount(chosen_item), proposed_cost, TRUE, user.name)
 	if(hard_bargain)
 		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 	else
@@ -195,6 +223,7 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
+	console.write_manifest(goodie.name, 1, proposed_cost, FALSE, user.name)
 	if(hard_bargain)
 		return get_response("hard_bargain", "You drive a hard bargain, but I'll accept", user)
 	else
@@ -211,12 +240,11 @@
 
 	for(var/i in items_on_pad)
 		var/atom/movable/AM = i
-		for(var/b in bought_goods)
-			var/datum/bought_goods/goodie = get_matching_bought_datum(AM)
-			if(goodie)
-				item_count++
-				total_value += goodie.GetCost(AM)
-				last_item_name = AM.name
+		var/datum/bought_goods/goodie = get_matching_bought_datum(AM)
+		if(goodie)
+			item_count++
+			total_value += goodie.GetCost(AM)
+			last_item_name = AM.name
 
 	if(!item_count)
 		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
@@ -233,6 +261,8 @@
 		return get_response("pad_empty", "There's nothing on the pad...", user)
 	var/item_count = 0
 	var/total_value = 0
+	var/conjoined_amount = 0
+	var/conjoined_string
 	var/list/valid_items = list()
 	for(var/i in items_on_pad)
 		var/atom/movable/AM = i
@@ -240,7 +270,13 @@
 		if(goodie)
 			item_count++
 			total_value += goodie.GetCost(AM)
+			goodie.SubtractAmount(AM)
 			valid_items += AM
+			if(!conjoined_string)
+				conjoined_string = "[goodie.name]"
+			else
+				conjoined_string += ", [goodie.name]"
+			conjoined_amount += goodie.GetAmount(AM)
 
 	if(!item_count)
 		return get_response("trade_found_unwanted", "I'm not interested in these kinds of items!", user)
@@ -256,12 +292,57 @@
 	console.linked_pad.do_teleport_effect()
 	AfterTrade(user,console)
 	randomize_haggle()
+	console.write_manifest(conjoined_string, "[conjoined_amount] total", total_value, TRUE, user.name)
 	return get_response("trade_complete", "Thanks for your business!", user)
+
+/datum/trader/proc/requested_bounty_claim(mob/user, obj/machinery/computer/trade_console/console, datum/trader_bounty/bounty)
+	var/list/items_on_pad = console.linked_pad.get_valid_items()
+	var/list/valid_items = list()
+	var/counted_amount = 0
+	var/bounty_completed = FALSE
+	for(var/i in items_on_pad)
+		var/atom/movable/AM = i
+		var/amount_in_this_item = bounty.Validate(AM)
+		if(!amount_in_this_item)
+			continue
+		counted_amount += amount_in_this_item
+		valid_items += AM
+		if(counted_amount >= bounty.amount)
+			bounty_completed = TRUE
+			break
+	if(!bounty_completed)
+		return get_response("bounty_fail_claim", "I'm afraid you're a bit short of what I need!", user)
+	for(var/i in valid_items)
+		var/atom/movable/AM = i
+		qdel(AM)
+	console.credits_held += bounty.reward_cash
+	if(bounty.reward_item_path)
+		console.write_manifest(bounty.reward_item_name, 1, 0, FALSE, user.name)
+		new bounty.reward_item_path(get_turf(console.linked_pad))
+	console.linked_pad.do_teleport_effect()
+	AfterTrade(user,console)
+	randomize_haggle()
+	console.write_manifest(bounty.name, counted_amount, bounty.reward_cash, TRUE, user.name)
+	. = bounty.bounty_complete_text
+	bounties -= bounty
+	qdel(bounty)
+	if(!bounties.len)
+		bounties = null
+		console.trader_screen_state = TRADER_SCREEN_NOTHING
 
 /datum/trader/proc/hail_msg(is_success, mob/user)
 	var/key = is_success ? "hail" : "hail_deny"
 	var/default = is_success ? "Greetings, MOB!" : "We're closed!"
 	. = get_response(key, default, user)
+
+/datum/trader/proc/requested_delivery_take(mob/user, obj/machinery/computer/trade_console/console, datum/delivery_run/delivery)
+	delivery.Accept(user, console)
+	deliveries -= delivery
+	qdel(delivery)
+	if(!deliveries.len)
+		deliveries = null
+		console.trader_screen_state = TRADER_SCREEN_NOTHING
+	return get_response("delivery_take", "Don't take too long!", user)
 
 /datum/trader/proc/get_user_suffix(mob/user)
 	if(!isliving(user))
@@ -308,10 +389,16 @@
 	InitializeStock()
 
 /datum/trader/proc/Tick()
+	if(current_credits < (initial(current_credits)*(TRADER_LOW_CASH_THRESHOLD/100)))
+		current_credits += rand(TRADER_PAYCHECK_LOW, TRADER_PAYCHECK_HIGH)
 	if(rotates_stock && prob(rotate_stock_chance))
 		RotateStock()
 
 /datum/trader/proc/InitializeStock()
+	if(prob(initial_bounty_gain_chance))
+		GainBounty()
+	if(prob(initial_delivery_gain_chance))
+		GainDelivery()
 	if(possible_bought_goods)
 		var/list/candidates = possible_bought_goods.Copy()
 		var/amount_of_iterations = rand(target_bought_goods_amount-initial_goods_amount_randomness,target_bought_goods_amount+initial_goods_amount_randomness)
@@ -339,7 +426,25 @@
 					CreateSoldGoodieType(picked_type)
 		candidates = null
 
+/datum/trader/proc/GainBounty()
+	if(bounties || !possible_bounties)
+		return
+	LAZYINITLIST(bounties)
+	var/bounty_type = pickweight(possible_bounties)
+	bounties += new bounty_type()
+
+/datum/trader/proc/GainDelivery()
+	if(deliveries || !possible_deliveries)
+		return
+	LAZYINITLIST(deliveries)
+	var/delivery_type = pickweight(possible_deliveries)
+	deliveries += new delivery_type(src)
+
 /datum/trader/proc/RotateStock()
+	if(prob(bounty_gain_chance))
+		GainBounty()
+	if(prob(delivery_gain_chance))
+		GainDelivery()
 	if(prob(TRADER_ABSOLUTE_STOCK_ROTATION_CHANCE))
 		RemoveAllStock()
 		InitializeStock()
@@ -350,6 +455,14 @@
 			var/datum/sold_goods/goodie = sold_goods[chosen_type]
 			if(!goodie.current_stock)
 				RemoveSoldGoodieType(chosen_type)
+				break
+
+	//Remove up to 1 bought goodie that we've ran out of stock
+	if(bought_goods.len && prob(TRADER_CHANCE_TO_REMOVE_EMPTY_STOCK))
+		for(var/chosen_type in bought_goods)
+			var/datum/bought_goods/goodie = bought_goods[chosen_type]
+			if(!isnull(goodie.amount) && !goodie.amount)
+				RemoveBoughtGoodieType(chosen_type)
 				break
 
 	//Simulate other people "purchasing" the stock items
@@ -420,7 +533,7 @@
 	sold_goods[passed_type] = new passed_type(TRADER_COST_MACRO(sell_margin,price_variance), quantity_multiplier)
 
 /datum/trader/proc/CreateBoughtGoodieType(passed_type)
-	bought_goods[passed_type] = new passed_type(TRADER_COST_MACRO(buy_margin,price_variance))
+	bought_goods[passed_type] = new passed_type(TRADER_COST_MACRO(buy_margin,price_variance), quantity_multiplier)
 
 /datum/trader/proc/RemoveSoldGoodieType(passed_type)
 	qdel(sold_goods[passed_type])

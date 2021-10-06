@@ -199,7 +199,6 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSAIR_PIPENETS
 	SStgui.update_uis(SSair) //Lightning fast debugging motherfucker
 
-
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = FALSE)
 	if (!resumed)
 		src.currentrun = networks.Copy()
@@ -509,7 +508,7 @@ SUBSYSTEM_DEF(air)
 			CHECK_TICK
 
 		var/msg = "HEY! LISTEN! [DisplayTimeText(world.timeofday - timer)] were wasted processing [starting_ats] turf(s) (connected to [ending_ats - starting_ats] other turfs) with atmos differences at round start."
-		to_chat(world, "<span class='boldannounce'>[msg]</span>")
+		to_chat(world, SPAN_BOLDANNOUNCE("[msg]"))
 		warning(msg)
 
 /turf/open/proc/resolve_active_graph()
@@ -580,20 +579,17 @@ GLOBAL_LIST_EMPTY(colored_images)
 		CHECK_TICK
 
 
-/datum/controller/subsystem/air/proc/get_init_dirs(type, dir, init_dir)
+/datum/controller/subsystem/air/proc/get_init_dirs(type, dir)
 
 	if(!pipe_init_dirs_cache[type])
 		pipe_init_dirs_cache[type] = list()
 
-	if(!pipe_init_dirs_cache[type]["[init_dir]"])
-		pipe_init_dirs_cache[type]["[init_dir]"] = list()
-
-	if(!pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"])
-		var/obj/machinery/atmospherics/temp = new type(null, FALSE, dir, init_dir)
-		pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"] = temp.GetInitDirections()
+	if(!pipe_init_dirs_cache[type]["[dir]"])
+		var/obj/machinery/atmospherics/temp = new type(null, FALSE, dir)
+		pipe_init_dirs_cache[type]["[dir]"] = temp.GetInitDirections()
 		qdel(temp)
 
-	return pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"]
+	return pipe_init_dirs_cache[type]["[dir]"]
 
 /datum/controller/subsystem/air/proc/preprocess_gas_string(gas_string)
 	if(!z_level_to_gas_string[gas_string])

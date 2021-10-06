@@ -718,3 +718,18 @@
 	port_id = "luxury"
 	suffix = "chilldown"
 	name = "The Chilldown"
+
+/datum/map_template/shuttle/ironwrought
+	port_id = "luxury"
+	suffix = "ironwrought"
+	name = "The Ironwrought"
+
+/datum/map_template/shuttle/aggregeddon
+	port_id = "supercruiser"
+	suffix = "aggregeddon"
+	name = "Supercruiser Aggregeddon"
+
+/datum/map_template/shuttle/mezzeriah
+	port_id = "supercruiser"
+	suffix = "mezzeriah"
+	name = "Supercruiser Mezzeriah"

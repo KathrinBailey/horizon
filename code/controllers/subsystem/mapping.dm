@@ -48,28 +48,29 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/space_level/transit
 	var/datum/space_level/empty_space
 	var/num_of_res_levels = 1
+	/// True when in the process of adding a new Z-level, global locking
+	var/adding_new_zlevel = FALSE
+
 
 	/// The overmap object of the main loaded station, for easy access
 	var/datum/overmap_object/station_overmap_object
 
-//dlete dis once #39770 is resolved
-/datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
-	if(!config)
+/datum/controller/subsystem/mapping/New()
+	..()
 #ifdef FORCE_MAP
-		config = load_map_config(FORCE_MAP)
+	config = load_map_config(FORCE_MAP)
 #else
-		config = load_map_config(error_if_missing = FALSE)
+	config = load_map_config(error_if_missing = FALSE)
 #endif
 
 /datum/controller/subsystem/mapping/Initialize(timeofday)
-	HACK_LoadMapConfig()
 	if(initialized)
 		return
 	if(config.defaulted)
 		var/old_config = config
 		config = global.config.defaultmap
 		if(!config || config.defaulted)
-			to_chat(world, "<span class='boldannounce'>Unable to load next or default map config, defaulting to Meta Station</span>")
+			to_chat(world, SPAN_BOLDANNOUNCE("Unable to load next or default map config, defaulting to Meta Station"))
 			config = old_config
 	initialize_biomes()
 	preloadTemplates()
@@ -86,9 +87,9 @@ SUBSYSTEM_DEF(mapping)
 
 	// Load the virtual reality hub
 	if(CONFIG_GET(flag/virtual_reality))
-		to_chat(world, "<span class='boldannounce'>Loading virtual reality...</span>")
+		to_chat(world, SPAN_BOLDANNOUNCE("Loading virtual reality..."))
 		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub")
-		to_chat(world, "<span class='boldannounce'>Virtual reality loaded.</span>")
+		to_chat(world, SPAN_BOLDANNOUNCE("Virtual reality loaded."))
 
 	// Generate mining ruins
 	loading_ruins = TRUE
@@ -197,25 +198,25 @@ Used by the AI doomsday and the self-destruct nuke.
 
 	z_list = SSmapping.z_list
 
-#define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
+#define INIT_ANNOUNCE(X) to_chat(world, SPAN_BOLDANNOUNCE("[X]")); log_world(X)
 /datum/controller/subsystem/mapping/proc/LoadGroup(
-					list/errorList, 
-					name, 
-					path, 
-					files, 
-					list/traits, 
-					list/default_traits, 
-					silent = FALSE, 
-					datum/overmap_object/ov_obj = null, 
-					weather_controller_type, 
-					atmosphere_type,
-					day_night_controller_type,
-					rock_color,
-					plant_color,
-					grass_color,
-					water_color,
-					ore_node_seeder_type
-					)
+		list/errorList,
+		name,
+		path,
+		files,
+		list/traits,
+		list/default_traits,
+		silent = FALSE,
+		datum/overmap_object/ov_obj = null,
+		weather_controller_type,
+		atmosphere_type,
+		day_night_controller_type,
+		rock_color,
+		plant_color,
+		grass_color,
+		water_color,
+		ore_node_seeder_type
+	)
 	. = list()
 	var/start_time = REALTIMEOFDAY
 
@@ -313,14 +314,14 @@ Used by the AI doomsday and the self-destruct nuke.
 	var/picked_plant_color = CHECK_AND_PICK_OR_NULL(config.plant_color)
 	var/picked_grass_color = CHECK_AND_PICK_OR_NULL(config.grass_color)
 	var/picked_water_color = CHECK_AND_PICK_OR_NULL(config.water_color)
-	LoadGroup(FailedZs, 
-			"Station", 
-			config.map_path, 
-			config.map_file, 
-			config.traits, 
-			ZTRAITS_STATION, 
-			ov_obj = station_overmap_object, 
-			weather_controller_type = config.weather_controller_type, 
+	LoadGroup(FailedZs,
+			"Station",
+			config.map_path,
+			config.map_file,
+			config.traits,
+			ZTRAITS_STATION,
+			ov_obj = station_overmap_object,
+			weather_controller_type = config.weather_controller_type,
 			atmosphere_type = config.atmosphere_type,
 			day_night_controller_type = config.day_night_controller_type,
 			rock_color = picked_rock_color,
@@ -450,7 +451,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	message_admins("Randomly rotating map to [VM.map_name]")
 	. = changemap(VM)
 	if (. && VM.map_name != config.map_name)
-		to_chat(world, "<span class='boldannounce'>Map rotation has chosen [VM.map_name] for next round!</span>")
+		to_chat(world, SPAN_BOLDANNOUNCE("Map rotation has chosen [VM.map_name] for next round!"))
 
 /datum/controller/subsystem/mapping/proc/mapvote()
 	if(map_voted || SSmapping.next_map_config) //If voted or set by other means.
@@ -572,13 +573,13 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			if(!mapfile)
 				return
 			away_name = "[mapfile] custom"
-			to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
+			to_chat(usr,SPAN_NOTICE("Loading [away_name]..."))
 			var/datum/map_template/template = new(mapfile, "Away Mission")
 			away_level = template.load_new_z()
 		else
 			if(answer in GLOB.potentialRandomZlevels)
 				away_name = answer
-				to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
+				to_chat(usr,SPAN_NOTICE("Loading [away_name]..."))
 				var/datum/map_template/template = new(away_name, "Away Mission")
 				away_level = template.load_new_z()
 			else

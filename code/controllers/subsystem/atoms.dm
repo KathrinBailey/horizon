@@ -46,7 +46,6 @@ SUBSYSTEM_DEF(atoms)
 		for(var/I in 1 to count)
 			var/atom/A = atoms[I]
 			if(!(A.flags_1 & INITIALIZED_1))
-				CHECK_TICK
 				InitAtom(A, TRUE, mapload_arg)
 	else
 		count = 0
@@ -100,6 +99,9 @@ SUBSYSTEM_DEF(atoms)
 					A.LateInitialize()
 			if(INITIALIZE_HINT_QDEL)
 				qdel(A)
+				qdeleted = TRUE
+			if(INITIALIZE_HINT_QDEL_FORCE)
+				qdel(A, force = TRUE)
 				qdeleted = TRUE
 			else
 				BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT

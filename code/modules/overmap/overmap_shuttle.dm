@@ -3,7 +3,8 @@
 	visual_type = /obj/effect/abstract/overmap/shuttle
 	overmap_process = TRUE
 
-	var/obj/docking_port/mobile/my_shuttle = null
+	var/obj/docking_port/mobile/my_shuttle
+	var/datum/transit_instance/transit_instance
 	var/angle = 0
 
 	var/velocity_x = 0
@@ -58,6 +59,8 @@
 	var/turf/control_turf
 
 	var/last_shield_change_state = 0
+
+	var/current_parallax_dir = 0
 
 /datum/overmap_object/shuttle/GetAllAliveClientMobs()
 	. = ..()
@@ -435,7 +438,7 @@
 					switch(SSshuttle.moveShuttle(my_shuttle.id, dock_id, 1))
 						if(0)
 							shuttle_controller.busy = TRUE
-							shuttle_controller.RemoveCurrentControl(TRUE)
+							shuttle_controller.RemoveCurrentControl()
 				if("freeform_dock")
 					if(shuttle_controller.busy)
 						return
@@ -553,13 +556,23 @@
 		var/datum/shuttle_extension/extension = i
 		extension.AddToOvermapObject(src)
 
+	var/obj/docking_port/stationary/transit/my_transit = my_shuttle.assigned_transit
+	transit_instance = my_transit.transit_instance
+	transit_instance.overmap_shuttle = src
+
+	update_perceived_parallax()
+
 /datum/overmap_object/shuttle/Destroy()
+	if(transit_instance)
+		transit_instance.overmap_shuttle = null
+		transit_instance = null
 	control_turf = null
 	QDEL_NULL(shuttle_controller)
 	if(my_shuttle)
 		for(var/i in my_shuttle.all_extensions)
 			var/datum/shuttle_extension/extension = i
 			extension.RemoveFromOvermapObject()
+		my_shuttle.my_overmap_object = null
 		my_shuttle = null
 	engine_extensions = null
 	shield_extensions = null
@@ -573,9 +586,9 @@
 	if(shuttle_controller)
 		shuttle_controller.NewVisualOffset(FLOOR(partial_x,1),FLOOR(partial_y,1))
 
-/datum/overmap_object/shuttle/proc/update_seperate_z_level_parallax(reset = FALSE)
-	var/established_direction = null
-	if(!reset)
+/datum/overmap_object/shuttle/proc/update_perceived_parallax()
+	var/established_direction = FALSE
+	if(velocity_y || velocity_x)
 		var/absx = abs(velocity_x)
 		var/absy = abs(velocity_y)
 		if(absy > absx)
@@ -589,12 +602,26 @@
 			else
 				established_direction = WEST
 
-	for(var/i in related_levels)
-		var/datum/space_level/S = i
-		if(established_direction && fixed_parallax_dir)
-			S.parallax_direction_override = fixed_parallax_dir
-		else
-			S.parallax_direction_override = established_direction
+	var/changed = FALSE
+	if(my_shuttle)
+		current_parallax_dir = established_direction ? (my_shuttle.preferred_direction ? my_shuttle.preferred_direction : established_direction) : FALSE
+		if(current_parallax_dir != my_shuttle.overmap_parallax_dir)
+			my_shuttle.overmap_parallax_dir = current_parallax_dir
+			changed = TRUE
+			var/area/hyperspace_area = transit_instance.dock.assigned_area
+			hyperspace_area.parallax_movedir = current_parallax_dir
+	else if (is_seperate_z_level && length(related_levels))
+		for(var/i in related_levels)
+			var/datum/space_level/level = i
+			current_parallax_dir = (established_direction && fixed_parallax_dir) ? fixed_parallax_dir : established_direction
+			if(current_parallax_dir != level.parallax_direction_override)
+				level.parallax_direction_override = current_parallax_dir
+				changed = TRUE
+
+	if(changed)
+		for(var/i in GetAllClientMobs())
+			var/mob/mob = i
+			mob.hud_used.update_parallax()
 
 /datum/overmap_object/shuttle/proc/GrantOvermapView(mob/user, turf/passed_turf)
 	//Camera control

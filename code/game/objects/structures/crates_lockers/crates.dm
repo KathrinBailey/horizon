@@ -14,6 +14,8 @@
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
+	material_drop = /obj/item/stack/sheet/plasteel
+	material_drop_amount = 2
 	drag_slowdown = 0
 	var/crate_climb_time = 20
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
@@ -67,14 +69,14 @@
 /obj/structure/closet/crate/open(mob/living/user, force = FALSE)
 	. = ..()
 	if(. && manifest)
-		to_chat(user, "<span class='notice'>The manifest is torn off [src].</span>")
+		to_chat(user, SPAN_NOTICE("The manifest is torn off [src]."))
 		playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(get_turf(src))
 		manifest = null
 		update_appearance()
 
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
-	to_chat(user, "<span class='notice'>You tear the manifest off of [src].</span>")
+	to_chat(user, SPAN_NOTICE("You tear the manifest off of [src]."))
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 
 	manifest.forceMove(loc)
@@ -270,3 +272,27 @@
 	. = ..()
 	for(var/i in 1 to 4)
 		new /obj/effect/spawner/lootdrop/decorations_spawner(src)
+
+/obj/structure/closet/crate/build_your_shuttle
+	icon_state = "engi_crate"
+
+/obj/structure/closet/crate/build_your_shuttle/PopulateContents()
+	. = ..()
+	new /obj/item/circuitboard/computer/shuttle_common_docks(src)
+	new /obj/item/pipe_dispenser(src)
+	new /obj/item/construction/rcd(src)
+	new /obj/item/storage/toolbox/mechanical(src)
+	new /obj/item/storage/toolbox/electrical(src)
+	new /obj/item/electronics/apc(src)
+	new /obj/item/electronics/airalarm(src)
+	new /obj/item/circuitboard/machine/propulsion_engine(src)
+
+/obj/structure/closet/crate/build_your_shuttle_extra
+	icon_state = "engi_crate"
+
+/obj/structure/closet/crate/build_your_shuttle_extra/PopulateContents()
+	. = ..()
+	new /obj/item/stack/sheet/iron/fifty(src)
+	new /obj/item/stack/sheet/glass/fifty(src)
+	new /obj/item/stack/sheet/mineral/titanium/fifty(src)
+	new /obj/item/circuitboard/machine/propulsion_engine(src)

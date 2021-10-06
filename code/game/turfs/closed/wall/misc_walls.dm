@@ -17,13 +17,13 @@
 /turf/closed/wall/mineral/cult/devastate_wall()
 	new sheet_type(get_turf(src), sheet_amount)
 
-/turf/closed/wall/mineral/cult/Exited(atom/movable/AM, atom/newloc)
+/turf/closed/wall/mineral/cult/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(istype(AM, /mob/living/simple_animal/hostile/construct/harvester)) //harvesters can go through cult walls, dragging something with
-		var/mob/living/simple_animal/hostile/construct/harvester/H = AM
+	if(istype(gone, /mob/living/simple_animal/hostile/construct/harvester)) //harvesters can go through cult walls, dragging something with
+		var/mob/living/simple_animal/hostile/construct/harvester/H = gone
 		var/atom/movable/stored_pulling = H.pulling
 		if(stored_pulling)
-			stored_pulling.setDir(get_dir(stored_pulling.loc, newloc))
+			stored_pulling.setDir(direction)
 			stored_pulling.forceMove(src)
 			H.start_pulling(stored_pulling, supress_message = TRUE)
 
@@ -110,3 +110,22 @@
 	sheet_type = /obj/item/stack/sheet/bronze
 	sheet_amount = 2
 	girder_type = /obj/structure/girder/bronze
+
+/turf/closed/wall/concrete
+	name = "concrete wall"
+	desc = "A dense slab of reinforced stone, not much will get through this."
+	icon = 'icons/turf/walls/concrete_wall.dmi'
+	icon_state = "concrete_wall-0"
+	base_icon_state = "concrete_wall"
+	girder_type = /obj/structure/girder/reinforced
+	hardness = 10
+	explosion_block = 2
+	rad_insulation = RAD_HEAVY_INSULATION
+
+/turf/closed/wall/concrete/deconstruction_hints(mob/user)
+	return SPAN_NOTICE("Nothing's going to cut that.")
+
+/turf/closed/wall/concrete/try_decon(obj/item/I, mob/user, turf/T)
+	if(I.tool_behaviour == TOOL_WELDER)
+		to_chat(user, SPAN_WARNING("This wall is way too hard to cut through!"))
+	return FALSE

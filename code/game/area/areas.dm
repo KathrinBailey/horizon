@@ -93,6 +93,13 @@
 	/// Whether the area is underground, checked for the purposes of above/underground weathers
 	var/underground = FALSE
 
+	/// Lazy list of all turfs adjacent to a day/night cycle. Associative from turf to bitfield (8 bit smoothing bitmap)
+	var/list/day_night_adjacent_turfs
+	var/last_day_night_color
+	var/last_day_night_alpha
+	var/last_day_night_luminosity
+	var/datum/day_night_controller/subbed_day_night_controller
+
 /**
  * A list of teleport locations
  *
@@ -219,6 +226,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!areas_in_z["[z]"])
 		areas_in_z["[z]"] = list()
 	areas_in_z["[z]"] += src
+	UpdateDayNightTurfs(find_controller = TRUE)
 
 /**
  * Destroy an area and clean it up
@@ -597,21 +605,21 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  *
  * If the area has ambience, then it plays some ambience music to the ambience channel
  */
-/area/Entered(atom/movable/M)
+/area/Entered(atom/movable/arrived, direction)
 	set waitfor = FALSE
-	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
-	for(var/atom/movable/recipient as anything in M.area_sensitive_contents)
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, direction)
+	for(var/atom/movable/recipient as anything in arrived.area_sensitive_contents)
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
-	if(!isliving(M))
+	if(!isliving(arrived))
 		return
 
-	var/mob/living/L = M
+	var/mob/living/L = arrived
 	if(!L.ckey)
 		return
 
 	//Ship ambience just loops if turned on.
 	if(L.client?.prefs.toggles & SOUND_SHIP_AMBIENCE)
-		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = CHANNEL_BUZZ))
+		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 20, channel = CHANNEL_BUZZ))
 
 ///Divides total beauty in the room by roomsize to allow us to get an average beauty per tile.
 /area/proc/update_beauty()
@@ -629,9 +637,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  *
  * Sends signals COMSIG_AREA_EXITED and COMSIG_EXIT_AREA (to a list of atoms)
  */
-/area/Exited(atom/movable/M)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, M)
-	for(var/atom/movable/recipient as anything in M.area_sensitive_contents)
+/area/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
+	for(var/atom/movable/recipient as anything in gone.area_sensitive_contents)
 		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 
@@ -677,3 +685,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// A hook so areas can modify the incoming args (of what??)
 /area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
+
+
+/// Called when a living mob that spawned here, joining the round, receives the player client.
+/area/proc/on_joining_game(mob/living/boarder)
+	return

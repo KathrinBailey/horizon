@@ -73,14 +73,14 @@
 	desc = "Used to call and send the mining shuttle."
 	circuit = /obj/item/circuitboard/computer/mining_shuttle
 	shuttleId = "mining"
-	possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
+	possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public;hugedock;largedock;mediumdock;smalldock"
 	no_destination_swap = TRUE
 	var/static/list/dumb_rev_heads = list()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/machinery/computer/shuttle/mining/attack_hand(mob/user, list/modifiers)
 	if(is_station_level(user.z) && user.mind && IS_HEAD_REVOLUTIONARY(user) && !(user.mind in dumb_rev_heads))
-		to_chat(user, "<span class='warning'>You get a feeling that leaving the station might be a REALLY dumb idea...</span>")
+		to_chat(user, SPAN_WARNING("You get a feeling that leaving the station might be a REALLY dumb idea..."))
 		dumb_rev_heads += user.mind
 		return
 	. = ..()
@@ -90,7 +90,7 @@
 	desc = "Used to call and send the lavaland shuttle."
 	circuit = /obj/item/circuitboard/computer/mining_shuttle/common
 	shuttleId = "mining_common"
-	possible_destinations = "commonmining_home;lavaland_common_away;landing_zone_dock;mining_public"
+	possible_destinations = "commonmining_home;lavaland_common_away;landing_zone_dock;mining_public;hugedock;largedock;mediumdock;smalldock"
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 

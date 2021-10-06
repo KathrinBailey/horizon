@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object))
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -23,10 +23,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		var/obj/O
 		if(underlays.len) //we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
-			O.underlays.Add(T)
+			O.underlays += T
 		T.ChangeTurf(type)
 		if(underlays.len)
-			T.underlays = O.underlays
+			T.underlays.Cut()
+			T.underlays += O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
 	if(T.icon != icon)
@@ -77,11 +78,16 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		return new path(src)
 
 	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
-	var/old_corners = corners
+	var/old_lighting_corner_NE = lighting_corner_NE
+	var/old_lighting_corner_SE = lighting_corner_SE
+	var/old_lighting_corner_SW = lighting_corner_SW
+	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
+	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_rcd_memory = rcd_memory
+	var/old_underlying_area = underlying_area
+	var/old_shuttle_roof = shuttle_roof
 
 	var/old_bp = blueprint_data
 	blueprint_data = null
@@ -99,6 +105,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(W)
 
+	W.underlying_area = old_underlying_area
+	W.shuttle_roof = old_shuttle_roof
+
 	if(new_baseturfs)
 		W.baseturfs = baseturfs_string_list(new_baseturfs, W)
 	else
@@ -110,10 +119,16 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	W.blueprint_data = old_bp
 	W.rcd_memory = old_rcd_memory
 
+	lighting_corner_NE = old_lighting_corner_NE
+	lighting_corner_SE = old_lighting_corner_SE
+	lighting_corner_SW = old_lighting_corner_SW
+	lighting_corner_NW = old_lighting_corner_NW
+
+	dynamic_lumcount = old_dynamic_lumcount
+
 	if(SSlighting.initialized)
 		lighting_object = old_lighting_object
-		affecting_lights = old_affecting_lights
-		corners = old_corners
+
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
@@ -122,9 +137,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+		else if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
-		for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			S.update_starlight()
+		for(var/turf/open/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.update_starlight()
 
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	QUEUE_SMOOTH(src)
@@ -142,12 +159,16 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		var/datum/gas_mixture/stashed_air = new()
 		stashed_air.copy_from(air)
 		var/stashed_state = excited
+		var/datum/pollution/stashed_pollution = pollution
 		var/datum/excited_group/stashed_group = excited_group
 		. = ..() //If path == type this will return us, don't bank on making a new type
 		if (!.) // changeturf failed or didn't do anything
 			QDEL_NULL(stashed_air)
 			return
 		var/turf/open/newTurf = .
+		if(stashed_pollution)
+			newTurf.pollution = stashed_pollution
+			stashed_pollution.HandleOverlay()
 		newTurf.turf_fire = turf_fire_ref
 		newTurf.air.copy_from(stashed_air)
 		QDEL_NULL(stashed_air)
@@ -161,6 +182,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			if(stashed_group.should_display || SSair.display_all_groups)
 				stashed_group.display_turf(newTurf)
 	else
+		if(pollution)
+			qdel(pollution)
 		if(turf_fire)
 			qdel(turf_fire)
 		SSair.remove_from_active(src) //Clean up wall excitement, and refresh excited groups

@@ -23,11 +23,9 @@ Buildable meters
 	///Type of pipe-object made, selected from the RPD
 	var/RPD_type
 	///Whether it can be painted
-	var/paintable = FALSE
+	var/paintable = TRUE
 	///Color of the pipe is going to be made from this pipe-object
-	var/pipe_color
-	///Initial direction of the created pipe (either made from the RPD or after unwrenching the pipe)
-	var/p_init_dir = SOUTH
+	var/pipe_color = COLOR_VERY_LIGHT_GRAY
 
 /obj/item/pipe/directional
 	RPD_type = PIPE_UNARY
@@ -43,18 +41,53 @@ Buildable meters
 /obj/item/pipe/quaternary
 	RPD_type = PIPE_ONEDIR
 
+/obj/item/pipe/binary/pipe_simple
+	pipe_type = /obj/machinery/atmospherics/pipe/simple
+
+/obj/item/pipe/binary/bendable/pipe_bent
+	pipe_type = /obj/machinery/atmospherics/pipe/simple
+	dir = SOUTH|EAST
+
+/obj/item/pipe/trinary/pipe_manifold
+	pipe_type = /obj/machinery/atmospherics/pipe/manifold
+
+/obj/item/pipe/quaternary/pipe_manifold4w
+	pipe_type = /obj/machinery/atmospherics/pipe/manifold4w
+
+/obj/item/pipe/directional/connector
+	pipe_type = /obj/machinery/atmospherics/components/unary/portables_connector
+
+/obj/item/pipe/binary/layer_manifold
+	pipe_type = /obj/machinery/atmospherics/pipe/layer_manifold
+
+/obj/item/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It's aligned on layer [piping_layer].</span>"
+	. += "<span class='notice'>Ctrl+Shift+Click to align on the next layer.</span>"
+
+/obj/item/pipe/CtrlShiftClick(mob/user)
+	. = ..()
+	if(. || !in_range(user, src))
+		return
+	piping_layer++
+	if(piping_layer > PIPING_LAYER_MAX)
+		piping_layer = PIPING_LAYER_MIN
+	to_chat(user, "<span class='notice'>You align \the [src] onto layer [piping_layer].</span>")
+
 /obj/item/pipe/ComponentInitialize()
 	//Flipping handled manually due to custom handling for trinary pipes
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE)
 
-/obj/item/pipe/Initialize(mapload, _pipe_type, _dir, obj/machinery/atmospherics/make_from, device_color, device_init_dir = SOUTH)
+/obj/item/pipe/Initialize(mapload, _pipe_type, _dir, obj/machinery/atmospherics/make_from, device_color)
 	if(make_from)
 		make_from_existing(make_from)
 	else
-		p_init_dir = device_init_dir
-		pipe_type = _pipe_type
-		pipe_color = device_color
-		setDir(_dir)
+		if(!isnull(_pipe_type))
+			pipe_type = _pipe_type
+		if(!isnull(device_color))
+			paint(device_color)
+		if(!isnull(_dir))
+			setDir(_dir)
 
 	update()
 	pixel_x += rand(-5, 5)
@@ -62,13 +95,11 @@ Buildable meters
 	return ..()
 
 /obj/item/pipe/proc/make_from_existing(obj/machinery/atmospherics/make_from)
-	p_init_dir = make_from.initialize_directions
 	setDir(make_from.dir)
 	pipename = make_from.name
-	add_atom_colour(make_from.color, FIXED_COLOUR_PRIORITY)
 	pipe_type = make_from.type
 	paintable = make_from.paintable
-	pipe_color = make_from.pipe_color
+	paint(make_from.pipe_color)
 
 /obj/item/pipe/trinary/flippable/make_from_existing(obj/machinery/atmospherics/components/trinary/make_from)
 	..()
@@ -79,6 +110,14 @@ Buildable meters
 	if(loc)
 		setPipingLayer(piping_layer)
 	return ..()
+
+/obj/item/pipe/proc/paint(paint_color)
+	if(paintable && paint_color != pipe_color)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		pipename = null
+		update()
+	return paintable
 
 /obj/item/pipe/proc/setPipingLayer(new_layer = PIPING_LAYER_DEFAULT)
 	var/obj/machinery/atmospherics/fakeA = pipe_type
@@ -92,7 +131,9 @@ Buildable meters
 
 /obj/item/pipe/proc/update()
 	var/obj/machinery/atmospherics/fakeA = pipe_type
-	name = "[initial(fakeA.name)] fitting"
+	if(!pipename)
+		pipename = "[GLOB.pipe_color_name[pipe_color]] [initial(fakeA.name)]"
+	name = "[pipename] fitting"
 	icon_state = initial(fakeA.pipe_state)
 	if(ispath(pipe_type,/obj/machinery/atmospherics/pipe/heat_exchanging))
 		resistance_flags |= FIRE_PROOF | LAVA_PROOF
@@ -164,18 +205,8 @@ Buildable meters
 		pipe_count += 1
 	for(var/obj/machinery/atmospherics/machine in loc)
 		if((machine.pipe_flags & flags & PIPING_ONE_PER_TURF)) //Only one dense/requires density object per tile, eg connectors/cryo/heater/coolers.
-			to_chat(user, "<span class='warning'>Something is hogging the tile!</span>")
+			to_chat(user, SPAN_WARNING("Something is hogging the tile!"))
 			return TRUE
-
-		if(pipe_count == 1 && istype(machine, /obj/machinery/atmospherics/pipe/smart) && ispath(pipe_type, /obj/machinery/atmospherics/pipe/smart) && lowertext(machine.pipe_color) != lowertext(pipe_color) && machine.connection_num < 3)
-			var/direction = machine.dir
-			if((direction & EAST|WEST || direction & SOUTH|NORTH) && !ISDIAGONALDIR(direction))
-				pipe_type = /obj/machinery/atmospherics/pipe/bridge_pipe
-				if(EWCOMPONENT(direction))
-					dir = NORTH
-				if(NSCOMPONENT(direction))
-					dir = EAST
-				continue
 
 		if(flags & PIPING_BRIDGE && !(machine.pipe_flags & PIPING_BRIDGE) && check_ninety_degree_dir(machine)) //continue if we are placing a bridge pipe over a normal pipe only (prevent duplicates)
 			continue
@@ -183,12 +214,12 @@ Buildable meters
 		if((machine.piping_layer != piping_layer) && !((machine.pipe_flags | flags) & PIPING_ALL_LAYER)) //don't continue if either pipe goes across all layers
 			continue
 
-		if(machine.GetInitDirections() & SSair.get_init_dirs(pipe_type, fixed_dir(), p_init_dir)) // matches at least one direction on either type of pipe
-			to_chat(user, "<span class='warning'>There is already a pipe at that location!</span>")
+		if(machine.GetInitDirections() & SSair.get_init_dirs(pipe_type, fixed_dir())) // matches at least one direction on either type of pipe
+			to_chat(user, SPAN_WARNING("There is already a pipe at that location!"))
 			return TRUE
 	// no conflicts found
 
-	var/obj/machinery/atmospherics/built_machine = new pipe_type(loc, , , p_init_dir)
+	var/obj/machinery/atmospherics/built_machine = new pipe_type(loc)
 	build_pipe(built_machine)
 	built_machine.on_construction(pipe_color, piping_layer)
 	transfer_fingerprints_to(built_machine)
@@ -196,14 +227,14 @@ Buildable meters
 	wrench.play_tool_sound(src)
 	user.visible_message( \
 		"[user] fastens \the [src].", \
-		"<span class='notice'>You fasten \the [src].</span>", \
-		"<span class='hear'>You hear ratcheting.</span>")
+		SPAN_NOTICE("You fasten \the [src]."), \
+		SPAN_HEAR("You hear ratcheting."))
 
 	qdel(src)
 
 /obj/item/pipe/proc/build_pipe(obj/machinery/atmospherics/A)
 	A.setDir(fixed_dir())
-	A.SetInitDirections(p_init_dir)
+	A.SetInitDirections()
 
 	if(pipename)
 		A.name = pipename
@@ -218,7 +249,7 @@ Buildable meters
 	T.flipped = flipped
 
 /obj/item/pipe/directional/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] shoves [src] in [user.p_their()] mouth and turns it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] shoves [src] in [user.p_their()] mouth and turns it on! It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		for(var/i=1 to 20)
@@ -246,11 +277,11 @@ Buildable meters
 			pipe = P
 			break
 	if(!pipe)
-		to_chat(user, "<span class='warning'>You need to fasten it to a pipe!</span>")
+		to_chat(user, SPAN_WARNING("You need to fasten it to a pipe!"))
 		return TRUE
 	new /obj/machinery/meter(loc, piping_layer)
 	W.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You fasten the meter to the pipe.</span>")
+	to_chat(user, SPAN_NOTICE("You fasten the meter to the pipe."))
 	qdel(src)
 
 /obj/item/pipe_meter/screwdriver_act(mob/living/user, obj/item/S)
@@ -259,12 +290,12 @@ Buildable meters
 		return TRUE
 
 	if(!isturf(loc))
-		to_chat(user, "<span class='warning'>You need to fasten it to the floor!</span>")
+		to_chat(user, SPAN_WARNING("You need to fasten it to the floor!"))
 		return TRUE
 
 	new /obj/machinery/meter/turf(loc, piping_layer)
 	S.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You fasten the meter to the [loc.name].</span>")
+	to_chat(user, SPAN_NOTICE("You fasten the meter to the [loc.name]."))
 	qdel(src)
 
 /obj/item/pipe_meter/dropped()

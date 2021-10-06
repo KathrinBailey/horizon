@@ -2,18 +2,18 @@
 	name = "sandstorm"
 	desc = "Wshshshshh."
 
-	telegraph_message = "<span class='warning'>You see waves of sand traversing as the wind picks up the pace..</span>"
+	telegraph_message = SPAN_WARNING("You see waves of sand traversing as the wind picks up the pace..")
 	telegraph_duration = 300
 	telegraph_overlay = "dust"
 
-	weather_message = "<span class='userdanger'><i>A sand storm is upon you! Seek shelter!</i></span>"
+	weather_message = SPAN_USERDANGER("<i>A sand storm is upon you! Seek shelter!</i>")
 	weather_overlay = "sandstorm"
 	weather_duration_lower = 600
 	weather_duration_upper = 1500
 	weather_skyblock = 0.2
 
 	end_duration = 100
-	end_message = "<span class='boldannounce'>The storm dissipiates.</span>"
+	end_message = SPAN_BOLDANNOUNCE("The storm dissipiates.")
 	end_overlay = "dust"
 
 	area_type = /area
@@ -30,7 +30,6 @@
 	sound_weak_inside = /datum/looping_sound/weather/wind
 
 	opacity_in_main_stage = TRUE
-	multiply_blend_on_main_stage = TRUE
 
 /datum/weather/sandstorm/weather_act(mob/living/L)
 	if(iscarbon(L))

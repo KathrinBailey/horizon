@@ -111,6 +111,14 @@
 	suffix = "archeological_site.dmm"
 	planet_requirements = PLANET_HABITABLE
 
+/datum/map_template/ruin/planetary/abandoned_factory
+	name = "Abandoned Factory"
+	id = "abandoned_factory"
+	description = "An abandoned factory."
+	cost = 5
+	suffix = "abandoned_factory.dmm"
+	planet_requirements = PLANET_HABITABLE
+
 /datum/map_template/ruin/planetary/old_drill_site
 	name = "Old Drill Site"
 	id = "old_drill_site"
@@ -126,3 +134,27 @@
 	cost = 5
 	suffix = "mining_facility.dmm"
 	planet_requirements = PLANET_HABITABLE
+
+/datum/map_template/ruin/planetary/abandoned_containment
+	name = "Abandoned Containment"
+	id = "abandoned_containment"
+	description = "A long abandoned base containing a dangerous secret."
+	cost = 5
+	suffix = "abandoned_containment.dmm"
+	planet_requirements = PLANET_HABITABLE
+
+/datum/map_template/ruin/planetary/weather_station
+	name = "Weather Station"
+	id = "weather_station"
+	description = "A dormant weather research station."
+	cost = 5
+	suffix = "weather_station.dmm"
+	planet_requirements = PLANET_HABITABLE
+
+/datum/map_template/ruin/planetary/heyheypeople
+	name = "Surgical Theatre Pod"
+	id = "heyheypeople"
+	description = "A pod, meant for surgery.. what's with the pizza?"
+	cost = 5
+	suffix = "heyheypeople.dmm"
+	planet_requirements = PLANET_WRECKAGES

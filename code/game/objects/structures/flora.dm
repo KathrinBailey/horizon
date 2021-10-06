@@ -1,6 +1,6 @@
 /obj/structure/flora
 	resistance_flags = FLAMMABLE
-	max_integrity = 150
+	max_integrity = 40
 	anchored = TRUE
 
 //trees
@@ -10,6 +10,7 @@
 	density = TRUE
 	pixel_x = -16
 	layer = FLY_LAYER
+	max_integrity = 150
 	var/log_amount = 10
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
@@ -17,9 +18,9 @@
 		if(W.get_sharpness() && W.force > 0)
 			if(W.hitsound)
 				playsound(get_turf(src), W.hitsound, 100, FALSE, FALSE)
-			user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>","<span class='notice'>You begin to cut down [src] with [W].</span>", "<span class='hear'>You hear the sound of sawing.</span>")
+			user.visible_message(SPAN_NOTICE("[user] begins to cut down [src] with [W]."),SPAN_NOTICE("You begin to cut down [src] with [W]."), SPAN_HEAR("You hear the sound of sawing."))
 			if(do_after(user, 1000/W.force, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
-				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>You fell [src] with the [W].</span>", "<span class='hear'>You hear the sound of a tree falling.</span>")
+				user.visible_message(SPAN_NOTICE("[user] fells [src] with the [W]."),SPAN_NOTICE("You fell [src] with the [W]."), SPAN_HEAR("You hear the sound of a tree falling."))
 				playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100 , FALSE, FALSE)
 				user.log_message("cut down [src] at [AREACOORD(src)]", LOG_ATTACK)
 				for(var/i=1 to log_amount)
@@ -78,9 +79,9 @@
 		return
 
 	if(took_presents[user.ckey] && !unlimited)
-		to_chat(user, "<span class='warning'>There are no presents with your name on.</span>")
+		to_chat(user, SPAN_WARNING("There are no presents with your name on."))
 		return
-	to_chat(user, "<span class='warning'>After a bit of rummaging, you locate a gift with your name on it!</span>")
+	to_chat(user, SPAN_WARNING("After a bit of rummaging, you locate a gift with your name on it!"))
 
 	if(!unlimited)
 		took_presents[user.ckey] = TRUE
@@ -329,9 +330,9 @@
 /obj/item/kirbyplants/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
 	if(trimmable && HAS_TRAIT(user,TRAIT_BONSAI) && isturf(loc) && I.get_sharpness())
-		to_chat(user,"<span class='notice'>You start trimming [src].</span>")
+		to_chat(user,SPAN_NOTICE("You start trimming [src]."))
 		if(do_after(user,3 SECONDS,target=src))
-			to_chat(user,"<span class='notice'>You finish trimming [src].</span>")
+			to_chat(user,SPAN_NOTICE("You finish trimming [src]."))
 			change_visual()
 
 /// Cycle basic plant visuals
@@ -402,6 +403,7 @@
 	icon_state = "basalt"
 	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
 	icon = 'icons/obj/flora/rocks.dmi'
+	max_integrity = 150
 	resistance_flags = FIRE_PROOF
 	density = TRUE
 	/// Itemstack that is dropped when a rock is mined with a pickaxe
@@ -418,9 +420,9 @@
 		return ..()
 	if(flags_1 & NODECONSTRUCT_1)
 		return ..()
-	to_chat(user, "<span class='notice'>You start mining...</span>")
+	to_chat(user, SPAN_NOTICE("You start mining..."))
 	if(W.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You finish mining the rock.</span>")
+		to_chat(user, SPAN_NOTICE("You finish mining the rock."))
 		if(mineResult && mineAmount)
 			new mineResult(loc, mineAmount)
 		SSblackbox.record_feedback("tally", "pick_used_mining", 1, W.type)

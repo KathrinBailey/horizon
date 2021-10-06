@@ -111,17 +111,18 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			continue // key is unbound and or bound to something
 		var/addedbind = FALSE
 		if(hotkeys)
-			for(var/hotkeytobind in kb.classic_keys)
-				if(!length(key_bindings[hotkeytobind]))
+			for(var/hotkeytobind in kb.hotkey_keys)
+				if(!length(key_bindings[hotkeytobind]) || hotkeytobind == "Unbound") //Only bind to the key if nothing else is bound expect for Unbound
 					LAZYADD(key_bindings[hotkeytobind], kb.name)
 					addedbind = TRUE
 		else
 			for(var/classickeytobind in kb.classic_keys)
-				if(!length(key_bindings[classickeytobind]))
+				if(!length(key_bindings[classickeytobind]) || classickeytobind == "Unbound") //Only bind to the key if nothing else is bound expect for Unbound
 					LAZYADD(key_bindings[classickeytobind], kb.name)
 					addedbind = TRUE
 		if(!addedbind)
 			notadded += kb
+	save_preferences() //Save the players pref so that new keys that were set to Unbound as default are permanently stored
 	if(length(notadded))
 		addtimer(CALLBACK(src, .proc/announce_conflict, notadded), 5 SECONDS)
 
@@ -130,8 +131,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 					<span class='warningplain'><b>There are new <a href='?_src_=prefs;preference=tab;tab=3'>keybindings</a> that default to keys you've already bound. The new ones will be unbound.</b></span>")
 	for(var/item in notadded)
 		var/datum/keybinding/conflicted = item
-		to_chat(parent, "<span class='danger'>[conflicted.category]: [conflicted.full_name] needs updating</span>")
+		to_chat(parent, SPAN_DANGER("[conflicted.category]: [conflicted.full_name] needs updating"))
 		LAZYADD(key_bindings["Unbound"], conflicted.name) // set it to unbound to prevent this from opening up again in the future
+		save_preferences()
 
 
 
@@ -405,7 +407,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["playtime_reward_cloak"], playtime_reward_cloak)
 	READ_FILE(S["phobia"], phobia)
-	READ_FILE(S["randomise"],  randomise)
+	READ_FILE(S["dominant_hand"], dominant_hand)
+
+	switch(dominant_hand)
+		if(DOMINANT_HAND_LEFT, DOMINANT_HAND_RIGHT, DOMINANT_HAND_AMBI) // do nothing
+		else
+			dominant_hand = DOMINANT_HAND_AMBI
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
@@ -449,8 +456,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		custom_names[custom_name_id] = reject_bad_name(custom_names[custom_name_id],namedata["allow_numbers"])
 		if(!custom_names[custom_name_id])
 			custom_names[custom_name_id] = get_default_name(custom_name_id)
-
-	randomise = SANITIZE_LIST(randomise)
 
 	hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_list)
 	facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_list)
@@ -620,10 +625,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["jumpsuit_style"] , jumpsuit_style)
 	WRITE_FILE(S["uplink_loc"] , uplink_spawn_loc)
 	WRITE_FILE(S["playtime_reward_cloak"] , playtime_reward_cloak)
-	WRITE_FILE(S["randomise"] , randomise)
 	WRITE_FILE(S["species"] , pref_species.id)
 	WRITE_FILE(S["phobia"], phobia)
 	WRITE_FILE(S["persistent_scars"], persistent_scars)
+	WRITE_FILE(S["dominant_hand"], dominant_hand)
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)

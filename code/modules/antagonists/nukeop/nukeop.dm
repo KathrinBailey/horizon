@@ -1,5 +1,5 @@
 /datum/antagonist/nukeop
-	name = "Nuclear Operative"
+	name = ROLE_NUCLEAR_OPERATIVE
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
 	job_rank = ROLE_OPERATIVE
@@ -34,7 +34,7 @@
 
 /datum/antagonist/nukeop/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
-	to_chat(owner, "<span class='notice'>You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!</span>")
+	to_chat(owner, SPAN_NOTICE("You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!"))
 	owner.announce_objectives()
 
 /datum/antagonist/nukeop/on_gain()
@@ -124,7 +124,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_SYNDICATE
+	new_owner.set_assigned_role(SSjob.GetJobType(/datum/job/nuclear_operative))
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")
@@ -147,7 +147,7 @@
 		antag_memory += "<B>Syndicate Nuclear Bomb Code</B>: [code]<br>"
 		to_chat(owner.current, "The nuclear authorization code is: <B>[code]</B>")
 	else
-		to_chat(admin, "<span class='danger'>No valid nuke found!</span>")
+		to_chat(admin, SPAN_DANGER("No valid nuke found!"))
 
 /datum/antagonist/nukeop/leader
 	name = "Nuclear Operative Leader"
@@ -290,18 +290,18 @@
 	var/evacuation = EMERGENCY_ESCAPED_OR_ENDGAMED
 	var/disk_rescued = disk_rescued()
 	var/syndies_didnt_escape = !syndies_escaped()
-	var/station_was_nuked = SSticker.mode.station_was_nuked
-	var/nuke_off_station = SSticker.mode.nuke_off_station
+	var/station_was_nuked = GLOB.station_was_nuked
+	var/station_nuke_source = GLOB.station_nuke_source
 
-	if(nuke_off_station == NUKE_SYNDICATE_BASE)
+	if(station_nuke_source == NUKE_SYNDICATE_BASE)
 		return NUKE_RESULT_FLUKE
 	else if(station_was_nuked && !syndies_didnt_escape)
 		return NUKE_RESULT_NUKE_WIN
 	else if (station_was_nuked && syndies_didnt_escape)
 		return NUKE_RESULT_NOSURVIVORS
-	else if (!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
+	else if (!disk_rescued && !station_was_nuked && station_nuke_source && !syndies_didnt_escape)
 		return NUKE_RESULT_WRONG_STATION
-	else if (!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
+	else if (!disk_rescued && !station_was_nuked && station_nuke_source && syndies_didnt_escape)
 		return NUKE_RESULT_WRONG_STATION_DEAD
 	else if ((disk_rescued && evacuation) && operatives_dead())
 		return NUKE_RESULT_CREW_WIN_SYNDIES_DEAD
@@ -363,7 +363,7 @@
 	text += printplayerlist(members)
 	text += "<br>"
 	text += "(Syndicates used [TC_uses] TC) [purchases]"
-	if(TC_uses == 0 && SSticker.mode.station_was_nuked && !operatives_dead())
+	if(TC_uses == 0 && GLOB.station_was_nuked && !operatives_dead())
 		text += "<BIG>[icon2html('icons/badass.dmi', world, "badass")]</BIG>"
 
 	parts += text
@@ -397,9 +397,6 @@
 	if(!QDELETED(war_button))
 		challenge_report += "<b>War not declared.</b> <a href='?_src_=holder;[HrefToken()];force_war=[REF(war_button)]'>\[Force war\]</a>"
 	return common_part + disk_report + challenge_report
-
-/datum/team/nuclear/is_gamemode_hero()
-	return SSticker.mode.name == "nuclear emergency"
 
 /// Returns whether or not syndicate operatives escaped.
 /proc/syndies_escaped()

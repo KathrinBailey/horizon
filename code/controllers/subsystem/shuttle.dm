@@ -85,6 +85,13 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/shuttle_loading
 
+	/// List of all sold shuttles for consoles to buy them
+	var/list/sold_shuttles = list()
+	/// Assoc list of "[dock_id]-[shuttle_types]" to a list of possible sold shuttles for those
+	var/list/sold_shuttles_cache = list()
+	/// List of all transit instances
+	var/list/transit_instances = list()
+
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
 	ordernum = rand(1, 9000)
 
@@ -116,7 +123,28 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+
+	init_sold_shuttles()
 	return ..()
+
+/datum/controller/subsystem/shuttle/proc/init_sold_shuttles()
+	for(var/type in subtypesof(/datum/sold_shuttle))
+		var/datum/sold_shuttle/sold_shuttle = type
+		if(initial(sold_shuttle.shuttle_id))
+			sold_shuttles += new sold_shuttle()
+
+/datum/controller/subsystem/shuttle/proc/get_sold_shuttles_cache(dock_id, shuttle_types)
+	var/cache_key = "[dock_id]-[shuttle_types]"
+	if(!sold_shuttles_cache[cache_key])
+		var/list/new_cache_list = list()
+		for(var/i in sold_shuttles)
+			var/datum/sold_shuttle/sold_shuttle = i
+			if(!sold_shuttle.allowed_docks[dock_id])
+				continue
+			if(shuttle_types & sold_shuttle.shuttle_type)
+				new_cache_list += sold_shuttle
+		sold_shuttles_cache[cache_key] = new_cache_list
+	return sold_shuttles_cache[cache_key]
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/s in stationary)
@@ -253,13 +281,13 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/can_evac_or_fail_reason = SSshuttle.canEvac(user)
 	if(can_evac_or_fail_reason != TRUE)
-		to_chat(user, "<span class='alert'>[can_evac_or_fail_reason]</span>")
+		to_chat(user, SPAN_ALERT("[can_evac_or_fail_reason]"))
 		return
 
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH && seclevel2num(get_security_level()) > SEC_LEVEL_GREEN)
-		to_chat(user, "<span class='alert'>You must provide a reason.</span>")
+		to_chat(user, SPAN_ALERT("You must provide a reason."))
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -282,7 +310,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/A = get_area(user)
 
 	log_shuttle("[key_name(user)] has called the emergency shuttle.")
-	deadchat_broadcast(" has called the shuttle at <span class='name'>[A.name]</span>.", "<span class='name'>[user.real_name]</span>", user, message_type=DEADCHAT_ANNOUNCEMENT)
+	deadchat_broadcast(" has called the shuttle at [SPAN_NAME("[A.name]")].", SPAN_NAME("[user.real_name]"), user, message_type=DEADCHAT_ANNOUNCEMENT)
 	if(call_reason)
 		SSblackbox.record_feedback("text", "shuttle_reason", 1, "[call_reason]")
 		log_shuttle("Shuttle call reason: [call_reason]")
@@ -321,11 +349,11 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.cancel(get_area(user))
 		log_shuttle("[key_name(user)] has recalled the shuttle.")
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle.")
-		deadchat_broadcast(" has recalled the shuttle from <span class='name'>[get_area_name(user, TRUE)]</span>.", "<span class='name'>[user.real_name]</span>", user, message_type=DEADCHAT_ANNOUNCEMENT)
+		deadchat_broadcast(" has recalled the shuttle from [SPAN_NAME("[get_area_name(user, TRUE)]")].", SPAN_NAME("[user.real_name]"), user, message_type=DEADCHAT_ANNOUNCEMENT)
 		return 1
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
-	if(!emergency || emergency.mode != SHUTTLE_CALL || adminEmergencyNoRecall || emergencyNoRecall || SSticker.mode.name == "meteor")
+	if(!emergency || emergency.mode != SHUTTLE_CALL || adminEmergencyNoRecall || emergencyNoRecall)
 		return
 	var/security_num = seclevel2num(get_security_level())
 	switch(security_num)
@@ -545,6 +573,7 @@ SUBSYSTEM_DEF(shuttle)
 	new_transit_dock.setDir(angle2dir(dock_angle))
 
 	M.assigned_transit = new_transit_dock
+	new /datum/transit_instance(proposal, new_transit_dock)
 	return new_transit_dock
 
 /datum/controller/subsystem/shuttle/Recover()
@@ -966,3 +995,9 @@ SUBSYSTEM_DEF(shuttle)
 			has_purchase_shuttle_access |= shuttle_template.who_can_purchase
 
 	return has_purchase_shuttle_access
+
+/datum/controller/subsystem/shuttle/proc/get_transit_instance(atom/movable/movable_atom)
+	for(var/i in transit_instances)
+		var/datum/transit_instance/iterated_transit = i
+		if(iterated_transit.reservation.IsInBounds(movable_atom))
+			return iterated_transit

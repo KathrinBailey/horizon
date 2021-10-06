@@ -126,6 +126,16 @@
 	else
 		airlock.cyclelinkeddir = dir
 
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi
+	name = "airlock multi-cyclelink helper"
+	icon_state = "airlock_multicyclelink_helper"
+	var/cycle_id
+
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.closeOtherId)
+		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] closeOtherId, but it's already set!")
+	else
+		airlock.closeOtherId = cycle_id
 
 /obj/effect/mapping_helpers/airlock/locked
 	name = "airlock lock helper"
@@ -490,3 +500,21 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	icon_cache[url] = I
 	query_in_progress = FALSE
 	return I
+
+/**
+ * ## trapdoor placer!
+ *
+ * This places an unlinked trapdoor in the tile its on (so someone with a remote needs to link it up first)
+ * Admins may spawn this in the round for additional trapdoors if they so desire
+ * if YOU want to learn more about trapdoors, read about the component at trapdoor.dm
+ * note: this is not a turf subtype because the trapdoor needs the type of the turf to turn back into
+ */
+/obj/effect/mapping_helpers/trapdoor_placer
+	name = "trapdoor placer"
+	late = TRUE
+	icon_state = "trapdoor"
+
+/obj/effect/mapping_helpers/trapdoor_placer/LateInitialize()
+	var/turf/component_target = get_turf(src)
+	component_target.AddComponent(/datum/component/trapdoor, starts_open = FALSE)
+	qdel(src)

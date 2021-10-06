@@ -3,7 +3,7 @@
 	desc = "Used to call and send the labor camp shuttle."
 	circuit = /obj/item/circuitboard/computer/labor_shuttle
 	shuttleId = "laborcamp"
-	possible_destinations = "laborcamp_home;laborcamp_away"
+	possible_destinations = "laborcamp_home;laborcamp_away;mediumdock;largedock;hugedock"
 	req_access = list(ACCESS_BRIG)
 
 /obj/machinery/computer/shuttle/labor/one_way
@@ -19,10 +19,10 @@
 		return FALSE
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle("laborcamp")
 	if(!M)
-		to_chat(user, "<span class='warning'>Cannot locate shuttle!</span>")
+		to_chat(user, SPAN_WARNING("Cannot locate shuttle!"))
 		return FALSE
 	var/obj/docking_port/stationary/S = M.get_docked()
 	if(S?.name == "laborcamp_away")
-		to_chat(user, "<span class='warning'>Shuttle is already at the outpost!</span>")
+		to_chat(user, SPAN_WARNING("Shuttle is already at the outpost!"))
 		return FALSE
 	return TRUE

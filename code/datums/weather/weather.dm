@@ -17,7 +17,7 @@
 	/// description of weather
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 	/// The message displayed in chat to foreshadow the weather's beginning
-	var/telegraph_message = "<span class='warning'>The wind begins to pick up.</span>"
+	var/telegraph_message = SPAN_WARNING("The wind begins to pick up.")
 	/// In deciseconds, how long from the beginning of the telegraph until the weather begins
 	var/telegraph_duration = 300
 	/// The sound file played to everyone on an affected z-level
@@ -28,7 +28,7 @@
 	var/telegraph_skyblock = 0
 
 	/// Displayed in chat once the weather begins in earnest
-	var/weather_message = "<span class='userdanger'>The wind begins to blow ferociously!</span>"
+	var/weather_message = SPAN_USERDANGER("The wind begins to blow ferociously!")
 	/// In deciseconds, how long the weather lasts once it begins
 	var/weather_duration = 1200
 	/// See above - this is the lowest possible duration
@@ -45,7 +45,7 @@
 	var/weather_skyblock = 0
 
 	/// Displayed once the weather is over
-	var/end_message = "<span class='danger'>The wind relents its assault.</span>"
+	var/end_message = SPAN_DANGER("The wind relents its assault.")
 	/// In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
 	var/end_duration = 300
 	/// Sound that plays while weather is ending
@@ -108,14 +108,9 @@
 	var/thunder_chance = 0
 	/// Whether the main stage will block vision
 	var/opacity_in_main_stage = FALSE
-	/// Overlays for the lightning effect
-	var/obj/effect/lightning_add/lightning_add
-	var/obj/effect/lightning_overlay/lightning_overlay
 
 /datum/weather/New(datum/weather_controller/passed_controller)
 	..()
-	lightning_add = new
-	lightning_overlay = new
 	my_controller = passed_controller
 	my_controller.current_weathers[type] = src
 	var/list/z_levels = list()
@@ -145,8 +140,6 @@
 			weather_act(L)
 
 /datum/weather/Destroy()
-	qdel(lightning_add)
-	qdel(lightning_overlay)
 	my_controller.current_weathers -= type
 	UNSETEMPTY(my_controller.current_weathers)
 	my_controller = null
@@ -376,13 +369,15 @@
 	if(lightning_in_progress)
 		return
 	lightning_in_progress = TRUE
-	addtimer(CALLBACK(src, .proc/end_thunder), 4 SECONDS)
+	addtimer(CALLBACK(src, .proc/end_thunder), 5 SECONDS)
 	addtimer(CALLBACK(src, .proc/do_thunder_sound), 2 SECONDS)
+	var/mutable_appearance/appearance_to_add = mutable_appearance('icons/effects/weather_effects.dmi', "lightning_flash")
+	appearance_to_add.plane = LIGHTING_PLANE
+	appearance_to_add.layer = OBJ_LAYER
 	for(var/V in impacted_areas)
 		var/area/N = V
 		N.luminosity++
-		N.add_overlay(lightning_add)
-		N.add_overlay(lightning_overlay)
+		N.underlays += appearance_to_add
 
 /datum/weather/proc/do_thunder_sound()
 	var/picked_sound = THUNDER_SOUND
@@ -399,20 +394,10 @@
 	if(!lightning_in_progress)
 		return
 	lightning_in_progress = FALSE
+	var/mutable_appearance/appearance_to_remove = mutable_appearance('icons/effects/weather_effects.dmi', "lightning_flash")
+	appearance_to_remove.plane = LIGHTING_PLANE
+	appearance_to_remove.layer = OBJ_LAYER
 	for(var/V in impacted_areas)
 		var/area/N = V
-		N.cut_overlay(lightning_add)
-		N.cut_overlay(lightning_overlay)
+		N.underlays += appearance_to_remove
 		N.luminosity--
-
-/obj/effect/lightning_add
-	icon = 'icons/effects/weather_effects.dmi'
-	icon_state = "lightning_flash"
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_ADD
-
-/obj/effect/lightning_overlay
-	icon = 'icons/effects/weather_effects.dmi'
-	icon_state = "lightning_flash"
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_OVERLAY

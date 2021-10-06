@@ -41,7 +41,6 @@
 		new /datum/data/mining_equipment("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		new /datum/data/mining_equipment("Mining Conscription Kit", /obj/item/storage/backpack/duffelbag/mining_conscript, 1500),
 		new /datum/data/mining_equipment("Jetpack Upgrade", /obj/item/tank/jetpack/suit, 2000),
-		new /datum/data/mining_equipment("Space Cash", /obj/item/stack/spacecash/c1000, 2000),
 		new /datum/data/mining_equipment("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
 		new /datum/data/mining_equipment("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		new /datum/data/mining_equipment("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -139,20 +138,20 @@
 				var/mob/living/L = usr
 				I = L.get_idcard(TRUE)
 			if(!istype(I))
-				to_chat(usr, "<span class='alert'>Error: An ID is required!</span>")
+				to_chat(usr, SPAN_ALERT("Error: An ID is required!"))
 				flick(icon_deny, src)
 				return
 			var/datum/data/mining_equipment/prize = locate(params["ref"]) in prize_list
 			if(!prize || !(prize in prize_list))
-				to_chat(usr, "<span class='alert'>Error: Invalid choice!</span>")
+				to_chat(usr, SPAN_ALERT("Error: Invalid choice!"))
 				flick(icon_deny, src)
 				return
 			if(prize.cost > I.mining_points)
-				to_chat(usr, "<span class='alert'>Error: Insufficient points for [prize.equipment_name] on [I]!</span>")
+				to_chat(usr, SPAN_ALERT("Error: Insufficient points for [prize.equipment_name] on [I]!"))
 				flick(icon_deny, src)
 				return
 			I.mining_points -= prize.cost
-			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
+			to_chat(usr, SPAN_NOTICE("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			new prize.equipment_path(loc)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
@@ -247,15 +246,15 @@
 		if(points)
 			var/obj/item/card/id/C = I
 			C.mining_points += points
-			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
+			to_chat(user, SPAN_INFO("You transfer [points] points to [C]."))
 			points = 0
 		else
-			to_chat(user, "<span class='alert'>There's no points left on [src].</span>")
+			to_chat(user, SPAN_ALERT("There's no points left on [src]."))
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	..()
-	to_chat(user, "<span class='alert'>There's [points] point\s on the card.</span>")
+	to_chat(user, SPAN_ALERT("There's [points] point\s on the card."))
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"
@@ -274,3 +273,16 @@
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 	new /obj/item/kitchen/knife/combat/survival(src)
 	new /obj/item/flashlight/seclite(src)
+
+/obj/item/storage/backpack/duffelbag/mining_conscript/basic
+	name = "basic mining kit"
+	desc = "A bare-minimum kit for mining."
+	icon_state = "duffel-explorer"
+	inhand_icon_state = "duffel-explorer"
+
+/obj/item/storage/backpack/duffelbag/mining_conscript/basic/PopulateContents()
+	new /obj/item/clothing/suit/hooded/explorer(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/pickaxe(src)
+	new /obj/item/flashlight/lantern(src)

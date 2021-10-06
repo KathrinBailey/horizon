@@ -25,6 +25,8 @@
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
 /// job subsystem has spawned and equipped a new mob
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+/// job datum has been called to deal with the aftermath of a latejoin spawn
+#define COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN "!job_after_latejoin_spawn"
 /// crewmember joined the game (mob/living, rank)
 #define COMSIG_GLOB_CREWMEMBER_JOINED "!crewmember_joined"
 /// Random event is trying to roll. (/datum/round_event_control/random_event)
@@ -34,10 +36,17 @@
 	#define CANCEL_PRE_RANDOM_EVENT (1<<0)
 /// a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
 #define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"
+/// a trapdoor remote has sent out a signal to link with a trapdoor
+#define COMSIG_GLOB_TRAPDOOR_LINK "!trapdoor_link"
+	///successfully linked to a trapdoor!
+	#define LINKED_UP (1<<0)
 /// an obj/item is created! (obj/item/created_item)
 #define COMSIG_GLOB_NEW_ITEM "!new_item"
 
 /// signals from globally accessible objects
+
+///from SSJob when DivideOccupations is called
+#define COMSIG_OCCUPATIONS_DIVIDED "occupations_divided"
 
 ///from SSsun when the sun changes position : (azimuth)
 #define COMSIG_SUN_MOVED "sun_moved"
@@ -64,7 +73,6 @@
 /// from datum ui_act (usr, action)
 #define COMSIG_UI_ACT "COMSIG_UI_ACT"
 
-
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
 /// fires on the target datum when an element is attached to it  (/datum/element)
@@ -87,7 +95,7 @@
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
-///from base of atom/examine(): (/mob)
+///from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
@@ -122,14 +130,16 @@
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 ///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
-///from base of atom/Entered(): (atom/movable/entering, /atom/oldLoc)
+///from base of [/atom/proc/smooth_icon]: ()
+#define COMSIG_ATOM_SMOOTHED_ICON "atom_smoothed_icon"
+///from base of atom/Entered(): (atom/movable/arrived, direction)
 #define COMSIG_ATOM_ENTERED "atom_entered"
-/// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/entered_atom, /atom/oldLoc)
+/// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, direction)
 #define COMSIG_ATOM_ENTERING "atom_entering"
-///from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
+///from base of atom/Exit(): (/atom/movable/leaving, direction)
 #define COMSIG_ATOM_EXIT "atom_exit"
 	#define COMPONENT_ATOM_BLOCK_EXIT (1<<0)
-///from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
+///from base of atom/Exited(): (atom/movable/gone, direction)
 #define COMSIG_ATOM_EXITED "atom_exited"
 ///from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_BUMPED "atom_bumped"
@@ -360,9 +370,9 @@
 
 ///from base of area/proc/power_change(): ()
 #define COMSIG_AREA_POWER_CHANGE "area_power_change"
-///from base of area/Entered(): (atom/movable/M)
+///from base of area/Entered(): (atom/movable/arrived, direction)
 #define COMSIG_AREA_ENTERED "area_entered"
-///from base of area/Exited(): (atom/movable/M)
+///from base of area/Exited(): (atom/movable/gone, direction)
 #define COMSIG_AREA_EXITED "area_exited"
 
 // /turf signals
@@ -381,6 +391,9 @@
 #define COMSIG_TURF_ON_SHUTTLE_MOVE "turf_on_shuttle_move"
 ///from /turf/open/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 #define COMSIG_TURF_EXPOSE "turf_expose"
+
+///from /datum/element/decal/Detach(): (description, cleanable, directional, mutable_appearance/pic)
+#define COMSIG_TURF_DECAL_DETACHED "turf_decal_detached"
 
 // /atom/movable signals
 
@@ -690,6 +703,8 @@
 #define COMSIG_OBJ_TAKE_DAMAGE "obj_take_damage"
 	/// Return bitflags for the above signal which prevents the object taking any damage.
 	#define COMPONENT_NO_TAKE_DAMAGE (1<<0)
+///from base of [/obj/proc/update_integrity]: ()
+#define COMSIG_OBJ_INTEGRITY_CHANGED "obj_integrity_changed"
 ///from base of obj/deconstruct(): (disassembled)
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"
 ///from base of code/game/machinery
@@ -700,6 +715,8 @@
 #define COMSIG_OBJ_PAINTED "obj_painted"
 /// from /obj/proc/obj_break: ()
 #define COMSIG_OBJ_BREAK "obj_break"
+/// from base of [/obj/proc/obj_fix]: ()
+#define COMSIG_OBJ_FIX "obj_fix"
 
 // /obj/machinery signals
 
@@ -759,6 +776,8 @@
 
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 ///called on [/obj/item] before unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
 #define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
 	///only the pre unequip can be cancelled
@@ -1208,6 +1227,8 @@
 #define COMSIG_ITEM_ATTACK "item_attack"
 ///from base of obj/item/attack_self(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
+//from base of obj/item/attack_self_secondary(): (/mob)
+#define COMSIG_ITEM_ATTACK_SELF_SECONDARY "item_attack_self_secondary"
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
@@ -1288,3 +1309,39 @@
 #define COMSIG_CIRCUIT_ADD_COMPONENT "circuit_add_component"
 	/// Cancels adding the component to the circuit.
 	#define COMPONENT_CANCEL_ADD_COMPONENT (1<<0)
+
+/// Sent when a [/obj/item/circuit_component] is added to a circuit manually, by putting the item inside directly.
+/// Accepts COMPONENT_CANCEL_ADD_COMPONENT.
+#define COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY "circuit_add_component_manually"
+
+/// Sent when a circuit is removed from its shell
+#define COMSIG_CIRCUIT_SHELL_REMOVED "circuit_shell_removed"
+
+/// Sent to [/obj/item/circuit_component] when it is removed from a circuit. (/obj/item/integrated_circuit)
+#define COMSIG_CIRCUIT_COMPONENT_REMOVED "circuit_component_removed"
+
+/// Sent to an atom when a [/obj/item/usb_cable] attempts to connect to something. (/obj/item/usb_cable/usb_cable, /mob/user)
+#define COMSIG_ATOM_USB_CABLE_TRY_ATTACH "usb_cable_try_attach"
+	/// Attaches the USB cable to the atom. If the USB cables moves away, it will disconnect.
+	#define COMSIG_USB_CABLE_ATTACHED (1<<0)
+
+	/// Attaches the USB cable to a circuit. Producers of this are expected to set the usb_cable's
+	/// `attached_circuit` variable.
+	#define COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT (1<<1)
+
+	/// Cancels the attack chain, but without performing any other action.
+	#define COMSIG_CANCEL_USB_CABLE_ATTACK (1<<2)
+
+/// Called in /obj/structure/moneybot/add_money(). (to_add)
+#define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
+
+/// Sent by /obj/effect/abstract/shuttle_roof on Initialize() and Destroy()
+#define COMSIG_TURF_UPDATE_TRANSPARENCY "turf_update_transparency"
+
+/// Called in /obj/machinery/atmospherics/components/unary/engine/DrawThrust(), and in /obj/structure/shuttle/engine/proc/DrawThrust()
+#define COMSIG_ENGINE_DRAWN_POWER "engine_drawn_power"
+
+/// When a mob attempts to play the footstep sound. Called in the foostep component
+#define COMSIG_MOB_PLAYS_FOOTSTEP "mob_plays_footstep"
+	/// Will cancel the attempted footstep playing (most likely after overriding and playing another one)
+	#define COMPONENT_CANCEL_PLAY_FOOTSTEP (1<<0)
