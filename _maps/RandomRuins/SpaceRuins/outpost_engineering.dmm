@@ -615,6 +615,8 @@
 /obj/machinery/light/directional/north,
 /obj/machinery/power/apc/auto_name/west,
 /obj/structure/cable,
+/obj/item/flashlight/flare,
+/obj/item/tank/jetpack/suit,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/outpost_engineering/roomone)
 "nH" = (
@@ -630,10 +632,10 @@
 /obj/machinery/hydroponics/soil{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dirt";
-	layer = 2.0001;
-	plane = -2;
+	layer = 2.039;
 	self_sustaining = 1
 	},
+/obj/item/seeds/grass/fairy,
 /turf/open/floor/grass{
 	icon_state = "dirt";
 	name = "dirt"
@@ -648,6 +650,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/light/directional/east,
+/obj/item/seeds/berry/poison,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/outpost_engineering/habitation)
 "or" = (
@@ -987,6 +990,8 @@
 /obj/machinery/light/directional/north,
 /obj/machinery/power/apc/auto_name/west,
 /obj/structure/cable,
+/obj/item/seeds/grass/carpet,
+/obj/item/seeds/sunflower/novaflower,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/outpost_engineering/roomtwo)
 "vR" = (
@@ -1817,7 +1822,8 @@
 /obj/structure/table/reinforced,
 /obj/item/weldingtool/largetank{
 	desc = "A branded welding tool that uses chemical fuel mixtures. It's capable of getting very hot, improving welding speed.";
-	name = "Makita X-Ultra Chem Welder"
+	name = "Makita X-Ultra Chem Welder";
+	toolspeed = 0.6
 	},
 /obj/item/clothing/glasses/welding,
 /turf/open/floor/iron/dark/smooth_edge{
@@ -2036,6 +2042,18 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/outpost_engineering/maint)
+"QU" = (
+/obj/machinery/hydroponics/soil{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dirt";
+	layer = 2.039;
+	self_sustaining = 1
+	},
+/turf/open/floor/grass{
+	icon_state = "dirt";
+	name = "dirt"
+	},
+/area/ruin/space/has_grav/outpost_engineering/habitation)
 "QZ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
@@ -2134,8 +2152,7 @@
 /obj/machinery/hydroponics/soil{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dirt";
-	layer = 2.0001;
-	plane = -2;
+	layer = 2.039;
 	self_sustaining = 1
 	},
 /mob/living/simple_animal/butterfly,
@@ -2246,6 +2263,14 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/space/has_grav)
+"UC" = (
+/obj/structure/closet/crate/engineering,
+/obj/item/skillchip/job/engineer,
+/obj/item/skillchip/job/engineer,
+/obj/item/construction/plumbing,
+/obj/item/construction/rcd/loaded/upgraded,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/outpost_engineering/maint)
 "UG" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/neutral{
@@ -2483,6 +2508,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/suit_storage_unit/mining/eva,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/outpost_engineering/maint)
 
@@ -2688,7 +2714,7 @@ fs
 pH
 fA
 XX
-Qt
+UC
 fs
 KH
 nH
@@ -3078,7 +3104,7 @@ Gh
 Rx
 mG
 nI
-nI
+QU
 RQ
 AM
 Rx
@@ -3115,9 +3141,9 @@ ZH
 ZB
 iR
 fC
-nI
+QU
 UO
-nI
+QU
 YX
 JM
 zn
@@ -3154,8 +3180,8 @@ Gh
 Rx
 gA
 Sy
-nI
-nI
+QU
+QU
 Og
 Rx
 OM
