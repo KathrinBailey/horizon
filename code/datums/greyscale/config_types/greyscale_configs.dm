@@ -111,6 +111,10 @@
 	name = "Chaplain PDA"
 	json_config = 'code/datums/greyscale/json_configs/pda_chaplain.json'
 
+/datum/greyscale_config/pda/captain
+	name = "Captain PDA"
+	json_config = 'code/datums/greyscale/json_configs/pda_captain.json'
+
 /datum/greyscale_config/pda/clown
 	name = "Clown PDA"
 	json_config = 'code/datums/greyscale/json_configs/pda_clown.json'
@@ -357,3 +361,43 @@
 	name = "Ore Crystal Tiny"
 	icon_file = 'icons/obj/structures/crystal_tiny_gags.dmi'
 	json_config = 'code/datums/greyscale/json_configs/ore_vein_crystal_tiny.json'
+
+/datum/greyscale_config/bench_middle
+	name = "Bench Middle"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_middle.json'
+
+/datum/greyscale_config/bench_left
+	name = "Bench Left"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_left.json'
+
+/datum/greyscale_config/bench_right
+	name = "Bench Right"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_right.json'
+
+/datum/greyscale_config/bench_corner
+	name = "Bench Corner"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_corner.json'
+
+/datum/greyscale_config/ctf_standard
+	name = "CTF Standard Vest"
+	icon_file = 'icons/obj/clothing/suits/ctf.dmi'
+	json_config = 'code/datums/greyscale/json_configs/ctf_standard.json'
+
+/datum/greyscale_config/ctf_standard_worn
+	name = "Worn CTF Standard Vest"
+	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
+	json_config = 'code/datums/greyscale/json_configs/ctf_standard_worn.json'
+
+/datum/greyscale_config/ctf_light
+	name = "CTF Light Vest"
+	icon_file = 'icons/obj/clothing/suits/ctf.dmi'
+	json_config = 'code/datums/greyscale/json_configs/ctf_light.json'
+
+/datum/greyscale_config/ctf_light_worn
+	name = "Worn CTF Light Vest"
+	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
+	json_config = 'code/datums/greyscale/json_configs/ctf_light_worn.json'
