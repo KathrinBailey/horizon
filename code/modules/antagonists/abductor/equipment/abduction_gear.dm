@@ -396,6 +396,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/shrink)
 	inhand_icon_state = "shrink_ray"
 	icon_state = "shrink_ray"
+	automatic_charge_overlays = FALSE
 	fire_delay = 30
 	selfcharge = 1//shot costs 200 energy, has a max capacity of 1000 for 5 shots. self charge returns 25 energy every couple ticks, so about 1 shot charged every 12~ seconds
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL// variable-size trigger, get it? (abductors need this to be set so the gun is usable for them)
@@ -760,7 +761,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	inhand_icon_state = "alienhelmet"
 	blockTracking = TRUE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	mutant_variants = NONE
+	fitted_bodytypes = BODYTYPE_VOX
 
 // Operating Table / Beds / Lockers
 
@@ -876,9 +877,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"
-	icon = 'icons/obj/doors/airlocks/abductor/abductor_airlock.dmi'
 	base_name = "alien airlock"
-	overlays_file = 'icons/obj/doors/airlocks/abductor/overlays.dmi'
 	airlock_type = /obj/machinery/door/airlock/abductor
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE

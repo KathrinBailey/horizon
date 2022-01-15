@@ -654,54 +654,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSshuttle.emergency.setTimer(SSshuttle.lastCallTime)
 	priority_announce("Warning: Emergency Shuttle uplink reestablished, shuttle enabled.", "Emergency Shuttle Uplink Alert", 'sound/misc/announce_dig.ogg')
 
-/client/proc/everyone_random()
-	set category = "Admin.Fun"
-	set name = "Make Everyone Random"
-	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
-
-	if(SSticker.HasRoundStarted())
-		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!", confidential = TRUE)
-		return
-
-	var/frn = CONFIG_GET(flag/force_random_names)
-	if(frn)
-		CONFIG_SET(flag/force_random_names, FALSE)
-		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.")
-		to_chat(usr, "Disabled.", confidential = TRUE)
-		return
-
-
-	var/notifyplayers = tgui_alert(usr, "Do you want to notify the players?", "Options", list("Yes", "No", "Cancel"))
-	if(notifyplayers == "Cancel")
-		return
-
-	log_admin("Admin [key_name(src)] has forced the players to have random appearances.")
-	message_admins("Admin [key_name_admin(usr)] has forced the players to have random appearances.")
-
-	if(notifyplayers == "Yes")
-		to_chat(world, SPAN_ADMINNOTICE("Admin [usr.key] has forced the players to have completely random identities!"), confidential = TRUE)
-
-	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential = TRUE)
-
-	CONFIG_SET(flag/force_random_names, TRUE)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Everyone Random") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-/client/proc/toggle_random_events()
-	set category = "Server"
-	set name = "Toggle random events on/off"
-	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
-	var/new_are = !CONFIG_GET(flag/allow_random_events)
-	CONFIG_SET(flag/allow_random_events, new_are)
-	if(new_are)
-		to_chat(usr, "Random events enabled", confidential = TRUE)
-		message_admins("Admin [key_name_admin(usr)] has enabled random events.")
-	else
-		to_chat(usr, "Random events disabled", confidential = TRUE)
-		message_admins("Admin [key_name_admin(usr)] has disabled random events.")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Random Events", "[new_are ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
 /client/proc/admin_change_sec_level()
 	set category = "Admin.Events"
 	set name = "Set Security Level"
@@ -775,7 +727,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/run_weather()
 	set category = "Admin.Events"
 	set name = "Run Weather"
-	set desc = "Triggers a weather on the z-level you choose."
+	set desc = "Triggers a weather on the map-zone you choose."
 
 	if(!holder)
 		return
@@ -784,18 +736,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!weather_type)
 		return
 
-	var/turf/T = get_turf(mob)
-	var/z_level = input("Z-Level to target?", "Z-Level", T?.z) as num|null
-	if(!isnum(z_level))
+	var/datum/map_zone/mapzone = input("Map Zone to target?", "Map Zone") as null|anything in SSmapping.map_zones
+	if(!mapzone)
 		return
 
-	var/datum/weather_controller/weather_controller = SSmapping.GetLevelWeatherController(z_level)
+	var/datum/weather_controller/weather_controller = mapzone.weather_controller
 	if(!weather_controller)
 		return
 	weather_controller.RunWeather(weather_type)
 
-	message_admins("[key_name_admin(usr)] started weather of type [weather_type] on the z-level [z_level].")
-	log_admin("[key_name(usr)] started weather of type [weather_type] on the z-level [z_level].")
+	message_admins("[key_name_admin(usr)] started weather of type [weather_type] on the map-zone [mapzone].")
+	log_admin("[key_name(usr)] started weather of type [weather_type] on the map-zone [mapzone].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Run Weather")
 
 /client/proc/mass_zombie_infection()

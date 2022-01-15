@@ -79,7 +79,7 @@
 		myarea = get_area(src)
 		LAZYADD(myarea.cameras, src)
 
-	if(mapload && is_station_level(z) && prob(3) && !start_active)
+	if(mapload && is_station_level(src) && prob(3) && !start_active)
 		toggle_cam()
 	else //this is handled by toggle_camera, so no need to update it twice.
 		update_appearance()
@@ -468,7 +468,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, HUD_IMPAIRMENT_HALF_BLIND)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras

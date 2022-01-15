@@ -41,7 +41,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		var/turf/my_turf = get_turf(src)
-		my_turf.PolluteTurf(/datum/pollutant/sulphur, 5)
+		my_turf.pollute_turf(/datum/pollutant/sulphur, 5)
 		playsound(src, 'sound/items/match_strike.ogg', 15, TRUE)
 		lit = TRUE
 		icon_state = "match_lit"
@@ -126,7 +126,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	body_parts_covered = null
 	grind_results = list()
 	heat = 1000
-	mutant_variants = NONE
+	fitted_bodytypes = BODYTYPE_DIGITIGRADE|BODYTYPE_VOX
 	var/dragtime = 10
 	var/nextdragtime = 0
 	var/lit = FALSE
@@ -143,6 +143,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/lung_harm = 0.3 //How bad it is for you
 	/// What type of pollution does this produce on smoking, changed to weed pollution sometimes
 	var/pollution_type = /datum/pollutant/smoke
+	var/has_emissive_overlay = TRUE
 
 /obj/item/clothing/mask/cigarette/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is huffing [src] as quickly as [user.p_they()] can! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer."))
@@ -185,6 +186,16 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				to_chat(user, SPAN_WARNING("[glass] is empty!"))
 			else
 				to_chat(user, SPAN_WARNING("[src] is full!"))
+
+/obj/item/clothing/mask/cigarette/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, bodytype = BODYTYPE_HUMANOID, slot, worn_state, worn_prefix)
+	. = ..()
+	if(!has_emissive_overlay || !lit)
+		return
+	// Add emissives
+	if(isinhands)
+		. += emissive_appearance(icon_file, "cig_emissive")
+	else
+		. += emissive_appearance(icon_file, "[worn_prefix]_cig_emissive")
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
@@ -284,7 +295,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(!air || !air.has_gas(/datum/gas/oxygen, 1)) //or oxygen on a tile to burn
 			extinguish()
 			return
-	location.PolluteTurf(pollution_type, 10)
+	location.pollute_turf(pollution_type, 5, POLLUTION_PASSIVE_EMITTER_CAP)
 	smoketime -= delta_time
 	if(smoketime <= 0)
 		new type_butt(location)
@@ -459,6 +470,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "candyoff"
 	type_butt = /obj/item/food/candy_trash
 	list_reagents = list(/datum/reagent/consumable/sugar = 10, /datum/reagent/consumable/caramel = 10)
+	fitted_bodytypes = BODYTYPE_DIGITIGRADE
 
 /obj/item/clothing/mask/cigarette/candy/nicotine
 	desc = "For all ages*! Doesn't contain any* amount of nicotine. Health and safety risks can be read on the tip of the cigarette."
@@ -540,6 +552,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 0
 	chem_volume = 100
 	list_reagents = null
+	has_emissive_overlay = FALSE
 	var/packeditem = FALSE
 
 /obj/item/clothing/mask/cigarette/pipe/Initialize()
@@ -869,7 +882,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "red_vape"
 	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_TINY
-	mutant_variants = NONE
+	fitted_bodytypes = BODYTYPE_VOX
 	var/chem_volume = 100
 	var/vapetime = 0 //this so it won't puff out clouds every tick
 	/// How often we take a drag in seconds
@@ -1003,7 +1016,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 	//open flame removed because vapes are a closed system, they won't light anything on fire
 	var/turf/my_turf = get_turf(src)
-	my_turf.PolluteTurf(/datum/pollutant/smoke/vape, 10)
+	my_turf.pollute_turf(/datum/pollutant/smoke/vape, 5, POLLUTION_PASSIVE_EMITTER_CAP)
 
 	if(super && vapetime >= vapedelay)//Time to start puffing those fat vapes, yo.
 		var/datum/effect_system/smoke_spread/chem/smoke_machine/s = new

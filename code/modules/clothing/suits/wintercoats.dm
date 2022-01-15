@@ -11,7 +11,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	allowed = list()
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
-	mutant_variants = NONE
+	fitted_bodytypes = NONE
 
 /obj/item/clothing/suit/hooded/wintercoat/Initialize()
 	. = ..()
@@ -38,7 +38,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
-	mutant_variants = NONE
+	fitted_bodytypes = BODYTYPE_VOX
 
 // CentCom
 /obj/item/clothing/suit/hooded/wintercoat/centcom
@@ -125,7 +125,7 @@
 		/obj/item/key/janitor,
 		/obj/item/lightreplacer,
 		/obj/item/melee/flyswatter,
-		/obj/item/paint/paint_remover,
+		/obj/item/paint_remover,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/glass/bucket,
@@ -339,10 +339,20 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 	species_exception = list(/datum/species/golem/uranium)
 
+/obj/item/clothing/suit/hooded/wintercoat/engineering/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, bodytype = BODYTYPE_HUMANOID, slot, worn_state, worn_prefix)
+	. = ..()
+	if(!isinhands)
+		. += emissive_appearance(icon_file, "[worn_state]_emissive", alpha = src.alpha)
+
 /obj/item/clothing/head/hooded/winterhood/engineering
 	desc = "A yellow winter coat hood. Definitely not a replacement for a hard hat."
 	icon_state = "hood_engineer"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 0)
+
+/obj/item/clothing/head/hooded/winterhood/engineering/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, bodytype = BODYTYPE_HUMANOID, slot, worn_state, worn_prefix)
+	. = ..()
+	if(!isinhands)
+		. += emissive_appearance(icon_file, "[worn_state]_emissive", alpha = src.alpha)
 
 // Chief Engineer
 /obj/item/clothing/suit/hooded/wintercoat/engineering/ce

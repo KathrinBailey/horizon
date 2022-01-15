@@ -5,6 +5,9 @@
 	weight = 1
 	earliest_start = 5 MINUTES
 
+	track = EVENT_TRACK_MUNDANE
+	tags = list(TAG_COMMUNAL, TAG_POSITIVE, TAG_SPACE)
+
 /datum/round_event_control/aurora_caelus/canSpawnEvent(players)
 	if(!CONFIG_GET(flag/starlight))
 		return FALSE
@@ -13,7 +16,7 @@
 /datum/round_event/aurora_caelus
 	announceWhen = 1
 	startWhen = 9
-	endWhen = 50
+	endWhen = 90
 	var/list/aurora_colors = list("#A2FF80", "#A2FF8B", "#A2FF96", "#A2FFA5", "#A2FFB6", "#A2FFC7", "#A2FFDE", "#A2FFEE")
 	var/aurora_progress = 0 //this cycles from 1 to 8, slowly changing colors from gentle green to gentle blue
 
@@ -23,7 +26,7 @@
 	sender_override = "Nanotrasen Meteorology Division")
 	for(var/V in GLOB.player_list)
 		var/mob/M = V
-		if((M.client.prefs.toggles & SOUND_MIDI) && is_station_level(M.z))
+		if((M.client.prefs.toggles & SOUND_MIDI) && is_station_level(M))
 			M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)
 
 /datum/round_event/aurora_caelus/start()

@@ -1,5 +1,4 @@
 #define DEFAULT_METEOR_LIFETIME 1800
-#define MAP_EDGE_PAD 5
 
 GLOBAL_VAR_INIT(meteor_wave_delay, 625) //minimum wait between waves in tenths of seconds
 //set to at least 100 unless you want evarr ruining every round
@@ -16,7 +15,7 @@ GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium=5, /obj/ef
 
 GLOBAL_LIST_INIT(meteorsB, list(/obj/effect/meteor/meaty=5, /obj/effect/meteor/meaty/xeno=1)) //for meaty ore event
 
-GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
+GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust = 1)) //for space dust event
 
 
 ///////////////////////////////
@@ -27,55 +26,19 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	for(var/i = 0; i < number; i++)
 		spawn_meteor(pickweight(meteortypes))
 
-/proc/spawn_meteor(meteor_type, dir, z_level, padding = MAP_EDGE_PAD)
+/proc/spawn_meteor(meteor_type, dir, datum/virtual_level/vlevel, padding = MAP_EDGE_PAD)
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!isspaceturf(pickedstart) && !isopenspaceturf(pickedstart))
 		var/startSide = dir || pick(GLOB.cardinals)
-		var/startZ = z_level || pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
-		pickedstart = spaceDebrisStartLoc(startSide, startZ, padding)
-		pickedgoal = spaceDebrisFinishLoc(startSide, startZ, padding)
+		var/datum/virtual_level/startsub = vlevel || pick(SSmapping.virtual_levels_by_trait(ZTRAIT_STATION))
+		pickedstart = startsub.get_side_turf(startSide, padding)
+		pickedgoal = startsub.get_side_turf(REVERSE_DIR(startSide), padding)
 		max_i--
 		if(max_i<=0)
 			return
 	new meteor_type(pickedstart, pickedgoal)
-
-/proc/spaceDebrisStartLoc(startSide, Z, padding)
-	var/starty
-	var/startx
-	switch(startSide)
-		if(NORTH)
-			starty = world.maxy-(TRANSITIONEDGE + padding)
-			startx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
-		if(EAST)
-			starty = rand((TRANSITIONEDGE + padding),world.maxy-(TRANSITIONEDGE + padding))
-			startx = world.maxx-(TRANSITIONEDGE + padding)
-		if(SOUTH)
-			starty = (TRANSITIONEDGE + padding)
-			startx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
-		if(WEST)
-			starty = rand((TRANSITIONEDGE + padding), world.maxy-(TRANSITIONEDGE + padding))
-			startx = (TRANSITIONEDGE + padding)
-	. = locate(startx, starty, Z)
-
-/proc/spaceDebrisFinishLoc(startSide, Z, padding)
-	var/endy
-	var/endx
-	switch(startSide)
-		if(NORTH)
-			endy = (TRANSITIONEDGE + padding)
-			endx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
-		if(EAST)
-			endy = rand((TRANSITIONEDGE + padding), world.maxy-(TRANSITIONEDGE + padding))
-			endx = (TRANSITIONEDGE + padding)
-		if(SOUTH)
-			endy = world.maxy-(TRANSITIONEDGE + padding)
-			endx = rand((TRANSITIONEDGE + padding), world.maxx-(TRANSITIONEDGE + padding))
-		if(WEST)
-			endy = rand((TRANSITIONEDGE + padding),world.maxy-(TRANSITIONEDGE + padding))
-			endx = world.maxx-(TRANSITIONEDGE + padding)
-	. = locate(endx, endy, Z)
 
 ///////////////////////
 //The meteor effect
@@ -385,4 +348,3 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	meteorsound = pick('sound/hallucinations/im_here1.ogg','sound/hallucinations/im_here2.ogg')
 //////////////////////////
 #undef DEFAULT_METEOR_LIFETIME
-#undef MAP_EDGE_PAD

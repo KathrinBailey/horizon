@@ -26,8 +26,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(T.icon != icon)
 		T.icon = icon
 	if(color)
-		T.atom_colours = atom_colours.Copy()
-		T.update_atom_colour()
+		if(atom_colours) //Because, we may very well not use atom_colours while we use color, to optimize memory
+			T.atom_colours = atom_colours.Copy()
+			T.update_atom_colour()
+		else
+			T.color = color
 	if(T.dir != dir)
 		T.setDir(dir)
 	return T
@@ -54,11 +57,11 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		if(null)
 			return
 		if(/turf/baseturf_bottom)
-			path = SSmapping.level_trait(z, ZTRAIT_BASETURF) || /turf/open/space
+			path = virtual_level_trait(ZTRAIT_BASETURF) || /turf/open/space
 			if (!ispath(path))
 				path = text2path(path)
 				if (!ispath(path))
-					warning("Z-level [z] has invalid baseturf '[SSmapping.level_trait(z, ZTRAIT_BASETURF)]'")
+					warning("Z-level [z] has invalid baseturf '[virtual_level_trait(ZTRAIT_BASETURF)]'")
 					path = /turf/open/space
 		if(/turf/open/space/basic)
 			// basic doesn't initialize and this will cause issues
@@ -68,7 +71,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(!GLOB.use_preloader && path == type && !(flags & CHANGETURF_FORCEOP) && (baseturfs == new_baseturfs)) // Don't no-op if the map loader requires it to be reconstructed, or if this is a new set of baseturfs
 		return src
 	if(flags & CHANGETURF_SKIP)
-		return new path(src)
+		return new path(src, virtual_z)
 
 	var/old_dynamic_lighting = dynamic_lighting
 	var/old_lighting_object = lighting_object
@@ -85,15 +88,19 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_bp = blueprint_data
 	blueprint_data = null
 
+	var/old_virtual_z = virtual_z
+
 	var/list/old_baseturfs = baseturfs
 	var/old_type = type
+
+	var/list/old_ambience_list = ambience_list
 
 	var/list/post_change_callbacks = list()
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, new_baseturfs, flags, post_change_callbacks)
 
 	changing_turf = TRUE
 	qdel(src) //Just get the side effects and call Destroy
-	var/turf/W = new path(src)
+	var/turf/W = new path(src, virtual_z)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(W)
@@ -112,12 +119,16 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	W.blueprint_data = old_bp
 	W.rcd_memory = old_rcd_memory
 
+	W.virtual_z = old_virtual_z
+
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
 	lighting_corner_SW = old_lighting_corner_SW
 	lighting_corner_NW = old_lighting_corner_NW
 
 	dynamic_lumcount = old_dynamic_lumcount
+
+	ambience_list = old_ambience_list
 
 	if(SSlighting.initialized)
 		lighting_object = old_lighting_object
@@ -161,7 +172,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		var/turf/open/newTurf = .
 		if(stashed_pollution)
 			newTurf.pollution = stashed_pollution
-			stashed_pollution.HandleOverlay()
+			stashed_pollution.handle_overlay()
 		newTurf.turf_fire = turf_fire_ref
 		newTurf.air.copy_from(stashed_air)
 		QDEL_NULL(stashed_air)

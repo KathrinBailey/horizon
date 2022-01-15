@@ -13,10 +13,15 @@
 
 	for (var/I in 1 to default_map_traits.len)
 		var/list/features = default_map_traits[I]
-		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS])
+		var/name = features[DL_NAME]
+		var/list/traits = features[DL_TRAITS]
+		var/datum/space_level/S = new(I, name)
 		z_list += S
+		var/datum/map_zone/mapzone = new(name)
+		new /datum/virtual_level(name, traits, mapzone, 1, 1, world.maxx, world.maxy, I)
 
-/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, datum/overmap_object/overmap_obj = null)
+/// Adds new physical space level. DO NOT USE THIS TO LOAD SOMETHING NEW. SSmapping.get_free_allocation() will create any levels nessecary and pass you coordinates to create a new virtual level
+/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, allocation_type)
 	UNTIL(!adding_new_zlevel)
 	adding_new_zlevel = TRUE
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
@@ -25,13 +30,13 @@
 		world.incrementMaxZ()
 		CHECK_TICK
 	// TODO: sleep here if the Z level needs to be cleared
-	var/datum/space_level/S = new z_type(new_z, name, traits)
-	if(overmap_obj)
-		overmap_obj.related_levels += S
-		S.related_overmap_object = overmap_obj
-		if(istype(overmap_obj, /datum/overmap_object/shuttle)) //TODO: better method
-			S.is_overmap_controllable = TRUE
+	var/datum/space_level/S = new /datum/space_level(new_z, name, allocation_type)
 	z_list += S
+
+	/// Initialize the turfs on the new space level
+	if(SSatoms.initialized != INITIALIZATION_INSSATOMS)
+		SSatoms.InitializeAtoms(block(locate(1,1,world.maxz), locate(world.maxx,world.maxy,world.maxz)))
+
 	adding_new_zlevel = FALSE
 	return S
 

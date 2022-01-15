@@ -14,7 +14,7 @@
 	light_power = 0.8
 	light_on = FALSE
 	dog_fashion = /datum/dog_fashion/head
-	mutant_variants = NONE
+	fitted_bodytypes = BODYTYPE_VOX
 
 	///Determines used sprites: `hardhat[on]_[hat_type]` and `hardhat[on]_[hat_type]2` (lying down sprite)
 	var/hat_type = "yellow"
@@ -106,6 +106,12 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	fitted_bodytypes = BODYTYPE_DIGITIGRADE|BODYTYPE_VOX
+
+/obj/item/clothing/head/hardhat/atmos/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, bodytype = BODYTYPE_HUMANOID, slot, worn_state, worn_prefix)
+	. = ..()
+	if(!isinhands)
+		. += emissive_appearance(icon_file, "[worn_prefix]_hardhat_atmos_emissive", alpha = src.alpha)
 
 /obj/item/clothing/head/hardhat/weldhat
 	name = "welding hard hat"
@@ -120,6 +126,7 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	visor_flags_inv = HIDEEYES | HIDEFACE | HIDESNOUT
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
+	worn_icon = 'icons/mob/clothing/head.dmi'
 
 /obj/item/clothing/head/hardhat/weldhat/Initialize()
 	. = ..()
@@ -137,14 +144,14 @@
 		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
 	update_appearance()
 
-/obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, bodytype = BODYTYPE_HUMANOID, slot, worn_state, worn_prefix)
 	. = ..()
 	if(isinhands)
 		return
 
-	. += mutable_appearance('icons/mob/clothing/head.dmi', "weldhelmet")
+	. += mutable_appearance(worn_icon, "[worn_prefix]_weldhelmet")
 	if(!up)
-		. += mutable_appearance('icons/mob/clothing/head.dmi', "weldvisor")
+		. += mutable_appearance(worn_icon, "[worn_prefix]_weldvisor")
 
 /obj/item/clothing/head/hardhat/weldhat/update_overlays()
 	. = ..()

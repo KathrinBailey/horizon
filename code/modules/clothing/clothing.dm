@@ -1,16 +1,10 @@
 #define MOTH_EATING_CLOTHING_DAMAGE 15
 
-//Mutant variants needs to be a property of all items, because all items can be equipped, despite the mob code only expecting clothing items (ugh)
-/obj/item
-	var/mutant_variants = NONE
-	var/allowed_bodytypes = ALL_BODYTYPES
-
 /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	integrity_failure = 0.4
-	allowed_bodytypes = GENERIC_BODYTYPES
 	var/damaged_clothes = CLOTHING_PRISTINE //similar to machine's BROKEN stat and structure's broken var
 
 	///What level of bright light protection item has.
@@ -68,18 +62,10 @@
 	/// A lazily initiated "food" version of the clothing for moths
 	var/obj/item/food/clothing/moth_snack
 
-	/// Below you have overrides of the icon file in which the item should look for in case of mutant variants
-	//Digi moved up to obj/item because of GAGS
-	var/worn_icon_taur_snake
-	var/worn_icon_taur_paw
-	var/worn_icon_taur_hoof
-	var/worn_icon_muzzled
-
 /obj/item/clothing/Initialize()
 	if((clothing_flags & VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
-	AddElement(/datum/element/venue_price, FOOD_PRICE_CHEAP)
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
@@ -449,13 +435,6 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
 		// in a lit area (via pixel_x,y or smooth movement), can see those pixels
 BLIND     // can't see anything
 */
-
-/proc/generate_female_clothing(index,t_color,icon,type)
-	var/icon/female_clothing_icon = icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s = icon("icon"='icons/mob/clothing/under/masking_helpers.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
-	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
-	female_clothing_icon = fcopy_rsc(female_clothing_icon)
-	GLOB.female_clothing_icons[index] = female_clothing_icon
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))

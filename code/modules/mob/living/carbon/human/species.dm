@@ -23,8 +23,28 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
 	var/sexes = TRUE
 
-	///Clothing offsets. If a species has a different body than other species, you can offset clothing so they look less weird.
-	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
+	///Clothing offsets. If species is wearing things not fitted to its bodytype, this will apply pixel offsets
+	var/list/offset_features
+	//Example list of offset_features:
+	/*
+	list(
+		OFFSET_UNIFORM = list(0,0),
+		OFFSET_ID = list(0,0),
+		OFFSET_GLOVES = list(0,0),
+		OFFSET_GLASSES = list(0,0),
+		OFFSET_EARS = list(0,0),
+		OFFSET_SHOES = list(0,0),
+		OFFSET_S_STORE = list(0,0),
+		OFFSET_FACEMASK = list(0,0),
+		OFFSET_HEAD = list(0,0),
+		OFFSET_FACE = list(0,0),
+		OFFSET_BELT = list(0,0),
+		OFFSET_BACK = list(0,0),
+		OFFSET_SUIT = list(0,0),
+		OFFSET_NECK = list(0,0),
+		OFFSET_INHANDS = list(0,0)
+		)
+	*/
 
 	///This allows races to have specific hair colors. If null, it uses the H's hair/facial hair colors. If "mutcolor", it uses the H's mutant_color. If "fixedmutcolor", it uses fixedmutcolor
 	var/hair_color
@@ -234,6 +254,25 @@ GLOBAL_LIST_EMPTY(customizable_races)
 	var/list/factions = list(FACTIONS_GENERIC, FACTIONS_HUMAN)
 	/// List of all the languages our species can learn NO MATTER their background
 	var/list/learnable_languages = list(/datum/language/common)
+	/// Whether this species is forbidden from customizing its body size in prefs
+	var/body_size_restricted
+	/// List of keyed lists of MALE and FEMALE scream-sounds
+	var/list/scream_sounds = list(
+		MALE = list(
+			'sound/voice/scream_m1.ogg',
+			'sound/voice/scream_m2.ogg',
+		),
+		FEMALE = list(
+			'sound/voice/scream_f1.ogg',
+			'sound/voice/scream_f2.ogg',
+		),
+		NEUTER = list(
+			'sound/voice/scream_m1.ogg',
+			'sound/voice/scream_m2.ogg',
+			'sound/voice/scream_f1.ogg',
+			'sound/voice/scream_f2.ogg',
+		)
+	)
 
 ///////////
 // PROCS //
@@ -241,7 +280,6 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 
 /datum/species/New()
-
 	if(!limbs_id) //if we havent set a limbs id to use, just use our own id
 		limbs_id = id
 	wings_icons = string_list(wings_icons)
@@ -631,9 +669,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 			facial_overlay.alpha = hair_alpha
 
-			var/mutable_appearance/facial_em_blocker = mutable_appearance(fhair_file, fhair_state, plane = EMISSIVE_PLANE, alpha = hair_alpha, appearance_flags = KEEP_APART)
-			facial_em_blocker.color = GLOB.em_block_color
-			facial_overlay.overlays += facial_em_blocker
+			facial_overlay.overlays += emissive_blocker(fhair_file, fhair_state, alpha = hair_alpha)
 
 			standing += facial_overlay
 
@@ -710,14 +746,12 @@ GLOBAL_LIST_EMPTY(customizable_races)
 					hair_overlay.color = forced_colour
 
 				hair_overlay.alpha = hair_alpha
-				if(OFFSET_FACE in H.dna.species.offset_features)
+				if(offset_features && (OFFSET_FACE in H.dna.species.offset_features))
 					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
 					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-		if(hair_overlay.icon)
-			var/mutable_appearance/hair_em_block = mutable_appearance(hair_overlay.icon, hair_overlay.icon_state, plane = EMISSIVE_PLANE, alpha = hair_alpha, appearance_flags = KEEP_APART)
-			hair_em_block.color = GLOB.em_block_color
-			hair_overlay.overlays += hair_em_block
 
+		if(hair_overlay.icon)
+			hair_overlay.overlays += emissive_blocker(hair_overlay.icon, hair_overlay.icon_state, alpha = hair_alpha)
 			standing += hair_overlay
 			standing += gradient_overlay
 
@@ -746,7 +780,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 		if(species_human.lip_style && (LIPS in species_traits))
 			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/sprite_accessory/human_face.dmi', "lips_[species_human.lip_style]", -BODY_LAYER)
 			lip_overlay.color = species_human.lip_color
-			if(OFFSET_FACE in species_human.dna.species.offset_features)
+			if(offset_features && (OFFSET_FACE in species_human.dna.species.offset_features))
 				lip_overlay.pixel_x += species_human.dna.species.offset_features[OFFSET_FACE][1]
 				lip_overlay.pixel_y += species_human.dna.species.offset_features[OFFSET_FACE][2]
 			standing += lip_overlay
@@ -756,31 +790,27 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			var/obj/item/organ/eyes/eye_organ = species_human.getorganslot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/no_eyeslay
 			var/eye_icon = eyes_icon || 'icons/mob/sprite_accessory/human_face.dmi'
-			var/list/eye_overlays = list()
+			var/mutable_appearance/eye_overlay
 			var/obscured = species_human.check_obscured_slots(TRUE) //eyes that shine in the dark shouldn't show when you have glasses
 			var/add_pixel_x = 0
 			var/add_pixel_y = 0
 			//cut any possible vis overlays
 			if(body_vis_overlays.len)
 				SSvis_overlays.remove_vis_overlay(species_human, body_vis_overlays)
-			if(OFFSET_FACE in species_human.dna.species.offset_features)
-				add_pixel_x = species_human.dna.species.offset_features[OFFSET_FACE][1]
-				add_pixel_y = species_human.dna.species.offset_features[OFFSET_FACE][2]
 			if(!eye_organ)
 				no_eyeslay = mutable_appearance(eye_icon, "eyes_missing", -BODY_LAYER)
 				no_eyeslay.pixel_x += add_pixel_x
 				no_eyeslay.pixel_y += add_pixel_y
 				standing += no_eyeslay
 			if(!no_eyeslay)//we need eyes
-				eye_overlays += mutable_appearance(eye_icon, eye_organ.eye_icon_state, -BODY_LAYER)
+				eye_overlay = mutable_appearance(eye_icon, eye_organ.eye_icon_state, -BODY_LAYER)
 				if(eye_organ.overlay_ignore_lighting && !(obscured & ITEM_SLOT_EYES))
-					eye_overlays += emissive_appearance(eye_icon, eye_organ.eye_icon_state, -BODY_LAYER)
-				for(var/mutable_appearance/eye_overlay as anything in eye_overlays)
-					eye_overlay.pixel_x += add_pixel_x
-					eye_overlay.pixel_y += add_pixel_y
-					if((EYECOLOR in species_traits) && eye_organ)
-						eye_overlay.color = "#" + species_human.eye_color
-					standing += eye_overlay
+					eye_overlay.overlays += emissive_appearance(eye_overlay.icon, eye_overlay.icon_state, alpha = eye_overlay.alpha)
+				eye_overlay.pixel_x += add_pixel_x
+				eye_overlay.pixel_y += add_pixel_y
+				if((EYECOLOR in species_traits) && eye_organ)
+					eye_overlay.color = "#" + species_human.eye_color
+				standing += eye_overlay
 
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
@@ -800,10 +830,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[species_human.undershirt]
 			if(undershirt)
 				var/mutable_appearance/undershirt_overlay
-				if(species_human.dna.species.sexes && species_human.body_type == FEMALE)
-					undershirt_overlay = wear_female_version(undershirt.icon_state, undershirt.icon, BODY_LAYER)
-				else
-					undershirt_overlay = mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
+				undershirt_overlay = mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 				if(!undershirt.use_static)
 					undershirt_overlay.color = "#" + species_human.undershirt_color
 				standing += undershirt_overlay
@@ -850,7 +877,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 		if(!(DIGITIGRADE in species_traits)) //Someone cut off a digitigrade leg and tacked it on
 			species_traits += DIGITIGRADE
 		var/should_be_squished = FALSE
-		if((source.wear_suit && source.wear_suit.flags_inv & HIDEJUMPSUIT && !(source.wear_suit.mutant_variants & STYLE_DIGITIGRADE) && (source.wear_suit.body_parts_covered & LEGS)) || (source.w_uniform && (source.w_uniform.body_parts_covered & LEGS) && !(source.w_uniform.mutant_variants & STYLE_DIGITIGRADE)))
+		if((source.wear_suit && source.wear_suit.flags_inv & HIDEJUMPSUIT && !(source.wear_suit.fitted_bodytypes & BODYTYPE_DIGITIGRADE) && (source.wear_suit.body_parts_covered & LEGS)) || (source.w_uniform && (source.w_uniform.body_parts_covered & LEGS) && !(source.w_uniform.fitted_bodytypes & BODYTYPE_DIGITIGRADE)))
 			should_be_squished = TRUE
 		if(bodypart.use_digitigrade == FULL_DIGITIGRADE && should_be_squished)
 			bodypart.use_digitigrade = SQUISHED_DIGITIGRADE
@@ -938,9 +965,7 @@ GLOBAL_LIST_EMPTY(customizable_races)
 				accessory_overlay = center_image(accessory_overlay, x_shift, S.dimension_y)
 
 			if(S.em_block)
-				var/mutable_appearance/em_overlay = mutable_appearance(accessory_overlay.icon, accessory_overlay.icon_state, plane = EMISSIVE_PLANE, alpha = accessory_overlay.alpha, appearance_flags = KEEP_APART)
-				em_overlay.color = GLOB.em_block_color
-				accessory_overlay.overlays |= em_overlay
+				accessory_overlay.overlays += emissive_blocker(accessory_overlay.icon, accessory_overlay.icon_state, accessory_overlay.alpha)
 
 			if(!override_color)
 				if(husked)
@@ -1126,7 +1151,9 @@ GLOBAL_LIST_EMPTY(customizable_races)
 		if(!excused)
 			return FALSE
 
-	if(!excused && !(I.allowed_bodytypes & bodytype))
+	var/perceived_bodytype = get_bodytype(slot, I)
+
+	if(!excused && !(I.allowed_bodytypes & perceived_bodytype))
 		if(!disable_warning)
 			to_chat(H, SPAN_WARNING("[I] doesn't fit on you!"))
 		return FALSE
@@ -1155,12 +1182,13 @@ GLOBAL_LIST_EMPTY(customizable_races)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_BELT)
-			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
-				if(!disable_warning)
-					to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [I.name]!"))
-				return FALSE
+			if(!(I.item_flags & NO_STRAPS_NEEDED))
+				var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
+	
+				if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
+					if(!disable_warning)
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [I.name]!"))
+					return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_EYES)
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
@@ -1180,12 +1208,13 @@ GLOBAL_LIST_EMPTY(customizable_races)
 		if(ITEM_SLOT_ICLOTHING)
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_ID)
-			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-			if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
-				if(!disable_warning)
-					to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [I.name]!"))
-				return FALSE
-			return equip_delay_self_check(I, H, bypass_equip_delay_self)
+			if(!(I.item_flags & NO_STRAPS_NEEDED))
+				var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
+				if(!H.w_uniform && !nojumpsuit && (!O || O.status != BODYPART_ROBOTIC))
+					if(!disable_warning)
+						to_chat(H, SPAN_WARNING("You need a jumpsuit before you can attach this [I.name]!"))
+					return FALSE
+				return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_LPOCKET)
 			if(HAS_TRAIT(I, TRAIT_NODROP)) //Pockets aren't visible, so you can't move TRAIT_NODROP items into them.
 				return FALSE
@@ -2424,3 +2453,23 @@ GLOBAL_LIST_EMPTY(customizable_races)
 
 /datum/species/proc/spec_revival(mob/living/carbon/human/H)
 	return
+
+//Gets the bodytype of the species. This can be mutable to digitigrade or taur if fitting slot and conditions are met.
+/datum/species/proc/get_bodytype(item_slot = NONE, obj/item/checked_item_for)
+	if(!item_slot)
+		return bodytype
+	var/perceived_bodytype = bodytype
+	if((item_slot == ITEM_SLOT_BELT || item_slot == ITEM_SLOT_FEET || item_slot == ITEM_SLOT_OCLOTHING || item_slot == ITEM_SLOT_ICLOTHING) && (DIGITIGRADE in species_traits))
+		perceived_bodytype = BODYTYPE_DIGITIGRADE
+	if((item_slot == ITEM_SLOT_HEAD || item_slot == ITEM_SLOT_MASK) && mutant_bodyparts["snout"])
+		var/datum/sprite_accessory/snouts/snout_accessory = GLOB.sprite_accessories["snout"][mutant_bodyparts["snout"][MUTANT_INDEX_NAME]]
+		if(snout_accessory.use_muzzled_sprites)
+			perceived_bodytype = BODYTYPE_DIGITIGRADE
+	if((item_slot == ITEM_SLOT_OCLOTHING || item_slot == ITEM_SLOT_ICLOTHING) && mutant_bodyparts["taur"])
+		var/datum/sprite_accessory/taur/taur_accessory = GLOB.sprite_accessories["taur"][mutant_bodyparts["taur"][MUTANT_INDEX_NAME]]
+		///Special check of applying a style 2 taur bodytype because taurs are spagheti
+		if(checked_item_for && !(checked_item_for.allowed_bodytypes & taur_accessory.taur_mode) && (checked_item_for.allowed_bodytypes & taur_accessory.alt_taur_mode))
+			perceived_bodytype = taur_accessory.alt_taur_mode
+		else
+			perceived_bodytype = taur_accessory.taur_mode
+	return perceived_bodytype

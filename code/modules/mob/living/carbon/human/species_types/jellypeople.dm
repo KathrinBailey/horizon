@@ -34,6 +34,9 @@
 	ass_image = 'icons/ass/assslime.png'
 	default_mutant_bodyparts = list("tail" = "None", "snout" = "None", "ears" = "None", "taur" = "None", "wings" = "None", "legs" = "Normal Legs")
 	hair_alpha = 160 //a notch brighter so it blends better.
+	scream_sounds = list(
+		NEUTER = 'sound/voice/jelly_scream.ogg'
+	)
 
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -478,7 +481,7 @@
 /datum/species/jelly/luminescent/proc/update_glow(mob/living/carbon/C, intensity)
 	if(intensity)
 		glow_intensity = intensity
-	glow.set_light(glow_intensity, glow_intensity, C.dna.features["mcolor"])
+	glow.set_light_range_power_color(glow_intensity, glow_intensity, C.dna.features["mcolor"])
 
 /obj/effect/dummy/luminescent_glow
 	name = "luminescent glow"

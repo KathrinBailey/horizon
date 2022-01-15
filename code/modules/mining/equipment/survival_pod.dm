@@ -59,7 +59,7 @@
 
 		template.load(deploy_location, centered = TRUE)
 		var/turf/T = deploy_location
-		if(!is_mining_level(T.z)) //only report capsules away from the mining/lavaland level
+		if(!is_mining_level(T)) //only report capsules away from the mining/lavaland level
 			message_admins("[ADMIN_LOOKUPFLW(usr)] activated a bluespace capsule away from the mining level! [ADMIN_VERBOSEJMP(T)]")
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [AREACOORD(T)]")
 
@@ -84,12 +84,14 @@
 //Window
 /obj/structure/window/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/pod_window.dmi'
-	icon_state = "pod_window-0"
-	base_icon_state = "pod_window"
+	icon = 'icons/obj/smooth_structures/window_reinforced.dmi'
+	icon_state = "window-0"
+	base_icon_state = "window"
+	color = "#363636"
+	alpha = 180
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
-	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTERS_BLASTDOORS)
 
 /obj/structure/window/shuttle/survival_pod/spawner/north
 	dir = NORTH
@@ -108,9 +110,8 @@
 //Door
 /obj/machinery/door/airlock/survival_pod
 	name = "airlock"
-	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
+	airlock_paint = "#333333"
 
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
@@ -118,9 +119,7 @@
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
-	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
 	base_name = "pod airlock"
-	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	airlock_type = /obj/machinery/door/airlock/survival_pod
 	glass_type = /obj/machinery/door/airlock/survival_pod/glass
 

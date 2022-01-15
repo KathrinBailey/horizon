@@ -8,7 +8,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED | NO_ALERTS
-	ambience_index = AMBIENCE_AWAY
+	main_ambience = AMBIENCE_AWAY
 	outdoors = TRUE
 
 /datum/biome/mountain
@@ -76,17 +76,19 @@
 	heavyfootstep = FOOTSTEP_WATER
 	slowdown = 2
 
+	ambience = AMBIENCE_WATER
+
 /turf/open/floor/planetary/water/tar
 	gender = PLURAL
 	name = "tar"
 	desc = "A pool of viscous and sticky tar."
 	slowdown = 10
 
-/turf/open/floor/planetary/water/Initialize()
+/turf/open/floor/planetary/water/Initialize(mapload, inherited_virtual_z)
 	. = ..()
 	if(!color)
-		var/datum/space_level/level = SSmapping.z_list[z]
-		color = level.water_color
+		var/datum/map_zone/mapzone = get_map_zone()
+		color = mapzone.water_color
 
 /turf/open/floor/planetary/grass
 	name = "grass"
@@ -108,13 +110,13 @@
 /turf/open/floor/planetary/grass/setup_broken_states()
 	return list("damaged")
 
-/turf/open/floor/planetary/grass/Initialize()
+/turf/open/floor/planetary/grass/Initialize(mapload, inherited_virtual_z)
 	. = ..()
 	var/matrix/translation = new
 	translation.Translate(-9, -9)
 	transform = translation
-	var/datum/space_level/level = SSmapping.z_list[z]
-	color = level.grass_color
+	var/datum/map_zone/mapzone = get_map_zone()
+	color = mapzone.grass_color
 
 /turf/open/floor/planetary/dirt
 	gender = PLURAL
@@ -138,10 +140,10 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/planetary/rock/Initialize()
+/turf/open/floor/planetary/rock/Initialize(mapload, inherited_virtual_z)
 	. = ..()
-	var/datum/space_level/level = SSmapping.z_list[z]
-	color = level.rock_color
+	var/datum/map_zone/mapzone = get_map_zone()
+	color = mapzone.rock_color
 
 /turf/open/floor/planetary/mud
 	gender = PLURAL
@@ -167,7 +169,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/planetary/sand/Initialize()
+/turf/open/floor/planetary/sand/Initialize(mapload, inherited_virtual_z)
 	. = ..()
 	if(prob(10))
 		icon_state = "[base_icon_state][rand(1,5)]"
@@ -184,7 +186,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/planetary/dry_seafloor/Initialize()
+/turf/open/floor/planetary/dry_seafloor/Initialize(mapload, inherited_virtual_z)
 	. = ..()
 	if(prob(3))
 		AddComponent(/datum/component/digsite)
@@ -200,7 +202,7 @@
 /turf/open/floor/planetary/wasteland/setup_broken_states()
 	return list("[initial(icon_state)]0")
 
-/turf/open/floor/planetary/wasteland/Initialize()
+/turf/open/floor/planetary/wasteland/Initialize(mapload, inherited_virtual_z)
 	.=..()
 	if(prob(15))
 		icon_state = "[initial(icon_state)][rand(0,12)]"
@@ -242,11 +244,11 @@
 	icon = 'icons/planet/grayscale_flora.dmi'
 	var/variants = 0
 
-/obj/structure/flora/planetary/Initialize()
+/obj/structure/flora/planetary/Initialize(mapload, inherited_virtual_z)
 	. = ..()
 	if(!color)
-		var/datum/space_level/level = SSmapping.z_list[z]
-		color = level.plant_color
+		var/datum/map_zone/mapzone = get_map_zone()
+		color = mapzone.plant_color
 	icon_state = "[icon_state]_[rand(1,variants)]"
 
 /obj/structure/flora/planetary/firstbush
@@ -292,11 +294,11 @@
 	icon = 'icons/planet/grayscale_flora.dmi'
 	var/variants = 0
 
-/obj/structure/flora/planetary_grass/Initialize()
+/obj/structure/flora/planetary_grass/Initialize(mapload, inherited_virtual_z)
 	. = ..()
 	if(!color)
-		var/datum/space_level/level = SSmapping.z_list[z]
-		color = level.grass_color
+		var/datum/map_zone/mapzone = get_map_zone()
+		color = mapzone.grass_color
 	icon_state = "[icon_state]_[rand(1,variants)]"
 
 /obj/structure/flora/planetary_grass/sparsegrass

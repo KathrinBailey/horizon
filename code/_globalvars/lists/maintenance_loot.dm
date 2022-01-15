@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 		/obj/item/storage/box/matches = 1,
 		/obj/item/reagent_containers/syringe = 1,
 		/obj/item/reagent_containers/glass/beaker = 1,
-		/obj/item/reagent_containers/glass/rag = 1,
+		/obj/item/reagent_containers/rag = 1,
 		/obj/item/reagent_containers/hypospray/medipen/pumpup = 2,
 		/obj/item/reagent_containers/glass/bottle/random_buffer = 2,
 		) = 1,
@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(rarity_loot, list(//rare: really good items
 		/obj/item/paint/black = 1,
 		/obj/item/paint/white = 1,
 		/obj/item/paint/anycolor = 1,
-		/obj/item/paint/paint_remover = 1,
+		/obj/item/paint_remover = 1,
 		) = 1,
 
 	list(//medical and chemicals

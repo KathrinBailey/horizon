@@ -43,7 +43,7 @@
 /turf/open/floor/plating/asteroid/basalt/wasteland/setup_broken_states()
 	return list("wasteland")
 
-/turf/open/floor/plating/asteroid/basalt/wasteland/Initialize()
+/turf/open/floor/plating/asteroid/basalt/wasteland/Initialize(mapload, inherited_virtual_z)
 	.=..()
 	if(prob(floor_variance))
 		icon_state = "[base_icon_state][rand(0,6)]"
@@ -54,7 +54,7 @@
 	environment_type = "wasteland"
 	turf_type = /turf/open/floor/plating/asteroid/basalt/wasteland
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/wasteland
-	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
+	smooth_icon = 'icons/turf/walls/legacy/rock_wall.dmi'
 	base_icon_state = "rock_wall"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 

@@ -42,6 +42,7 @@
 	id_tag = null
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/medical/medbay)
 "aK" = (
@@ -60,6 +61,7 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central/fore)
 "bb" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/service/kitchen/coldroom)
 "bg" = (
@@ -79,6 +81,7 @@
 /turf/open/floor/iron/smooth,
 /area/command/meeting_room)
 "br" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/engineering/atmos)
 "bz" = (
@@ -167,7 +170,7 @@
 "cN" = (
 /obj/structure/lattice,
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/visible,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "cT" = (
 /obj/structure/cable,
@@ -178,6 +181,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "cU" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/closed/wall,
 /area/command/bridge)
 "cZ" = (
@@ -249,10 +253,12 @@
 "eb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/service/kitchen/coldroom)
 "ec" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/commons/lounge)
 "ek" = (
@@ -262,6 +268,7 @@
 	name = "Privacy Shutter";
 	pixel_x = 9
 	},
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/medical/medbay)
 "eo" = (
@@ -287,6 +294,7 @@
 /area/space/nearstation)
 "eI" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/supply/hidden,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/service/hydroponics)
 "eQ" = (
@@ -294,7 +302,7 @@
 	dir = 6
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "eU" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
@@ -302,6 +310,7 @@
 	},
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
 "eV" = (
@@ -349,13 +358,14 @@
 /area/command/heads_quarters/hop)
 "fJ" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/visible,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/engineering/supermatter/room)
 "fN" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "fO" = (
 /obj/structure/cable,
@@ -387,10 +397,11 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "gf" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "gk" = (
@@ -496,6 +507,7 @@
 /turf/open/floor/plating,
 /area/service/hydroponics)
 "hL" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/command/meeting_room)
 "hO" = (
@@ -522,19 +534,23 @@
 "ib" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/command/heads_quarters/captain)
 "ic" = (
 /turf/open/floor/iron/dark,
 /area/engineering/atmos)
 "ij" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/hallway/primary/central)
 "ik" = (
 /obj/structure/sign/poster/contraband/random,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/command/heads_quarters/hop)
 "ir" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/commons/toilet)
 "ix" = (
@@ -602,6 +618,7 @@
 /area/command/heads_quarters/captain)
 "iS" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/cargo/warehouse/upper)
 "iV" = (
@@ -615,6 +632,7 @@
 	name = "bridge blast door"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/bridge,
 /turf/open/floor/plating,
 /area/command/bridge)
 "jc" = (
@@ -632,6 +650,7 @@
 	id = "medbay_shutter1";
 	id_tag = null
 	},
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/medical/medbay)
 "jh" = (
@@ -679,6 +698,7 @@
 /area/engineering/engine_smes)
 "jG" = (
 /obj/structure/sign/poster/random,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/commons/lounge)
 "jJ" = (
@@ -688,6 +708,7 @@
 /area/command/meeting_room)
 "jX" = (
 /obj/structure/sign/poster/official/random,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/command/heads_quarters/captain)
 "jY" = (
@@ -706,6 +727,7 @@
 /turf/open/floor/iron/freezer,
 /area/commons/toilet)
 "kb" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/engineering/supermatter/room)
 "kg" = (
@@ -716,6 +738,7 @@
 /area/engineering/engine_smes)
 "kk" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/engine_smes)
 "kl" = (
@@ -752,6 +775,7 @@
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "kA" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/engineering/engine_smes)
 "kC" = (
@@ -799,6 +823,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central/fore)
 "lv" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/service/kitchen/coldroom)
 "lw" = (
@@ -886,6 +911,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
 "mI" = (
@@ -909,6 +935,7 @@
 /area/cargo/warehouse/upper)
 "mQ" = (
 /obj/structure/sign/poster/contraband/random,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/command/meeting_room)
 "mW" = (
@@ -953,6 +980,7 @@
 "nl" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/service/hydroponics)
 "nt" = (
@@ -1029,10 +1057,16 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/service/kitchen/diner)
+"oa" = (
+/obj/effect/mapping_helpers/paint_wall/bridge,
+/turf/closed/wall,
+/area/commons/lounge)
 "od" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/commons/locker)
 "oi" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/engineering/atmos)
 "oo" = (
@@ -1063,7 +1097,7 @@
 "oL" = (
 /obj/structure/cable,
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
-/obj/machinery/gravity_generator/main/station/admin,
+/obj/machinery/gravity_generator/main/station,
 /turf/open/floor/iron/dark,
 /area/engineering/engine_smes)
 "oQ" = (
@@ -1127,10 +1161,11 @@
 	name = "FTV Bearcat Starboard Dock";
 	roundstart_template = /datum/map_template/shuttle/crow
 	},
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space)
 "pF" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/service/kitchen/diner)
 "pW" = (
@@ -1172,6 +1207,7 @@
 "qR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hop)
 "qS" = (
@@ -1298,6 +1334,7 @@
 "sL" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/visible,
 /obj/machinery/meter,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/engineering/atmos)
 "sN" = (
@@ -1318,6 +1355,7 @@
 "sP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/service/hydroponics)
 "sS" = (
@@ -1329,6 +1367,7 @@
 "sT" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/engine_smes)
 "sV" = (
@@ -1371,6 +1410,7 @@
 /turf/open/floor/iron,
 /area/commons/lounge)
 "tE" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/medical/medbay)
 "tI" = (
@@ -1475,6 +1515,7 @@
 "uE" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
+/obj/machinery/holopad/long_range,
 /turf/open/floor/iron/dark,
 /area/command/bridge)
 "uF" = (
@@ -1500,17 +1541,6 @@
 	},
 /turf/open/floor/iron,
 /area/commons/lounge)
-"uK" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/turf/open/floor/iron/dark,
-/area/engineering/atmos)
 "uL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -1570,6 +1600,7 @@
 "vQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/service/kitchen/diner)
 "vS" = (
@@ -1591,6 +1622,7 @@
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "wd" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/engineering/engine_smes)
 "wg" = (
@@ -1603,6 +1635,7 @@
 /turf/open/floor/iron/dark,
 /area/engineering/engine_smes)
 "wk" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/command/meeting_room)
 "wr" = (
@@ -1611,6 +1644,7 @@
 /turf/open/openspace,
 /area/cargo/warehouse/upper)
 "ws" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/medical/pharmacy)
 "wu" = (
@@ -1635,13 +1669,16 @@
 /turf/open/floor/engine/o2,
 /area/engineering/atmos)
 "wL" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/engineering/main)
 "wN" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/command/heads_quarters/hop)
 "wO" = (
 /obj/structure/sign/poster/random,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/service/kitchen/coldroom)
 "wT" = (
@@ -1657,9 +1694,10 @@
 	dir = 10
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "wZ" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/service/kitchen/diner)
 "xc" = (
@@ -1688,7 +1726,7 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "xw" = (
 /obj/item/radio/intercom/directional/east,
@@ -1806,6 +1844,7 @@
 /turf/open/floor/iron,
 /area/commons/locker)
 "ze" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/commons/lounge)
 "zi" = (
@@ -1813,7 +1852,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "zk" = (
 /obj/item/kirbyplants/random,
@@ -1881,6 +1920,7 @@
 /turf/open/floor/iron/kitchen_coldroom/freezerfloor,
 /area/service/kitchen/coldroom)
 "zY" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/command/heads_quarters/captain)
 "Aa" = (
@@ -1929,6 +1969,7 @@
 /area/cargo/warehouse/upper)
 "AC" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/visible,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/central)
 "AE" = (
@@ -1937,6 +1978,7 @@
 /area/engineering/atmos)
 "AI" = (
 /obj/machinery/atmospherics/components/unary/engine,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/engineering/supermatter/room)
 "AJ" = (
@@ -1968,7 +2010,7 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "Bj" = (
 /obj/machinery/reagentgrinder{
@@ -2032,6 +2074,7 @@
 /turf/open/floor/iron/dark,
 /area/engineering/atmos)
 "Cc" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/service/hydroponics)
 "Ce" = (
@@ -2051,6 +2094,7 @@
 /area/engineering/supermatter/room)
 "Cs" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/service/hydroponics)
 "Cu" = (
@@ -2101,6 +2145,7 @@
 /area/engineering/supermatter)
 "CU" = (
 /obj/structure/sign/departments/medbay/alt,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/medical/medbay)
 "Db" = (
@@ -2109,6 +2154,7 @@
 /turf/open/floor/iron/dark,
 /area/engineering/main)
 "Dc" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/service/hydroponics)
 "Di" = (
@@ -2135,11 +2181,11 @@
 /turf/open/floor/carpet,
 /area/command/bridge)
 "DB" = (
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space)
 "DC" = (
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "DD" = (
 /obj/machinery/door/airlock/external,
@@ -2165,6 +2211,7 @@
 /area/engineering/atmos)
 "DJ" = (
 /obj/structure/cable,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/engineering/main)
 "DK" = (
@@ -2276,6 +2323,7 @@
 /area/command/heads_quarters/captain)
 "EF" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/hallway/primary/central/fore)
 "EG" = (
@@ -2284,7 +2332,7 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "EI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
@@ -2311,10 +2359,12 @@
 /area/engineering/supermatter/room)
 "EN" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
 "EU" = (
 /obj/machinery/atmospherics/components/unary/engine,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/central)
 "Fb" = (
@@ -2429,11 +2479,13 @@
 "Gm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/atmos)
 "Gt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/medical/medbay)
 "Gx" = (
@@ -2552,6 +2604,7 @@
 /area/commons/lounge)
 "HZ" = (
 /obj/structure/lattice/catwalk,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/cargo/warehouse/upper)
 "Ib" = (
@@ -2635,6 +2688,7 @@
 /turf/open/floor/iron/smooth,
 /area/command/meeting_room)
 "IJ" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/command/heads_quarters/captain)
 "IN" = (
@@ -2723,7 +2777,7 @@
 /area/hallway/primary/fore)
 "JL" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/visible,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "JM" = (
 /obj/structure/cable,
@@ -2737,6 +2791,7 @@
 "JN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/hallway/primary/central/aft)
 "JZ" = (
@@ -2750,6 +2805,7 @@
 /turf/open/openspace,
 /area/cargo/warehouse/upper)
 "Kd" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/cargo/warehouse/upper)
 "Kf" = (
@@ -2767,6 +2823,7 @@
 /area/engineering/supermatter/room)
 "Kt" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/commons/locker)
 "Kw" = (
@@ -2787,7 +2844,7 @@
 "Kz" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/burgundy,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "KD" = (
 /obj/machinery/light/directional/north,
@@ -2876,6 +2933,7 @@
 "LD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/medical/pharmacy)
 "LE" = (
@@ -2933,6 +2991,7 @@
 /obj/item/folder/blue{
 	pixel_y = 2
 	},
+/obj/item/radio/intercom/wideband/directional/east,
 /turf/open/floor/iron/dark,
 /area/command/bridge)
 "Md" = (
@@ -2994,6 +3053,7 @@
 /turf/open/floor/iron/dark,
 /area/engineering/atmos)
 "MS" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/medical/pharmacy)
 "MX" = (
@@ -3021,6 +3081,7 @@
 /area/hallway/primary/central)
 "Nl" = (
 /obj/structure/sign/departments/deck3,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/aft)
 "NF" = (
@@ -3028,6 +3089,7 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central/aft)
 "NK" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/central)
 "NM" = (
@@ -3078,7 +3140,7 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "Oo" = (
 /obj/structure/table/reinforced,
@@ -3101,7 +3163,7 @@
 	dir = 8;
 	name = "FTV Bearcat Port Dock"
 	},
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space)
 "OU" = (
 /obj/structure/cable,
@@ -3153,6 +3215,7 @@
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "Py" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/aft)
 "PB" = (
@@ -3166,6 +3229,7 @@
 /area/command/meeting_room)
 "PP" = (
 /obj/structure/sign/departments/deck3,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/commons/lounge)
 "PQ" = (
@@ -3217,6 +3281,7 @@
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/visible,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/atmos)
 "Qt" = (
@@ -3241,6 +3306,7 @@
 /area/engineering/supermatter/room)
 "QN" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/orange/hidden,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/medical/medbay)
 "QQ" = (
@@ -3355,6 +3421,7 @@
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "Sw" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/commons/toilet)
 "SA" = (
@@ -3373,9 +3440,11 @@
 /turf/open/floor/iron/freezer,
 /area/commons/toilet)
 "SI" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/commons/locker)
 "SJ" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/fore)
 "SL" = (
@@ -3406,7 +3475,7 @@
 "Tf" = (
 /obj/structure/ladder,
 /obj/structure/lattice/catwalk,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "Th" = (
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/cyan/visible,
@@ -3428,6 +3497,7 @@
 "Tz" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
 "TB" = (
@@ -3461,7 +3531,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "Uh" = (
 /obj/structure/cable,
@@ -3479,6 +3549,7 @@
 "Un" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/commons/lounge)
 "Up" = (
@@ -3585,6 +3656,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "VW" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/hallway/primary/central/fore)
 "VZ" = (
@@ -3613,7 +3685,7 @@
 /area/cargo/warehouse/upper)
 "Wg" = (
 /obj/effect/landmark/carpspawn,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space)
 "Wm" = (
 /obj/machinery/computer/atmos_control/tank/nitrogen_tank{
@@ -3691,6 +3763,7 @@
 /turf/open/floor/plating,
 /area/cargo/warehouse/upper)
 "Xw" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/hallway/primary/central/aft)
 "Xx" = (
@@ -3709,11 +3782,13 @@
 	name = "meeting room blast door"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/command/meeting_room)
 "XH" = (
 /obj/machinery/door/airlock/atmos,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/engineering/main)
 "XK" = (
@@ -3736,6 +3811,7 @@
 /turf/open/floor/iron,
 /area/commons/lounge)
 "XN" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/hallway/primary/central/fore)
 "XP" = (
@@ -3768,6 +3844,7 @@
 /turf/open/floor/iron,
 /area/commons/lounge)
 "Yk" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall,
 /area/engineering/supermatter/room)
 "Yl" = (
@@ -3858,7 +3935,7 @@
 /area/service/hydroponics)
 "Zg" = (
 /obj/structure/lattice,
-/turf/open/openspace/airless/planetary,
+/turf/open/space/openspace,
 /area/space/nearstation)
 "Zi" = (
 /obj/machinery/light/directional/south,
@@ -3880,6 +3957,7 @@
 /turf/open/floor/carpet,
 /area/command/heads_quarters/hop)
 "Zn" = (
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/closed/wall/r_wall,
 /area/command/heads_quarters/hop)
 "Zo" = (
@@ -3891,6 +3969,7 @@
 "Zp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/paint_wall/free_trade_union_ship,
 /turf/open/floor/plating,
 /area/hallway/primary/central/fore)
 "ZF" = (
@@ -33884,7 +33963,7 @@ oi
 or
 Mo
 uO
-uK
+uO
 AE
 rQ
 LO
@@ -35659,7 +35738,7 @@ iW
 iW
 cU
 cU
-ze
+oa
 Un
 jG
 TR
@@ -37458,7 +37537,7 @@ iW
 iW
 cU
 cU
-ze
+oa
 Un
 ze
 cD

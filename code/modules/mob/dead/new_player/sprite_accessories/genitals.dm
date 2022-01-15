@@ -13,7 +13,7 @@
 		if(GENITAL_ALWAYS_SHOW)
 			return FALSE
 		if(GENITAL_HIDDEN_BY_CLOTHES)
-			if((H.w_uniform && H.w_uniform.body_parts_covered & genital_location) || (H.wear_suit && H.wear_suit.body_parts_covered & genital_location))
+			if((H.w_uniform && H.w_uniform.body_parts_covered & genital_location) || (H.wear_suit && H.wear_suit.body_parts_covered & genital_location) || (H.belt && H.belt.body_parts_covered & genital_location))
 				return TRUE
 			else
 				return FALSE
@@ -53,7 +53,7 @@
 	var/returned = icon
 	if(H.dna.species.mutant_bodyparts["taur"] && H.dna.features["penis_taur_mode"])
 		var/datum/sprite_accessory/taur/SP = GLOB.sprite_accessories["taur"][H.dna.mutant_bodyparts["taur"][MUTANT_INDEX_NAME]]
-		if(!(SP.taur_mode & STYLE_TAUR_SNAKE))
+		if(!(SP.taur_mode & BODYTYPE_TAUR_SNAKE))
 			returned = 'icons/mob/sprite_accessory/genitals/taur_penis_onmob.dmi'
 	return returned
 
@@ -61,7 +61,7 @@
 	var/returned = dimension_x
 	if(H.dna.species.mutant_bodyparts["taur"] && H.dna.features["penis_taur_mode"])
 		var/datum/sprite_accessory/taur/SP = GLOB.sprite_accessories["taur"][H.dna.mutant_bodyparts["taur"][MUTANT_INDEX_NAME]]
-		if(!(SP.taur_mode & STYLE_TAUR_SNAKE))
+		if(!(SP.taur_mode & BODYTYPE_TAUR_SNAKE))
 			returned = 64
 	return returned
 
@@ -131,7 +131,7 @@
 	var/returned = icon
 	if(H.dna.species.mutant_bodyparts["taur"] && H.dna.features["penis_taur_mode"])
 		var/datum/sprite_accessory/taur/SP = GLOB.sprite_accessories["taur"][H.dna.mutant_bodyparts["taur"][MUTANT_INDEX_NAME]]
-		if(!(SP.taur_mode & STYLE_TAUR_SNAKE))
+		if(!(SP.taur_mode & BODYTYPE_TAUR_SNAKE))
 			returned = 'icons/mob/sprite_accessory/genitals/taur_testicles_onmob.dmi'
 	return returned
 
@@ -139,7 +139,7 @@
 	var/returned = dimension_x
 	if(H.dna.species.mutant_bodyparts["taur"] && H.dna.features["penis_taur_mode"])
 		var/datum/sprite_accessory/taur/SP = GLOB.sprite_accessories["taur"][H.dna.mutant_bodyparts["taur"][MUTANT_INDEX_NAME]]
-		if(!(SP.taur_mode & STYLE_TAUR_SNAKE))
+		if(!(SP.taur_mode & BODYTYPE_TAUR_SNAKE))
 			returned = 64
 	return returned
 

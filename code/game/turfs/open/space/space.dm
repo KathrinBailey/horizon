@@ -8,10 +8,6 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
-	var/destination_z
-	var/destination_x
-	var/destination_y
-
 	var/static/datum/gas_mixture/immutable/space/space_gas = new
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
@@ -30,8 +26,10 @@
  *
  * Doesn't call parent, see [/atom/proc/Initialize]
  */
-/turf/open/space/Initialize()
+/turf/open/space/Initialize(mapload, inherited_virtual_z)
 	SHOULD_CALL_PARENT(FALSE)
+	if(inherited_virtual_z)
+		virtual_z = inherited_virtual_z
 	icon_state = SPACE_ICON_STATE
 	air = space_gas
 	vis_contents.Cut() //removes inherited overlays
@@ -63,22 +61,16 @@
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
 
-	var/turf/T = SSmapping.get_turf_above(src)
+	var/turf/T = above()
 	if(T)
 		T.multiz_turf_new(src, DOWN)
-	T = SSmapping.get_turf_below(src)
+	T = below()
 	if(T)
 		T.multiz_turf_new(src, UP)
 
 	ComponentInitialize()
 
 	return INITIALIZE_HINT_NORMAL
-
-//ATTACK GHOST IGNORING PARENT RETURN VALUE
-/turf/open/space/attack_ghost(mob/dead/observer/user)
-	if(destination_z)
-		var/turf/T = locate(destination_x, destination_y, destination_z)
-		user.forceMove(T)
 
 /turf/open/space/Initalize_Atmos(times_fired)
 	return
@@ -159,51 +151,6 @@
 		else
 			to_chat(user, SPAN_WARNING("The plating is going to need some support! Place metal rods first."))
 
-/turf/open/space/Entered(atom/movable/arrived, direction)
-	. = ..()
-	if(!arrived || src != arrived.loc)
-		return
-
-	if(destination_z && destination_x && destination_y && !(arrived.pulledby || !arrived.can_be_z_moved))
-		var/tx = destination_x
-		var/ty = destination_y
-		var/turf/DT = locate(tx, ty, destination_z)
-		var/itercount = 0
-		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
-			if (itercount++ >= 100)
-				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [arrived] within 100 iterations.")
-				break
-			if (tx < 128)
-				tx++
-			else
-				tx--
-			if (ty < 128)
-				ty++
-			else
-				ty--
-			DT = locate(tx, ty, destination_z)
-
-		var/atom/movable/pulling = arrived.pulling
-		var/atom/movable/puller = arrived
-		arrived.forceMove(DT)
-
-		while (pulling != null)
-			var/next_pulling = pulling.pulling
-
-			var/turf/T = get_step(puller.loc, turn(puller.dir, 180))
-			pulling.can_be_z_moved = FALSE
-			pulling.forceMove(T)
-			puller.start_pulling(pulling)
-			pulling.can_be_z_moved = TRUE
-
-			puller = pulling
-			pulling = next_pulling
-
-		//now we're on the new z_level, proceed the space drifting
-		stoplag()//Let a diagonal move finish, if necessary
-		arrived.newtonian_move(arrived.inertia_dir)
-		arrived.inertia_moving = TRUE
-
 
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
@@ -215,11 +162,6 @@
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
 	return FALSE
-
-/turf/open/space/is_transition_turf()
-	if(destination_x || destination_y || destination_z)
-		return TRUE
-
 
 /turf/open/space/acid_act(acidpwr, acid_volume)
 	return FALSE
@@ -252,11 +194,52 @@
 			return TRUE
 	return FALSE
 
-/turf/open/space/ReplaceWithLattice()
-	var/dest_x = destination_x
-	var/dest_y = destination_y
-	var/dest_z = destination_z
-	..()
-	destination_x = dest_x
-	destination_y = dest_y
-	destination_z = dest_z
+/turf/open/space/openspace
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "invisible"
+
+/turf/open/space/openspace/Initialize(mapload) // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
+	. = ..()
+	overlays += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
+	icon_state = "invisible"
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/open/space/openspace/LateInitialize()
+	. = ..()
+	AddElement(/datum/element/turf_z_transparency, FALSE)
+
+/turf/open/space/openspace/zAirIn()
+	return TRUE
+
+/turf/open/space/openspace/zAirOut()
+	return TRUE
+
+/// CODE DUPLICATED IN `code\game\turfs\open\openspace.dm`!!
+/turf/open/space/openspace/zPassIn(atom/movable/A, direction, turf/source)
+	if(direction == DOWN)
+		for(var/obj/O in contents)
+			if(O.obj_flags & BLOCK_Z_IN_DOWN || O.obj_flags & FULL_BLOCK_Z_ABOVE)
+				return FALSE
+		return TRUE
+	if(direction == UP)
+		for(var/obj/O in contents)
+			if(O.obj_flags & BLOCK_Z_IN_UP || O.obj_flags & FULL_BLOCK_Z_BELOW)
+				return FALSE
+		return TRUE
+	return FALSE
+
+/// CODE DUPLICATED IN `code\game\turfs\open\openspace.dm`!!
+/turf/open/space/openspace/zPassOut(atom/movable/A, direction, turf/destination)
+	if(A.anchored)
+		return FALSE
+	if(direction == DOWN)
+		for(var/obj/O in contents)
+			if(O.obj_flags & BLOCK_Z_OUT_DOWN || O.obj_flags & FULL_BLOCK_Z_BELOW)
+				return FALSE
+		return TRUE
+	if(direction == UP)
+		for(var/obj/O in contents)
+			if(O.obj_flags & BLOCK_Z_OUT_UP || O.obj_flags & FULL_BLOCK_Z_ABOVE)
+				return FALSE
+		return TRUE
+	return FALSE

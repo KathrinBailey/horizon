@@ -24,19 +24,30 @@ GLOBAL_VAR(test_log)
 
 	/// The top right floor turf of the testing zone
 	var/turf/run_loc_floor_top_right
-
+	///The priority of the test, the larger it is the later it fires
+	var/priority = TEST_DEFAULT
 	//internal shit
 	var/focus = FALSE
 	var/succeeded = TRUE
 	var/list/allocated
 	var/list/fail_reasons
 
-	var/static/datum/space_level/reservation
+	var/static/datum/map_zone/mapzone
+
+/proc/cmp_unit_test_priority(datum/unit_test/a, datum/unit_test/b)
+	return initial(a.priority) - initial(b.priority)
 
 /datum/unit_test/New()
-	if (isnull(reservation))
+	if(isnull(mapzone))
+		mapzone = SSmapping.create_map_zone("Integration Test Mapzone")
+		var/datum/virtual_level/vlevel = SSmapping.create_virtual_level("Integration Test Virtual Level", ZTRAITS_STATION, mapzone, world.maxx, world.maxy, ALLOCATION_FULL)
+
 		var/datum/map_template/unit_tests/template = new
-		reservation = template.load_new_z()
+		template.load(locate(
+			vlevel.low_x, 
+			vlevel.low_y, 
+			vlevel.z_value)
+		)
 
 	allocated = new
 	run_loc_floor_bottom_left = get_turf(locate(/obj/effect/landmark/unit_test_bottom_left) in GLOB.landmarks_list)
@@ -78,49 +89,55 @@ GLOBAL_VAR(test_log)
 	allocated += instance
 	return instance
 
+/proc/RunUnitTest(test_path, list/test_results)
+	var/datum/unit_test/test = new test_path
+
+	GLOB.current_test = test
+	var/duration = REALTIMEOFDAY
+
+	test.Run()
+
+	duration = REALTIMEOFDAY - duration
+	GLOB.current_test = null
+	GLOB.failed_any_test |= !test.succeeded
+
+	var/list/log_entry = list("[test.succeeded ? "PASS" : "FAIL"]: [test_path] [duration / 10]s")
+	var/list/fail_reasons = test.fail_reasons
+
+	for(var/J in 1 to LAZYLEN(fail_reasons))
+		log_entry += "\tREASON #[J]: [fail_reasons[J]]"
+	var/message = log_entry.Join("\n")
+	log_test(message)
+
+	test_results[test_path] = list("status" = test.succeeded ? UNIT_TEST_PASSED : UNIT_TEST_FAILED, "message" = message, "name" = test_path)
+
+	qdel(test)
+
 /proc/RunUnitTests()
 	CHECK_TICK
 
-	var/tests_to_run = subtypesof(/datum/unit_test)
+	var/list/tests_to_run = subtypesof(/datum/unit_test)
 	for (var/_test_to_run in tests_to_run)
 		var/datum/unit_test/test_to_run = _test_to_run
 		if (initial(test_to_run.focus))
 			tests_to_run = list(test_to_run)
 			break
 
+	tests_to_run = sortTim(tests_to_run, /proc/cmp_unit_test_priority)
+
 	var/list/test_results = list()
 
-	for(var/I in tests_to_run)
-		var/datum/unit_test/test = new I
-
-		GLOB.current_test = test
-		var/duration = REALTIMEOFDAY
-
-		test.Run()
-
-		duration = REALTIMEOFDAY - duration
-		GLOB.current_test = null
-		GLOB.failed_any_test |= !test.succeeded
-
-		var/list/log_entry = list("[test.succeeded ? "PASS" : "FAIL"]: [I] [duration / 10]s")
-		var/list/fail_reasons = test.fail_reasons
-
-		for(var/J in 1 to LAZYLEN(fail_reasons))
-			log_entry += "\tREASON #[J]: [fail_reasons[J]]"
-		var/message = log_entry.Join("\n")
-		log_test(message)
-
-		test_results[I] = list("status" = test.succeeded ? UNIT_TEST_PASSED : UNIT_TEST_FAILED, "message" = message, "name" = I)
-
-		qdel(test)
-
-		CHECK_TICK
+	for(var/unit_path in tests_to_run)
+		CHECK_TICK //We check tick first because the unit test we run last may be so expensive that checking tick will lock up this loop forever
+		RunUnitTest(unit_path, test_results)
 
 	var/file_name = "data/unit_tests.json"
 	fdel(file_name)
 	file(file_name) << json_encode(test_results)
 
 	SSticker.force_ending = TRUE
+	//We have to call this manually because del_text can preceed us, and SSticker doesn't fire in the post game
+	SSticker.standard_reboot()
 
 /datum/map_template/unit_tests
 	name = "Unit Tests Zone"

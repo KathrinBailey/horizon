@@ -31,7 +31,7 @@
 	AddElement(/datum/element/beauty, beauty)
 
 	var/turf/T = get_turf(src)
-	if(T && is_station_level(T.z))
+	if(T && is_station_level(T))
 		SSblackbox.record_feedback("tally", "station_mess_created", 1, name)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -40,7 +40,7 @@
 
 /obj/effect/decal/cleanable/Destroy()
 	var/turf/T = get_turf(src)
-	if(T && is_station_level(T.z))
+	if(T && is_station_level(T))
 		SSblackbox.record_feedback("tally", "station_mess_destroyed", 1, name)
 	return ..()
 
@@ -49,7 +49,7 @@
 		return TRUE
 
 /obj/effect/decal/cleanable/attackby(obj/item/W, mob/user, params)
-	if((istype(W, /obj/item/reagent_containers/glass) && !istype(W, /obj/item/reagent_containers/glass/rag)) || istype(W, /obj/item/reagent_containers/food/drinks))
+	if((istype(W, /obj/item/reagent_containers/glass) && !istype(W, /obj/item/reagent_containers/rag)) || istype(W, /obj/item/reagent_containers/food/drinks))
 		if(src.reagents && W.reagents)
 			. = 1 //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)

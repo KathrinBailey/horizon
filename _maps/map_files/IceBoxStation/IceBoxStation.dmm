@@ -28,8 +28,8 @@
 /turf/closed/wall/r_wall,
 /area/security/prison)
 "aak" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/prison)
 "aal" = (
@@ -661,8 +661,8 @@
 /turf/open/floor/iron/white,
 /area/security/prison)
 "adc" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/prison/safe)
 "add" = (
@@ -1837,8 +1837,8 @@
 /obj/structure/sign/warning/electricshock{
 	pixel_x = -32
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/warden)
 "aiJ" = (
@@ -3137,8 +3137,8 @@
 	id = "Secure Gate";
 	name = "brig shutters"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/brig)
 "amS" = (
@@ -3166,8 +3166,8 @@
 	id = "briggate";
 	name = "security blast door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/brig)
 "amV" = (
@@ -4891,8 +4891,8 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "avB" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
 "avE" = (
@@ -5419,8 +5419,8 @@
 /turf/open/floor/iron/dark,
 /area/security/prison/safe)
 "ayB" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ayC" = (
@@ -6981,8 +6981,8 @@
 /turf/open/floor/iron/dark,
 /area/security/interrogation)
 "aIF" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/warden)
 "aIG" = (
@@ -7036,8 +7036,8 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "aJd" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/hallway/primary/port)
 "aJe" = (
@@ -10109,8 +10109,8 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "bhi" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
 "bhj" = (
@@ -11193,7 +11193,7 @@
 /area/security/checkpoint/medical)
 "bmO" = (
 /obj/structure/cable,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "bmS" = (
@@ -13002,12 +13002,12 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bwv" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "chemistry_shutters2";
 	name = "Chemistry Shutter"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "bwx" = (
@@ -20441,7 +20441,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/entertainment/directional/east,
 /obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/rag,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -23698,15 +23698,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/security/prison)
-"eCl" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "bridge blast";
-	name = "bridge blast door"
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/command/bridge)
 "eCs" = (
 /obj/structure/table/wood,
 /obj/item/paper,
@@ -26701,8 +26692,8 @@
 	id = "bridge blast";
 	name = "bridge blast door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/bridge)
 "grr" = (
@@ -27157,6 +27148,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/service/hydroponics)
+"gGx" = (
+/obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
+/turf/open/floor/plating,
+/area/tcommsat/computer)
 "gGZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral{
@@ -27334,12 +27330,12 @@
 /turf/open/floor/iron/dark,
 /area/science/nanite)
 "gLf" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosspace";
 	name = "space shutters"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hos)
 "gLg" = (
@@ -35520,12 +35516,12 @@
 /turf/open/floor/iron/cafeteria,
 /area/service/kitchen)
 "lAE" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "cmoprivacy";
 	name = "CMO Office"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/cmo)
 "lBf" = (
@@ -36088,8 +36084,8 @@
 /area/cargo/office)
 "lRl" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hos)
 "lRB" = (
@@ -36130,8 +36126,8 @@
 /turf/open/floor/iron,
 /area/command/gateway)
 "lSx" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/bridge)
 "lSL" = (
@@ -39769,13 +39765,13 @@
 /turf/open/floor/iron/white,
 /area/science/misc_lab)
 "nPP" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobiomain";
 	name = "containment blast door"
 	},
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "nPY" = (
@@ -40518,7 +40514,6 @@
 /turf/open/floor/iron,
 /area/commons/dorms)
 "opx" = (
-/obj/machinery/restaurant_portal/restaurant,
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
@@ -42790,12 +42785,12 @@
 	},
 /area/service/chapel/main)
 "pCj" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio6";
 	name = "Xenobio Pen 6 Blast Door"
 	},
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "pCp" = (
@@ -44506,12 +44501,12 @@
 /turf/open/floor/carpet,
 /area/service/chapel/main)
 "qyX" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobiomain";
 	name = "containment blast door"
 	},
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "qzj" = (
@@ -47867,8 +47862,8 @@
 /turf/open/floor/iron,
 /area/cargo/storage)
 "ssw" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/engineering/engine_smes)
 "ssF" = (
@@ -47924,7 +47919,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/rag,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "suH" = (
@@ -48165,7 +48160,6 @@
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
 	},
-/obj/item/holosign_creator/robot_seat/bar,
 /turf/open/floor/wood,
 /area/service/bar)
 "sBn" = (
@@ -48395,13 +48389,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "sJU" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
 	name = "privacy shutter"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/ce)
 "sJX" = (
@@ -48886,7 +48880,6 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/donkpockets,
 /obj/item/reagent_containers/glass/beaker,
-/obj/item/holosign_creator/robot_seat/restaurant,
 /turf/open/floor/iron/cafeteria,
 /area/service/kitchen)
 "sWz" = (
@@ -51478,12 +51471,12 @@
 /turf/open/floor/iron,
 /area/command/bridge)
 "urh" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceprivacy";
 	name = "privacy shutter"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/ce)
 "urm" = (
@@ -51833,12 +51826,12 @@
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "uyS" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio1";
 	name = "Xenobio Pen 1 Blast Door"
 	},
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "uyZ" = (
@@ -52662,8 +52655,8 @@
 /turf/open/openspace,
 /area/service/hydroponics)
 "vad" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/security/brig)
 "vaC" = (
@@ -53213,8 +53206,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "vuD" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/ce)
 "vuN" = (
@@ -55736,8 +55729,8 @@
 /turf/open/floor/iron/white,
 /area/maintenance/port/fore)
 "wPm" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hos)
 "wPv" = (
@@ -57075,14 +57068,6 @@
 	},
 /turf/open/floor/iron,
 /area/cargo/miningdock)
-"xzy" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/restaurant_portal/bar,
-/turf/open/floor/iron,
-/area/service/bar)
 "xzA" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -85033,15 +85018,15 @@ dqP
 bNI
 bHE
 bVJ
-bWI
-bWI
-bWI
-bWI
+gGx
+gGx
+gGx
+gGx
 cao
-bWI
-bWI
-bWI
-bWI
+gGx
+gGx
+gGx
+gGx
 bVJ
 cay
 tkd
@@ -86272,7 +86257,7 @@ aJn
 aJq
 bBi
 aOE
-eCl
+gri
 nXI
 jmY
 iFC
@@ -86529,7 +86514,7 @@ aKE
 aMa
 qEJ
 aOE
-eCl
+gri
 dWK
 qCx
 ure
@@ -86786,7 +86771,7 @@ fGw
 aLZ
 dSx
 oQH
-eCl
+gri
 oWr
 whM
 hCi
@@ -87043,7 +87028,7 @@ aJq
 aMc
 gfO
 aOE
-eCl
+gri
 dKW
 tZU
 nan
@@ -87300,7 +87285,7 @@ bBi
 qWq
 sGk
 aOE
-eCl
+gri
 igw
 vxm
 ure
@@ -87557,7 +87542,7 @@ aJq
 aMe
 qYY
 aOE
-eCl
+gri
 uzQ
 dAN
 pSK
@@ -87814,7 +87799,7 @@ aJq
 aMd
 gRd
 aOE
-eCl
+gri
 uvo
 kJX
 ure
@@ -88071,7 +88056,7 @@ aKF
 aMf
 vEF
 aOE
-eCl
+gri
 nyY
 edt
 pmJ
@@ -88328,7 +88313,7 @@ aJn
 aJq
 bBi
 aOE
-eCl
+gri
 eSD
 dNP
 dRf
@@ -88585,7 +88570,7 @@ aJn
 aJq
 dRb
 aOE
-eCl
+gri
 uTV
 oMm
 fMy
@@ -93725,7 +93710,7 @@ oHj
 dSU
 crr
 iHa
-xzy
+dLp
 xvD
 hYS
 wwm

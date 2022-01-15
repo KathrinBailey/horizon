@@ -257,12 +257,6 @@
 	description = "With heated debates over the legality of the catperson and their status in the workforce, there's always a place for the blackmarket to slip in for some cash. Whether the results \
 	are morally sound or not is another issue entirely."
 
-/datum/map_template/ruin/space/hilbertresearchfacility
-	id = "hilbert_facility"
-	suffix = "hilbertshoteltestingsite.dmm"
-	name = "Hilbert Research Facility"
-	description = "A research facility of great bluespace discoveries. Long since abandoned, willingly or not..."
-
 /datum/map_template/ruin/space/clericden
 	id = "clericden"
 	suffix = "clericden.dmm"
@@ -292,4 +286,12 @@
 	suffix = "tinybox.dmm"
 	name = "Nanotrasen Wreckage"
 	description = "Some scattered metal and wood debris of some station gone horribly awry."
+
+/datum/map_template/ruin/space/outpost_engineering
+	id = "outpost-engineering"
+	suffix = "oustpost_engineering.dmm"
+	name = "Service Outpost"
+	description = "A small little outpost that's mostly self-sufficient. It's a good place to dock for repairs when in the middle of nowhere.\
+	Apart from the neeed for occassional maintenance, this structure acts as a telecommunications relay link to put those lost back into contact with civilisation."
+
 

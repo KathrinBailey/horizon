@@ -2453,7 +2453,7 @@
 /turf/open/floor/iron/grimy,
 /area/shuttle/escape)
 "Dn" = (
-/obj/item/paint/paint_remover{
+/obj/item/paint_remover{
 	pixel_y = 8
 	},
 /obj/structure/table/wood,
@@ -4358,7 +4358,7 @@
 /area/shuttle/escape)
 "XK" = (
 /obj/structure/closet/crate/bin,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/rag,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
 /area/shuttle/escape)

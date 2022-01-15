@@ -274,7 +274,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/balloon_clusters = 2
 
 /obj/effect/mapping_helpers/ianbirthday/LateInitialize()
-	if(locate(/datum/holiday/ianbirthday) in SSevents.holidays)
+	if(locate(/datum/holiday/ianbirthday) in SSgamemode.holidays)
 		birthday()
 	qdel(src)
 
@@ -294,10 +294,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 			else
 				openturfs += thing
 	//cake + knife to cut it!
-	var/turf/food_turf = get_turf(pick(table))
-	new /obj/item/kitchen/knife(food_turf)
-	var/obj/item/food/cake/birthday/iancake = new(food_turf)
-	iancake.desc = "Happy birthday, Ian!"
+	if(length(table))
+		var/turf/food_turf = get_turf(pick(table))
+		new /obj/item/kitchen/knife(food_turf)
+		var/obj/item/food/cake/birthday/iancake = new(food_turf)
+		iancake.desc = "Happy birthday, Ian!"
 	//some balloons! this picks an open turf and pops a few balloons in and around that turf, yay.
 	for(var/i in 1 to balloon_clusters)
 		var/turf/clusterspot = pick_n_take(openturfs)
@@ -339,7 +340,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	icon_state = "iansnewyrshelper"
 
 /obj/effect/mapping_helpers/iannewyear/LateInitialize()
-	if(SSevents.holidays && SSevents.holidays[NEW_YEAR])
+	if(SSgamemode.holidays && SSgamemode.holidays[NEW_YEAR])
 		fireworks()
 	qdel(src)
 
@@ -360,6 +361,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				iandrink.pixel_x += 8
 			else
 				openturfs += thing
+
+	if(!table.len)
+		WARNING("Ian's New Years Helpers placed in an area without any tables.")
+		return
 
 	var/turf/fireworks_turf = get_turf(pick(table))
 	var/obj/item/storage/box/matches/matchbox = new(fireworks_turf)
