@@ -70,6 +70,22 @@
 	if(building)
 		setDir(ndir)
 
+/obj/structure/light_construct/setDir(new_dir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_y = LIGHT_NORTH_PIXEL_Y_OFFSET
+			pixel_x = 0
+		if(EAST)
+			pixel y = 0
+			pixel_x = LIGHT_EAST_PIXEL_X_OFFSET
+		if(WEST)
+			pixel_y = 0
+			pixel_x = LIGHT_WEST_PIXEL_X_OFFSET
+		if(SOUTH)
+			pixel_y = 0
+			pixel_x = 0
+
 /obj/structure/light_construct/Destroy()
 	QDEL_NULL(cell)
 	return ..()
