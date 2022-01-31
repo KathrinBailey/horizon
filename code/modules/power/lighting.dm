@@ -77,7 +77,7 @@
 			pixel_y = LIGHT_NORTH_PIXEL_Y_OFFSET
 			pixel_x = 0
 		if(EAST)
-			pixel y = 0
+			pixel_y = 0
 			pixel_x = LIGHT_EAST_PIXEL_X_OFFSET
 		if(WEST)
 			pixel_y = 0
