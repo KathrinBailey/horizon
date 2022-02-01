@@ -14,7 +14,7 @@
 /obj/item/oxygen_candle/attack_self(mob/user)
 	if(!pulled)
 		playsound(src, 'sound/effects/fuse.ogg', 75, 1)
-		to_chat(user, span_notice("You pull the cord and [src] ignites."))
+		to_chat(user, SPAN_NOTICE("You pull the cord and [src] ignites."))
 		icon_state = "oxycandle_burning"
 		pulled = TRUE
 		processing = TRUE
