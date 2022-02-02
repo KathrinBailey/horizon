@@ -292,12 +292,12 @@
 			if (item_to_dispense)
 				vars[choice] = null
 				try_put_in_hand(item_to_dispense, user)
-				update_icon()
+				update_appearance()
 			else
 				var/obj/item/in_hands = user.get_active_held_item()
 				if (in_hands)
 					attackby(in_hands, user)
-				update_icon()
+				update_appearance()
 
 	interact(user)
 
