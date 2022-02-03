@@ -277,6 +277,22 @@
 	/// Whether we take time to turn on/update lighting, unless update() is called with an instant argument
 	var/delayed = TRUE
 
+/obj/machinery/light/setDir(new_dir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_y = LIGHT_NORTH_PIXEL_Y_OFFSET
+			pixel_x = 0
+		if(EAST)
+			pixel_y = 0
+			pixel_x = LIGHT_EAST_PIXEL_X_OFFSET
+		if(WEST)
+			pixel_y = 0
+			pixel_x = LIGHT_WEST_PIXEL_X_OFFSET
+		if(SOUTH)
+			pixel_y = 0
+			pixel_x = 0
+
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
 	icon_state = "tube-broken"
