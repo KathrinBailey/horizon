@@ -146,6 +146,9 @@
 
 ///---------------- MISC -----------------------
 
+///Pipecrawling images
+#define PIPECRAWL_IMAGES_PLANE 180
+
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
 #define CAMERA_STATIC_RENDER_TARGET "CAMERA_STATIC_PLANE"
