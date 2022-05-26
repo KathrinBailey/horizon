@@ -111,10 +111,6 @@
 	name = "Chaplain PDA"
 	json_config = 'code/datums/greyscale/json_configs/pda_chaplain.json'
 
-/datum/greyscale_config/pda/captain
-	name = "Captain PDA"
-	json_config = 'code/datums/greyscale/json_configs/pda_captain.json'
-
 /datum/greyscale_config/pda/clown
 	name = "Clown PDA"
 	json_config = 'code/datums/greyscale/json_configs/pda_clown.json'
@@ -382,42 +378,62 @@
 	icon_file = 'icons/obj/structures/crystal_tiny_gags.dmi'
 	json_config = 'code/datums/greyscale/json_configs/ore_vein_crystal_tiny.json'
 
-/datum/greyscale_config/bench_middle
-	name = "Bench Middle"
-	icon_file = 'icons/obj/sofa.dmi'
-	json_config = 'code/datums/greyscale/json_configs/bench_middle.json'
+/datum/greyscale_config/solid_wall
+	name = "Solid Wall"
+	icon_file = 'icons/turf/walls/solid_wall.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/solid_wall.json'
 
-/datum/greyscale_config/bench_left
-	name = "Bench Left"
-	icon_file = 'icons/obj/sofa.dmi'
-	json_config = 'code/datums/greyscale/json_configs/bench_left.json'
+/datum/greyscale_config/reinforced_solid_wall
+	name = "Reinforced Solid Wall"
+	icon_file = 'icons/turf/walls/solid_wall_reinforced.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/solid_wall.json'
 
-/datum/greyscale_config/bench_right
-	name = "Bench Right"
-	icon_file = 'icons/obj/sofa.dmi'
-	json_config = 'code/datums/greyscale/json_configs/bench_right.json'
+/datum/greyscale_config/low_wall
+	name = "Low Wall"
+	icon_file = 'icons/obj/smooth_structures/low_wall.dmi'
+	json_config = 'code/datums/greyscale/json_configs/structures/low_wall.json'
 
-/datum/greyscale_config/bench_corner
-	name = "Bench Corner"
-	icon_file = 'icons/obj/sofa.dmi'
-	json_config = 'code/datums/greyscale/json_configs/bench_corner.json'
+/datum/greyscale_config/wall_stripe
+	name = "Wall Stripe"
+	icon_file = 'icons/turf/walls/wall_stripe.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/wall_stripe.json'
 
-/datum/greyscale_config/ctf_standard
-	name = "CTF Standard Vest"
-	icon_file = 'icons/obj/clothing/suits/ctf.dmi'
-	json_config = 'code/datums/greyscale/json_configs/ctf_standard.json'
+/datum/greyscale_config/wood_wall_stripe
+	name = "Wood Wall Stripe"
+	icon_file = 'icons/turf/walls/wood_wall_stripe.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/shineless_wall_stripe.json'
 
-/datum/greyscale_config/ctf_standard_worn
-	name = "Worn CTF Standard Vest"
-	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
-	json_config = 'code/datums/greyscale/json_configs/ctf_standard_worn.json'
+/datum/greyscale_config/wall_neighbor_stripe
+	name = "Wall Neighbor Stripe"
+	icon_file = 'icons/turf/walls/neighbor_stripe.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/wall_neighbor_stripe.json'
 
-/datum/greyscale_config/ctf_light
-	name = "CTF Light Vest"
-	icon_file = 'icons/obj/clothing/suits/ctf.dmi'
-	json_config = 'code/datums/greyscale/json_configs/ctf_light.json'
+/datum/greyscale_config/metal_wall
+	name = "Metal Wall"
+	icon_file = 'icons/turf/walls/metal_wall.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/shineless_wall.json'
 
-/datum/greyscale_config/ctf_light_worn
-	name = "Worn CTF Light Vest"
-	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
-	json_config = 'code/datums/greyscale/json_configs/ctf_light_worn.json'
+/datum/greyscale_config/wood_wall
+	name = "Wood Wall"
+	icon_file = 'icons/turf/walls/wood_wall.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/shineless_wall.json'
+
+/datum/greyscale_config/stone_wall
+	name = "Stone Wall"
+	icon_file = 'icons/turf/walls/stone_wall.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/shineless_wall.json'
+
+/datum/greyscale_config/cult_wall
+	name = "Cult Wall"
+	icon_file = 'icons/turf/walls/cult_wall.dmi'
+	json_config = 'code/datums/greyscale/json_configs/turfs/shineless_wall.json'
+
+/datum/greyscale_config/fulltile_window
+	name = "Fulltile Window"
+	icon_file = 'icons/obj/smooth_structures/window.dmi'
+	json_config = 'code/datums/greyscale/json_configs/structures/fulltile_window.json'
+
+/datum/greyscale_config/fulltile_reinforced_window
+	name = "Fulltile Window Reinforced"
+	icon_file = 'icons/obj/smooth_structures/window_reinforced.dmi'
+	json_config = 'code/datums/greyscale/json_configs/structures/fulltile_window.json'
