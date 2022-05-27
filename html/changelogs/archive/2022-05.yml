@@ -61,3 +61,7 @@
 2022-05-22:
   Deek-Za (Deek-Za):
   - imageadd: More crushed can sprites
+2022-05-23:
+  Azarak:
+  - bugfix: Industrial lifts no longer move ghosts around
+  - bugfix: Fixes Alien Infestation failing to spawn
