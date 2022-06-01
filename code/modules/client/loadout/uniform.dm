@@ -207,8 +207,8 @@
 /datum/loadout_item/uniform/dress/black/onepiece
 	path = /obj/item/clothing/under/dress/black/onepiece
 
-/datum/loadout_item/uniform/dress/black/cantalan
-	path = /obj/item/clothing/under/dress/black/cantalan
+/datum/loadout_item/uniform/dress/black/traditional
+	path = /obj/item/clothing/under/dress/black/traditional
 
 //PANTS
 /datum/loadout_item/uniform/pants
