@@ -180,9 +180,9 @@
 	icon_state = "blackdress"
 	body_parts_covered = CHEST|GROIN
 
-/obj/item/clothing/under/dress/black/cantalan
-	name = "black cultural dress"
-	desc = "A cultural dress composed of a skirt and chestpiece. There's a label of authenticity sown into the garment saying 'produced in Cantalan' and something about cultural heritage. Looks pricey."
-	icon_state = "lannese"
+/obj/item/clothing/under/dress/black/traditional
+	name = "black traditional dress"
+	desc = "A cultural dress composed of a skirt and chestpiece."
+	icon_state = "traditional"
 	body_parts_covered = CHEST|GROIN
 	custom_price = PAYCHECK_COMMAND
