@@ -32278,12 +32278,6 @@
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"jyO" = (
-/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
-	dir = 6
-	},
-/turf/open/genturf,
-/area/icemoon/surface/outdoors/unexplored/rivers/no_monsters)
 "jyP" = (
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2,
 /turf/open/floor/plating,
@@ -84880,9 +84874,9 @@ fFU
 ezY
 qlL
 fFU
-wiL
-wiL
-wiL
+fwu
+fwu
+fwu
 wiL
 bLp
 cgA
@@ -85388,7 +85382,7 @@ tkd
 wSR
 wSR
 tkd
-csA
+tkd
 xtJ
 woA
 mkU
@@ -91820,7 +91814,7 @@ wiL
 wiL
 rkb
 wiL
-fwu
+wiL
 pUq
 pFQ
 xsn
@@ -92077,12 +92071,12 @@ fwu
 oUZ
 ltr
 rtN
-fwu
+wiL
 pUq
 pFQ
-wiL
-wiL
-wiL
+fwu
+fwu
+fwu
 wiL
 boP
 bLp
@@ -101093,7 +101087,7 @@ gQb
 gQb
 gQb
 gQb
-jyO
+gQb
 gQb
 gQb
 gQb
