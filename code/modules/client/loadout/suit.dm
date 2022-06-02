@@ -21,6 +21,18 @@
 /datum/loadout_item/suit/wornshirt
 	path = /obj/item/clothing/suit/wornshirt
 
+/datum/loadout_item/suit/hawaiian_blue
+	path = /obj/item/clothing/suit/hawaiian_blue
+
+/datum/loadout_item/suit/hawaiian_orange
+	path = /obj/item/clothing/suit/hawaiian_orange
+
+/datum/loadout_item/suit/hawaiian_green
+	path = /obj/item/clothing/suit/hawaiian_green
+
+/datum/loadout_item/suit/hawaiian_purple
+	path = /obj/item/clothing/suit/hawaiian_purple
+
 //COATS
 /datum/loadout_item/suit/coat
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_COATS
@@ -30,6 +42,21 @@
 
 /datum/loadout_item/suit/coat/aformal
 	path = /obj/item/clothing/suit/hooded/wintercoat/aformal
+
+/datum/loadout_item/suit/coat/blacktrenchcoat
+	path = /obj/item/clothing/suit/blacktrenchcoat
+
+/datum/loadout_item/suit/coat/browntrenchcoat
+	path = /obj/item/clothing/suit/browntrenchcoat
+
+/datum/loadout_item/suit/coat/gentlecoat
+	path = /obj/item/clothing/suit/jacket/greatcoat
+
+/datum/loadout_item/suit/coat/ladiesvictoriancoat
+	path = /obj/item/clothing/suit/jacket/ladiesvictoriancoat
+
+/datum/loadout_item/suit/coat/ladiescoat
+	path = /obj/item/clothing/suit/jacket/ladiescoat
 
 /datum/loadout_item/suit/coat/runed
 	path = /obj/item/clothing/suit/hooded/wintercoat/narsie/fake
@@ -51,6 +78,9 @@
 
 /datum/loadout_item/suit/jacket/jacketbomber
 	path = /obj/item/clothing/suit/jacket
+
+/datum/loadout_item/suit/jacket/westerncoat
+	path = /obj/item/clothing/suit/jacket/dutchjacket
 
 /datum/loadout_item/suit/jacket/jacketleather
 	path = /obj/item/clothing/suit/jacket/leather
