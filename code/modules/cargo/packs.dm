@@ -2049,7 +2049,7 @@
 	///The percentage chance (per pizza) of this supply pack to spawn an anomalous pizza box.
 	var/anna_molly_box_chance = 1
 	///Total tickets in our figurative lottery (per pizza) to decide if we create a bomb box, and if so what type. 1 to 3 create a bomb. The rest do nothing.
-	var/boombox_tickets = 100
+	var/boombox_tickets = 200
 	///Whether we've provided a bomb pizza box already this shift or not.
 	var/boombox_provided = FALSE
 
