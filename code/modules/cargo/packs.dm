@@ -2537,7 +2537,8 @@
 					/obj/item/clothing/under/suit/burgundy,
 					/obj/item/clothing/under/suit/checkered,
 					/obj/item/clothing/under/suit/tan,
-					/obj/item/lipstick/random)
+					/obj/item/lipstick/random,
+					/obj/item/clothing/under/dress/black/onepiece)
 	crate_name = "formalwear crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
