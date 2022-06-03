@@ -14,6 +14,8 @@
   drizzlemutt:
   - rscadd: adds three tiers of non-deconstructible RTGs for mapping use
 2022-06-02:
+  Azarak:
+  - balance: Insulated gloves no longer give you chunky fingers
   Emilitia Ennehrt (EmilitiaEnnehrt):
   - rscadd: Ported and added 6 new jackets and coats
   - qol: added new clothings to loadout and vendors
@@ -32,6 +34,7 @@
   - balance: adds three first aid kits to ESS Crow
   - bugfix: changes pipenet to subscribe to mapping standards
   - code_imp: changed name and description of ESS Crow on the sold shuttles console
+  - rscadd: adds the wideband intercom to the autolathe
   - rscadd: adds long range holopads to the circuit imprinter
   - rscadd: adds long range holopads to two shuttles
   mamakoshka:
