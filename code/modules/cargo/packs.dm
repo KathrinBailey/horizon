@@ -691,6 +691,17 @@
 	group = "Engineering"
 	crate_type = /obj/structure/closet/crate/engineering
 
+/datum/supply_pack/engineering/rcd_crate
+	name = "Rapid Construction Device"
+	desc = "One fully-loaded RCD! Capable of patching breaches and constructing simple rooms."
+	cost = CARGO_CRATE_VALUE * 12.5
+	access = ACCESS_ENGINE
+	contains = list(
+		/obj/item/construction/rcd/loaded
+		)
+	crate_name = "RCD crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+
 /datum/supply_pack/engineering/engi_hardsuit
 	name = "Engineering Hardsuit"
 	desc = "Poly 'Who stole all the hardsuits!' Well now you can get more hardsuits if needed! NOTE ONE HARDSUIT IS IN THIS CRATE, as well as one oxygen tank and mask!"
@@ -939,12 +950,6 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
-/datum/supply_pack/engineering/rcd_crate
-	name = "Rapid Construction Device (RCD) Crate"
-	desc = "Need to patch out large-scale breaches, or build on easy-mode? RCDs are the tools for you! Contains one RCD, with enough matter units to fully load it."
-	cost = CARGO_CRATE_VALUE * 12.5
-	access = ACCESS_ENGINE
-	crate_type = /obj/structure/closet/crate/rcd
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////
