@@ -119,7 +119,10 @@
 					/obj/item/clothing/suit/hawaiian_blue = 1,
 					/obj/item/clothing/suit/hawaiian_orange = 1,
 					/obj/item/clothing/suit/hawaiian_green = 1,
-					/obj/item/clothing/suit/hawaiian_purple = 1)
+					/obj/item/clothing/suit/hawaiian_purple = 1,
+					/obj/item/clothing/under/dress/black = 2,
+					/obj/item/clothing/under/dress/black/onepiece = 2,
+					/obj/item/clothing/under/dress/black/traditional = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					  /obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 		              /obj/item/clothing/mask/balaclava = 1,
@@ -142,10 +145,7 @@
 		           /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1,
 				   /obj/item/clothing/under/costume/swagoutfit = 1,
 				   /obj/item/clothing/shoes/swagshoes = 1,
-		           /obj/item/instrument/piano_synth/headphones/spacepods = 1,
-				   /obj/item/clothing/under/dress/black = 2,
-				   /obj/item/clothing/under/dress/black/onepiece = 2,
-				   /obj/item/clothing/under/dress/black/traditional = 2)
+		           /obj/item/instrument/piano_synth/headphones/spacepods = 1)
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_ASSISTANT * 0.7 //Default of
 	extra_price = PAYCHECK_HARD
