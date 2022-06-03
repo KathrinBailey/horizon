@@ -939,6 +939,12 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/rcd_crate
+	name = "Rapid Construction Device (RCD) Crate"
+	desc = "Need to patch out large-scale breaches, or build on easy-mode? RCDs are the tools for you! Contains one RCD, with enough matter units to fully load it."
+	cost = CARGO_CRATE_VALUE * 12.5
+	access = ACCESS_ENGINE
+	crate_type = /obj/structure/closet/crate/rcd
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////// Engine Construction /////////////////////////////////
@@ -1922,17 +1928,12 @@
 /datum/supply_pack/organic/randomized/chef
 	name = "Excellent Meat Crate"
 	desc = "The best cuts in the whole galaxy."
-	cost = CARGO_CRATE_VALUE * 4
-	contains = list(/obj/item/food/meat/slab/human/mutant/slime,
+	cost = CARGO_CRATE_VALUE * 3.75
+	contains = list(/obj/item/food/meat/slab,
 					/obj/item/food/meat/slab/killertomato,
 					/obj/item/food/meat/slab/bear,
-					/obj/item/food/meat/slab/xeno,
-					/obj/item/food/meat/slab/spider,
 					/obj/item/food/meat/rawbacon,
-					/obj/item/food/meat/slab/penguin,
-					/obj/item/food/spiderleg,
-					/obj/item/food/fishmeat/carp,
-					/obj/item/food/meat/slab/human)
+					/obj/item/food/fishmeat/)
 	crate_name = "food crate"
 
 /datum/supply_pack/organic/randomized/chef/fill(obj/structure/closet/crate/C)
