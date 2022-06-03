@@ -121,7 +121,7 @@
 	belt = /obj/item/defibrillator/compact/loaded
 	glasses = /obj/item/clothing/glasses/hud/health
 	l_hand = /obj/item/storage/belt/medical/paramedic
-	r_hand = /obj/item/storage/duffelbag/med/surgery
+	r_hand = /obj/item/storage/backpack/duffelbag/med/surgery
 
 /datum/outfit/centcom/ert/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
