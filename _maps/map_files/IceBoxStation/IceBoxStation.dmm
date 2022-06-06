@@ -4023,6 +4023,7 @@
 /obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2,
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden,
 /turf/open/floor/iron,
 /area/engineering/main)
 "apZ" = (
@@ -16879,6 +16880,9 @@
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 10
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "bWy" = (
@@ -18104,6 +18108,12 @@
 	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
+"cey" = (
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/visible{
+	dir = 9
+	},
+/turf/open/floor/plating/snowed/icemoon,
+/area/icemoon/surface/outdoors)
 "ceF" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
@@ -24047,6 +24057,9 @@
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
 	dir = 5
 	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "eIL" = (
@@ -24164,6 +24177,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "eMg" = (
@@ -28957,6 +28973,9 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "hDr" = (
@@ -29969,6 +29988,9 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "igw" = (
@@ -31562,6 +31584,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/engineering/main)
 "jfy" = (
@@ -32950,6 +32975,15 @@
 	},
 /turf/open/floor/iron,
 /area/commons/vacant_room/commissary)
+"jUc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 9
+	},
+/turf/open/floor/engine,
+/area/engineering/supermatter/room)
 "jUs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -36089,6 +36123,9 @@
 /obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "lHi" = (
@@ -39031,6 +39068,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "njb" = (
@@ -39725,6 +39765,9 @@
 	},
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/engineering/main)
@@ -44011,6 +44054,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "pUr" = (
@@ -48636,6 +48682,14 @@
 	},
 /turf/open/floor/iron,
 /area/commons/fitness)
+"sCv" = (
+/obj/structure/cable,
+/obj/effect/spawner/structure/window/reinforced/grille,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engineering/main)
 "sCZ" = (
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable,
@@ -48717,6 +48771,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 6
 	},
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
@@ -50543,6 +50600,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -52732,6 +52792,9 @@
 	dir = 10
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "uLa" = (
@@ -53615,6 +53678,9 @@
 	dir = 5
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/simple/orange/hidden{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "vqW" = (
@@ -89757,7 +89823,7 @@ pFQ
 eia
 clu
 sFw
-ltP
+jUc
 ldP
 ltP
 ogv
@@ -94129,7 +94195,7 @@ boP
 boP
 wiL
 oPS
-oPS
+sCv
 oPS
 wiL
 pjX
@@ -94376,17 +94442,17 @@ nQQ
 nkG
 aBp
 bAi
-pjX
-pjX
-pjX
-pjX
-pjX
-pjX
-pjX
-pjX
-pjX
-boP
-boP
+bAi
+bAi
+bAi
+bAi
+bAi
+bAi
+bAi
+bAi
+bAi
+bAi
+cey
 boP
 boP
 boP
