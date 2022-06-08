@@ -42342,9 +42342,7 @@
 	c_tag = "Cryogenics";
 	network = list("ss13","medbay")
 	},
-/obj/machinery/atmospherics/components/binary/heat_pump/freezer{
-	dir = 8
-	},
+/obj/machinery/atmospherics/components/binary/heat_pump/freezer,
 /turf/open/floor/iron/dark,
 /area/medical/cryo)
 "peN" = (
