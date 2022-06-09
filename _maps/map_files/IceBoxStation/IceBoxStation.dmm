@@ -27767,7 +27767,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/icemoon/surface/outdoors)
+/area/engineering/atmos)
 "gQt" = (
 /obj/structure/cable,
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
@@ -34501,7 +34501,7 @@
 /obj/structure/closet/emcloset/anchored,
 /obj/item/crowbar,
 /turf/open/floor/plating,
-/area/icemoon/surface/outdoors)
+/area/engineering/atmos)
 "kLH" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/bar,
@@ -47289,7 +47289,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/icemoon/surface/outdoors)
+/area/engineering/atmos)
 "rML" = (
 /obj/structure/table,
 /obj/item/storage/crayons,
@@ -58837,7 +58837,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/icemoon/surface/outdoors)
+/area/engineering/atmos)
 "yhp" = (
 /obj/structure/punching_bag,
 /obj/effect/turf_decal/stripes/line{
@@ -94954,7 +94954,7 @@ uCs
 xjx
 xjx
 xjx
-aER
+xjx
 pjX
 pjX
 pjX
@@ -95468,7 +95468,7 @@ nRn
 xjx
 thV
 nxB
-kgD
+vqw
 bKr
 fea
 eTV
