@@ -33443,10 +33443,6 @@
 	},
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
-"kgD" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/icemoon/surface/outdoors)
 "kgW" = (
 /obj/effect/landmark/start/hangover,
 /obj/machinery/firealarm/directional/north,
@@ -79533,8 +79529,8 @@ cOw
 bUt
 bCq
 bCq
-aER
-aER
+bCq
+bCq
 bwo
 boP
 boP
@@ -100869,9 +100865,9 @@ aVZ
 vDE
 bYh
 bRa
-kgD
-kgD
-aER
+bPn
+bPn
+bzs
 bwo
 boP
 boP
