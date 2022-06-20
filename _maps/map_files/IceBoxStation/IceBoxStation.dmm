@@ -6491,10 +6491,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
-"aGk" = (
-/obj/machinery/bluespace_vendor/north,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "aGt" = (
 /obj/structure/bed,
 /obj/effect/spawner/lootdrop/prison_contraband,
@@ -22592,10 +22588,6 @@
 	},
 /turf/open/floor/glass,
 /area/service/hydroponics)
-"dOw" = (
-/obj/machinery/bluespace_vendor/south,
-/turf/open/floor/iron,
-/area/commons/locker)
 "dOB" = (
 /obj/structure/chair/wood,
 /turf/open/floor/carpet,
@@ -24635,16 +24627,6 @@
 	},
 /turf/open/floor/iron,
 /area/service/bar)
-"fbK" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/machinery/bluespace_vendor/north,
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
 "fbO" = (
 /obj/effect/turf_decal/trimline/yellow/warning{
 	dir = 1
@@ -32849,10 +32831,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"jPq" = (
-/obj/machinery/bluespace_vendor/north,
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
 "jPt" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/turf_decal/bot,
@@ -33670,11 +33648,6 @@
 	},
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
-"klP" = (
-/obj/effect/turf_decal/tile/red,
-/obj/machinery/bluespace_vendor/south,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "klS" = (
 /obj/structure/closet/emcloset/anchored,
 /obj/item/crowbar,
@@ -48136,10 +48109,6 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/main)
-"shF" = (
-/obj/machinery/bluespace_vendor/south,
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
 "sir" = (
 /obj/machinery/light/small/directional/east,
 /obj/structure/rack,
@@ -49223,7 +49192,6 @@
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/bluespace_vendor/north,
 /turf/open/floor/iron,
 /area/commons/dorms)
 "sMr" = (
@@ -54545,7 +54513,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/bluespace_vendor/north,
 /obj/effect/mapping_helpers/trapdoor_placer,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -54759,10 +54726,6 @@
 /obj/structure/grille,
 /obj/effect/mapping_helpers/smart_pipe/simple/cyan/visible,
 /turf/closed/wall/r_wall,
-/area/engineering/atmos)
-"vMa" = (
-/obj/machinery/atmospherics/components/unary/bluespace_sender,
-/turf/open/floor/iron,
 /area/engineering/atmos)
 "vMh" = (
 /obj/machinery/door/airlock{
@@ -73796,7 +73759,7 @@ asE
 asE
 asE
 asE
-fbK
+aRd
 ayl
 fbY
 qJQ
@@ -76370,7 +76333,7 @@ iZI
 lYu
 lYu
 lYu
-dOw
+lYu
 xPS
 xmL
 jjv
@@ -86128,7 +86091,7 @@ tjm
 xcv
 bLy
 sgN
-aGk
+aJq
 bBi
 aOE
 aJn
@@ -89706,7 +89669,7 @@ tuC
 vad
 anz
 agD
-klP
+aoz
 ahn
 aqh
 hTM
@@ -92079,7 +92042,7 @@ bHX
 lLw
 bKG
 ojf
-vMa
+rLU
 rLU
 rLU
 rLU
@@ -93079,7 +93042,7 @@ nIm
 dLp
 oqA
 wXj
-jPq
+aYV
 iKz
 aYV
 bfF
@@ -106959,7 +106922,7 @@ sNB
 vVm
 aYV
 cOV
-shF
+aYV
 bgc
 bgc
 pXo
