@@ -359,9 +359,6 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 4
-	},
 /obj/machinery/button/curtain{
 	dir = 4;
 	id = "naptimeplusultra2bathroom";
@@ -1321,6 +1318,9 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/space_heater,
+/obj/item/radio/intercom/directional/east{
+	pixel_y = 8
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/production)
 "oy" = (
@@ -1607,9 +1607,6 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/living_quarters)
 "rA" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 1
-	},
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters/room_two)
 "rM" = (
@@ -1715,6 +1712,14 @@
 "sl" = (
 /turf/open/openspace,
 /area/mine/eva)
+"sq" = (
+/obj/structure/curtain/cloth,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/west,
+/turf/open/floor/iron/freezer,
+/area/mine/living_quarters/room_one)
 "sv" = (
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
 /turf/open/floor/engine,
@@ -1927,6 +1932,9 @@
 	},
 /turf/open/floor/iron,
 /area/mine/mechbay)
+"uF" = (
+/turf/closed/wall,
+/area/mine/living_quarters/room_two)
 "uP" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -2438,9 +2446,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/mine/living_quarters)
-"zQ" = (
-/turf/closed/wall,
-/area/mine/living_quarters/room_one)
 "zS" = (
 /obj/structure/closet/toolcloset,
 /turf/open/floor/plating,
@@ -3157,8 +3162,10 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "HO" = (
-/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
 /obj/structure/curtain/cloth,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters/room_two)
 "HQ" = (
@@ -3204,13 +3211,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/xenobiology)
-"Ie" = (
-/obj/structure/curtain/cloth,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/mine/living_quarters/room_one)
 "Im" = (
 /obj/effect/turf_decal/trimline/green/filled/corner,
 /obj/effect/turf_decal/trimline/green/filled/corner{
@@ -3401,7 +3401,7 @@
 "JL" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/effect/turf_decal/box,
-/obj/item/radio/intercom/directional/east,
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/production)
 "JN" = (
@@ -3827,6 +3827,17 @@
 /obj/structure/stairs/north,
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/storage)
+"Nh" = (
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/machinery/light_switch/directional/south,
+/turf/open/floor/iron,
+/area/mine/eva)
 "Ni" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/engine,
@@ -4113,9 +4124,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/xenobiology)
-"PE" = (
-/turf/closed/wall,
-/area/mine/living_quarters/room_two)
 "PG" = (
 /turf/open/floor/plating/snowed/smoothed/icemoon,
 /area/icemoon/underground/explored)
@@ -4237,6 +4245,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/north,
+/obj/machinery/light_switch/directional/west,
 /turf/open/floor/wood/tile,
 /area/mine/living_quarters/room_two)
 "Rj" = (
@@ -4316,6 +4325,9 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"Si" = (
+/turf/closed/wall,
+/area/mine/living_quarters/room_one)
 "Sk" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 5
@@ -4461,6 +4473,7 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/food/no_raisin/healthy,
 /obj/machinery/light/directional/north,
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/storage)
 "TS" = (
@@ -19380,12 +19393,12 @@ eA
 ny
 eA
 eA
-PE
-PE
-PE
-PE
-PE
-PE
+uF
+uF
+uF
+uF
+uF
+uF
 Fp
 Fp
 Fp
@@ -19637,10 +19650,10 @@ uQ
 KW
 aw
 LY
-PE
+uF
 Rd
 Xj
-PE
+uF
 cO
 YH
 Fp
@@ -20154,7 +20167,7 @@ KR
 OJ
 SZ
 XK
-PE
+uF
 Yd
 YH
 Fp
@@ -20408,12 +20421,12 @@ Aq
 YA
 Gf
 rr
-zQ
-zQ
-zQ
-zQ
-zQ
-zQ
+Si
+Si
+Si
+Si
+Si
+Si
 Fp
 Fp
 Fp
@@ -20668,7 +20681,7 @@ Dj
 OV
 Ue
 YQ
-Ie
+sq
 YB
 Wy
 Fp
@@ -20925,7 +20938,7 @@ NM
 OW
 WA
 ZT
-zQ
+Si
 Ob
 Wy
 Fp
@@ -21179,12 +21192,12 @@ eA
 ny
 eA
 eA
-zQ
-zQ
-zQ
-zQ
-zQ
-zQ
+Si
+Si
+Si
+Si
+Si
+Si
 Fp
 Fp
 mO
@@ -26052,7 +26065,7 @@ BT
 sZ
 Lv
 Bk
-OK
+Nh
 bf
 wj
 Be
