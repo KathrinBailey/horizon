@@ -259,7 +259,6 @@
 /area/mine/living_quarters)
 "cl" = (
 /obj/structure/rack/shelf,
-/obj/machinery/light/small/directional/north,
 /obj/machinery/firealarm/directional/west,
 /obj/item/storage/box/matches{
 	pixel_x = 4
@@ -268,6 +267,7 @@
 	pixel_x = -2;
 	pixel_y = -4
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/storage)
 "cn" = (
@@ -362,6 +362,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
 	},
+/obj/machinery/button/curtain{
+	dir = 4;
+	id = "naptimeplusultra2bathroom";
+	pixel_x = -22
+	},
 /turf/open/floor/plating,
 /area/mine/living_quarters/room_two)
 "cT" = (
@@ -395,14 +400,15 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "dU" = (
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
 	glass = 1;
 	name = "Mining External Airlock";
 	opacity = 0
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/mine/production)
 "dV" = (
@@ -414,9 +420,6 @@
 	},
 /turf/open/floor/iron/textured,
 /area/mine/eva)
-"eb" = (
-/turf/closed/wall,
-/area/mine/living_quarters/room_one)
 "eo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
@@ -769,10 +772,6 @@
 /obj/vehicle/sealed/mecha/working/clarke,
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable,
-/obj/machinery/camera{
-	c_tag = "Mining Mech Bay";
-	network = list("mine")
-	},
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/mechbay)
 "io" = (
@@ -1065,6 +1064,10 @@
 "lO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
+	},
+/obj/machinery/door/window/eastleft{
+	name = "Elevator Door";
+	req_one_access_txt = "31;48"
 	},
 /turf/open/floor/iron,
 /area/mine/eva)
@@ -1604,8 +1607,8 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/living_quarters)
 "rA" = (
-/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4{
-	dir = 9
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
 	},
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters/room_two)
@@ -1702,6 +1705,10 @@
 	c_tag = "Mining Station - Elevator";
 	dir = 1;
 	network = list("mine")
+	},
+/obj/machinery/door/window/eastright{
+	name = "Elevator Door";
+	req_one_access_txt = "31;48"
 	},
 /turf/open/floor/iron,
 /area/mine/eva)
@@ -1854,9 +1861,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/science/xenobiology)
-"ud" = (
-/turf/closed/wall,
-/area/mine/living_quarters/room_two)
 "uh" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/window/reinforced{
@@ -2323,7 +2327,6 @@
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
 	},
-/obj/machinery/light/small/directional/south,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -2435,6 +2438,9 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/mine/living_quarters)
+"zQ" = (
+/turf/closed/wall,
+/area/mine/living_quarters/room_one)
 "zS" = (
 /obj/structure/closet/toolcloset,
 /turf/open/floor/plating,
@@ -2709,6 +2715,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/mine/production)
 "Di" = (
@@ -3150,8 +3157,8 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "HO" = (
-/obj/structure/curtain,
 /obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
+/obj/structure/curtain/cloth,
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters/room_two)
 "HQ" = (
@@ -3197,6 +3204,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"Ie" = (
+/obj/structure/curtain/cloth,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/mine/living_quarters/room_one)
 "Im" = (
 /obj/effect/turf_decal/trimline/green/filled/corner,
 /obj/effect/turf_decal/trimline/green/filled/corner{
@@ -3327,6 +3341,7 @@
 	dir = 1
 	},
 /obj/structure/cable,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron,
 /area/mine/production)
 "Js" = (
@@ -3511,11 +3526,6 @@
 	icon_state = "wood-broken3"
 	},
 /area/maintenance/aft)
-"KB" = (
-/obj/structure/curtain,
-/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
-/turf/open/floor/iron/freezer,
-/area/mine/living_quarters/room_one)
 "KD" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "xenobio2";
@@ -3925,6 +3935,11 @@
 	pixel_y = -6;
 	reclaim_rate = 5
 	},
+/obj/machinery/button/curtain{
+	dir = 8;
+	id = "naptimeplusultra1bathroom";
+	pixel_x = 22
+	},
 /turf/open/floor/iron/freezer,
 /area/mine/living_quarters/room_one)
 "Oe" = (
@@ -4098,6 +4113,9 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/xenobiology)
+"PE" = (
+/turf/closed/wall,
+/area/mine/living_quarters/room_two)
 "PG" = (
 /turf/open/floor/plating/snowed/smoothed/icemoon,
 /area/icemoon/underground/explored)
@@ -4176,7 +4194,6 @@
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/south,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/mine/storage)
@@ -4346,7 +4363,7 @@
 /area/mine/storage)
 "SZ" = (
 /obj/machinery/button/door/directional/east{
-	id = "naptimeplusultra1door";
+	id = "naptimeplusultra2door";
 	name = "Door Lock";
 	normaldoorcontrol = 1;
 	pixel_y = 7;
@@ -4441,9 +4458,9 @@
 /area/service/hydroponics)
 "TQ" = (
 /obj/structure/rack/shelf,
-/obj/machinery/light/small/directional/north,
 /obj/item/storage/toolbox/emergency,
 /obj/item/food/no_raisin/healthy,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/storage)
 "TS" = (
@@ -4838,12 +4855,6 @@
 	pixel_y = -6;
 	reclaim_rate = 5
 	},
-/obj/machinery/button/curtain{
-	dir = 8;
-	id = "naptimeplusultra2bathroom";
-	pixel_x = 22;
-	pixel_y = -2
-	},
 /obj/machinery/light/small/directional/east{
 	pixel_y = 10
 	},
@@ -4893,15 +4904,6 @@
 /obj/structure/lattice/catwalk/plated,
 /obj/machinery/shower{
 	dir = 4
-	},
-/obj/machinery/button/curtain{
-	dir = 4;
-	id = "naptimeplusultra1bathroom";
-	pixel_x = -22;
-	pixel_y = -2
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 1
 	},
 /obj/machinery/light/small/directional/west{
 	pixel_y = 10
@@ -19378,12 +19380,12 @@ eA
 ny
 eA
 eA
-ud
-ud
-ud
-ud
-ud
-ud
+PE
+PE
+PE
+PE
+PE
+PE
 Fp
 Fp
 Fp
@@ -19635,10 +19637,10 @@ uQ
 KW
 aw
 LY
-ud
+PE
 Rd
 Xj
-ud
+PE
 cO
 YH
 Fp
@@ -20152,7 +20154,7 @@ KR
 OJ
 SZ
 XK
-ud
+PE
 Yd
 YH
 Fp
@@ -20406,12 +20408,12 @@ Aq
 YA
 Gf
 rr
-eb
-eb
-eb
-eb
-eb
-eb
+zQ
+zQ
+zQ
+zQ
+zQ
+zQ
 Fp
 Fp
 Fp
@@ -20666,7 +20668,7 @@ Dj
 OV
 Ue
 YQ
-KB
+Ie
 YB
 Wy
 Fp
@@ -20923,7 +20925,7 @@ NM
 OW
 WA
 ZT
-eb
+zQ
 Ob
 Wy
 Fp
@@ -21177,12 +21179,12 @@ eA
 ny
 eA
 eA
-eb
-eb
-eb
-eb
-eb
-eb
+zQ
+zQ
+zQ
+zQ
+zQ
+zQ
 Fp
 Fp
 mO

@@ -25,6 +25,10 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
+/obj/machinery/door/window/eastleft{
+	name = "Elevator Door";
+	req_one_access_txt = "31;48"
+	},
 /turf/open/floor/iron/textured,
 /area/mine/eva/lower)
 "bA" = (
@@ -61,9 +65,6 @@
 /obj/effect/turf_decal/trimline/brown/warning,
 /turf/open/floor/iron/textured,
 /area/mine/eva/lower)
-"bS" = (
-/turf/closed/wall/r_wall,
-/area/mine/maintenance/telecomms/lower)
 "cb" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/tool{
@@ -100,6 +101,9 @@
 	},
 /turf/open/floor/iron/textured,
 /area/mine/eva/lower)
+"da" = (
+/turf/closed/wall/r_wall,
+/area/mine/maintenance/telecomms/lower)
 "dK" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
@@ -108,6 +112,13 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/eva/lower)
+"eq" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
+	dir = 4
+	},
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/iron/textured,
+/area/mine/maintenance/lower)
 "et" = (
 /obj/effect/turf_decal/trimline/brown/warning{
 	dir = 1
@@ -161,6 +172,9 @@
 /area/mine/eva/lower)
 "iI" = (
 /obj/machinery/light/directional/east,
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/open/floor/iron/textured,
 /area/mine/eva/lower)
 "kZ" = (
@@ -227,6 +241,9 @@
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/floor/plating/asteroid/snow/icemoon,
 /area/commons/storage/mining)
+"qF" = (
+/turf/closed/wall,
+/area/mine/maintenance/lower)
 "qG" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
@@ -264,9 +281,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/eva/lower)
-"tt" = (
-/turf/closed/wall/r_wall,
-/area/mine/maintenance/lower)
 "uo" = (
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/textured,
@@ -299,6 +313,16 @@
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/plating,
 /area/mine/maintenance/lower)
+"wz" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/machinery/door/window/eastright{
+	name = "Elevator Door";
+	req_one_access_txt = "31;48"
+	},
+/turf/open/floor/iron/textured,
+/area/mine/eva/lower)
 "wC" = (
 /turf/closed/wall/r_wall,
 /area/mine/eva/lower)
@@ -334,9 +358,6 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/mine/eva/lower)
-"yY" = (
-/turf/closed/wall,
-/area/mine/maintenance/lower)
 "zM" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
@@ -357,14 +378,6 @@
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/eva/lower)
-"Cj" = (
-/obj/structure/cable,
-/turf/open/floor/iron/textured,
-/area/mine/eva/lower)
-"CR" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/mine/maintenance/lower)
 "EK" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
@@ -412,6 +425,13 @@
 	},
 /obj/item/radio/intercom/directional/south,
 /turf/open/floor/iron/dark/textured_large,
+/area/mine/eva/lower)
+"GO" = (
+/turf/closed/wall/r_wall,
+/area/mine/maintenance/lower)
+"Hx" = (
+/obj/structure/cable,
+/turf/open/floor/iron/textured,
 /area/mine/eva/lower)
 "Ix" = (
 /obj/machinery/light/small/directional/south,
@@ -466,6 +486,10 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/textured,
 /area/mine/eva/lower)
+"OF" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/mine/maintenance/telecomms/lower)
 "OG" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
@@ -493,23 +517,13 @@
 	},
 /turf/open/floor/iron/textured,
 /area/mine/eva/lower)
-"PP" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
-	dir = 4
-	},
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron/textured,
+"PE" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/mine/maintenance/lower)
-"Qm" = (
-/turf/closed/wall,
-/area/mine/eva/lower)
 "Qn" = (
 /turf/open/floor/plating/elevatorshaft,
 /area/mine/eva/lower)
-"RC" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/mine/maintenance/telecomms/lower)
 "RM" = (
 /obj/effect/turf_decal/trimline/brown/warning{
 	dir = 1
@@ -525,6 +539,9 @@
 "Sa" = (
 /turf/open/floor/plating/asteroid/snow/icemoon,
 /area/icemoon/underground/unexplored/rivers/deep)
+"Sh" = (
+/turf/closed/wall,
+/area/mine/eva/lower)
 "SU" = (
 /obj/effect/mapping_helpers/smart_pipe/simple/general/visible{
 	dir = 9
@@ -20383,10 +20400,10 @@ wC
 ni
 qJ
 wC
-CR
-tt
-tt
-tt
+PE
+GO
+GO
+GO
 xE
 xE
 xE
@@ -20639,11 +20656,11 @@ xE
 wC
 zS
 WT
-Qm
-PP
+Sh
+eq
 uW
 wn
-tt
+GO
 xE
 xE
 xE
@@ -20900,7 +20917,7 @@ hO
 XH
 zN
 bA
-tt
+GO
 xE
 xE
 xE
@@ -21153,11 +21170,11 @@ ni
 wC
 ni
 EK
-Qm
-yY
+Sh
+qF
 Ul
-tt
-tt
+GO
+GO
 xE
 xE
 xE
@@ -21413,7 +21430,7 @@ OU
 iF
 Ka
 ZK
-bS
+da
 wV
 xE
 xE
@@ -21921,11 +21938,11 @@ xE
 wC
 cb
 et
-Cj
+Hx
 bR
 sQ
 Ix
-RC
+OF
 Mk
 zM
 SU
@@ -22178,12 +22195,12 @@ xE
 wC
 cC
 hF
-Cj
+Hx
 bR
 GJ
-Qm
-Qm
-Qm
+Sh
+Sh
+Sh
 wC
 xE
 xE
@@ -22438,9 +22455,9 @@ EN
 on
 UT
 KT
-Qm
+Sh
 LO
-Qm
+Sh
 wC
 xE
 xE
@@ -22691,13 +22708,13 @@ xE
 xE
 ni
 bf
-bf
+wz
 iI
 EN
 OU
 nT
 mZ
-Qm
+Sh
 wC
 xE
 xE
@@ -22949,12 +22966,12 @@ xE
 wC
 yp
 OG
-Qm
+Sh
 ni
 Yv
 ni
-Qm
-Qm
+Sh
+Sh
 wC
 xE
 xE
@@ -23206,7 +23223,7 @@ xE
 ni
 Qn
 Qn
-Qm
+Sh
 dK
 cP
 uN
@@ -23463,7 +23480,7 @@ xE
 ni
 Qn
 Qn
-Qm
+Sh
 zS
 RM
 Xv

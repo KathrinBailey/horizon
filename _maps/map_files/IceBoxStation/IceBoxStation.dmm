@@ -6491,6 +6491,16 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"aGk" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/cargo/storage)
 "aGt" = (
 /obj/structure/bed,
 /obj/effect/spawner/lootdrop/prison_contraband,
@@ -22588,6 +22598,18 @@
 	},
 /turf/open/floor/glass,
 /area/service/hydroponics)
+"dOw" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/cargo/storage)
 "dOB" = (
 /obj/structure/chair/wood,
 /turf/open/floor/carpet,
@@ -23044,8 +23066,8 @@
 /area/command/heads_quarters/rd)
 "ebo" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Quartermaster Office Maintenance";
-	req_access_txt = "41"
+	name = "Warehouse Maintenance";
+	req_access_txt = "31"
 	},
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4,
@@ -23223,10 +23245,8 @@
 /turf/open/floor/engine/vacuum,
 /area/engineering/atmos)
 "ehC" = (
-/obj/structure/curtain{
-	alpha = 240;
-	color = "#454545";
-	name = "Changing Room"
+/obj/structure/curtain/bounty{
+	name = "changing Room"
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/cargo/miningdock)
@@ -24135,6 +24155,10 @@
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Cargo Bay South";
+	dir = 1
+	},
 /turf/open/floor/glass,
 /area/cargo/storage)
 "eLh" = (
@@ -24627,6 +24651,15 @@
 	},
 /turf/open/floor/iron,
 /area/service/bar)
+"fbK" = (
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/scrubbers/hidden/layer2,
+/obj/structure/cable,
+/obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/iron,
+/area/cargo/storage)
 "fbO" = (
 /obj/effect/turf_decal/trimline/yellow/warning{
 	dir = 1
@@ -32831,6 +32864,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"jPq" = (
+/obj/machinery/light/small/directional/south,
+/turf/open/floor/carpet,
+/area/cargo/qm)
 "jPt" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/turf_decal/bot,
@@ -48559,6 +48596,7 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable,
 /turf/open/floor/iron/dark/textured_large,
 /area/cargo/qm)
 "sun" = (
@@ -51510,7 +51548,6 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "tZP" = (
-/obj/machinery/light/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -56015,6 +56052,10 @@
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Cargo Bay Mining Ladder";
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/cargo/storage)
 "wzx" = (
@@ -58073,6 +58114,11 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
+	},
+/obj/machinery/button/elevator{
+	dir = 8;
+	id = "iceboxmininglift";
+	pixel_x = 21
 	},
 /turf/open/floor/iron,
 /area/cargo/miningdock)
@@ -78665,7 +78711,7 @@ jXp
 jAn
 dCr
 iso
-pGx
+aGk
 pGx
 pGx
 xsZ
@@ -79693,7 +79739,7 @@ gbZ
 dCr
 dCr
 kcH
-qQV
+dOw
 qQV
 qQV
 fyu
@@ -79961,7 +80007,7 @@ vAa
 xzu
 bZt
 ppn
-ppn
+jPq
 qoJ
 qOL
 mnf
@@ -81752,7 +81798,7 @@ xjK
 iil
 cPW
 dum
-ten
+fbK
 oOH
 qgl
 qgl
