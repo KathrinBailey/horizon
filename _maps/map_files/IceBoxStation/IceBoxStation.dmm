@@ -54568,6 +54568,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "vHt" = (
+/obj/machinery/module_duplicator,
 /turf/open/floor/iron,
 /area/science/misc_lab)
 "vHw" = (
