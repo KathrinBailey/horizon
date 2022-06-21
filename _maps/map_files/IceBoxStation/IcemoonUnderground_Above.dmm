@@ -180,7 +180,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "bq" = (
 /turf/closed/wall,
 /area/mine/production)
@@ -244,11 +244,11 @@
 "bZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/mine/storage)
+/area/cargo/warehouse)
 "cg" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
-/area/mine/storage)
+/area/cargo/warehouse)
 "ci" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
@@ -269,7 +269,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "cn" = (
 /obj/structure/table,
 /obj/item/paper/fluff/stations/lavaland/orm_notice,
@@ -375,7 +375,7 @@
 	req_one_access_txt = "48;54"
 	},
 /turf/open/floor/iron/dark/textured,
-/area/mine/storage)
+/area/cargo/warehouse)
 "dd" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -383,7 +383,7 @@
 /area/maintenance/aft)
 "df" = (
 /turf/closed/wall/r_wall,
-/area/mine/storage)
+/area/cargo/warehouse)
 "dK" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate,
@@ -512,6 +512,7 @@
 	},
 /obj/effect/mapping_helpers/smart_pipe/manifold/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/plating,
 /area/mine/maintenance)
 "eP" = (
@@ -561,6 +562,9 @@
 	},
 /turf/open/floor/iron,
 /area/mine/eva)
+"fC" = (
+/turf/closed/wall,
+/area/cargo/warehouse)
 "fM" = (
 /obj/machinery/recharge_station,
 /obj/machinery/light/small/directional/west,
@@ -604,7 +608,7 @@
 "gq" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "gs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -746,7 +750,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "ic" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
@@ -1275,7 +1279,7 @@
 	req_one_access_txt = "29;48;54"
 	},
 /turf/open/floor/iron/dark/textured,
-/area/mine/storage)
+/area/cargo/warehouse)
 "oh" = (
 /turf/open/openspace/icemoon,
 /area/icemoon/underground/explored)
@@ -1509,7 +1513,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/siding/brown/corner,
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "qC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1548,7 +1552,7 @@
 /area/mine/living_quarters)
 "rb" = (
 /turf/open/floor/iron/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "ri" = (
 /obj/effect/turf_decal/trimline/green/filled/corner{
 	dir = 4
@@ -1673,6 +1677,7 @@
 	dir = 10;
 	network = list("mine")
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/open/floor/iron,
 /area/mine/living_quarters)
 "sa" = (
@@ -1767,6 +1772,9 @@
 	id = "Mining_launch";
 	name = "Mech Bay Door Control";
 	req_one_access_txt = "29;48;54"
+	},
+/obj/machinery/light_switch/directional/south{
+	pixel_x = -12
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/mine/mechbay)
@@ -2175,7 +2183,7 @@
 	network = list("mine")
 	},
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "xa" = (
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4,
@@ -2239,7 +2247,7 @@
 "xB" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
-/area/mine/storage)
+/area/cargo/warehouse)
 "xH" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
@@ -2292,7 +2300,7 @@
 	},
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "yt" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/item/radio/intercom/directional/north,
@@ -2338,7 +2346,7 @@
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable,
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "yR" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
@@ -2462,7 +2470,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Ab" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -2879,7 +2887,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Fj" = (
 /turf/open/floor/plating/elevatorshaft,
 /area/mine/storage)
@@ -2911,7 +2919,7 @@
 	dir = 8
 	},
 /turf/closed/wall/r_wall,
-/area/mine/storage)
+/area/cargo/warehouse)
 "FG" = (
 /obj/structure/cable,
 /obj/effect/spawner/structure/window/reinforced,
@@ -2955,7 +2963,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Gf" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -3315,7 +3323,7 @@
 "Jk" = (
 /obj/structure/railing/corner,
 /turf/closed/wall/r_wall,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Jn" = (
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
 	dir = 4
@@ -3351,7 +3359,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance_carpet,
 /turf/open/floor/iron/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Jv" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -3451,7 +3459,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Ke" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 4
@@ -3549,7 +3557,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "KJ" = (
 /obj/effect/turf_decal/trimline/brown/warning,
 /obj/effect/turf_decal/siding/brown,
@@ -3647,7 +3655,7 @@
 	},
 /obj/structure/closet/crate/secure/loot,
 /turf/open/floor/iron/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Ls" = (
 /obj/structure/sign/warning/biohazard{
 	pixel_x = -32
@@ -3826,7 +3834,7 @@
 "Ne" = (
 /obj/structure/stairs/north,
 /turf/open/floor/iron/dark/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Nh" = (
 /obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
 	dir = 4
@@ -3846,6 +3854,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/plating,
 /area/mine/maintenance)
 "Nw" = (
@@ -3874,7 +3883,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "NC" = (
 /obj/effect/turf_decal/siding/brown/corner,
 /obj/effect/turf_decal/trimline/brown/warning,
@@ -4204,7 +4213,7 @@
 	},
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "QD" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -4258,6 +4267,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/service/hydroponics)
+"RA" = (
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/item/radio/intercom/directional/north{
+	pixel_x = 27
+	},
+/turf/open/floor/iron,
+/area/mine/production)
 "RC" = (
 /obj/structure/rack,
 /turf/open/floor/plating,
@@ -4475,7 +4497,7 @@
 /obj/machinery/light/directional/north,
 /obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron/dark/textured_large,
-/area/mine/storage)
+/area/cargo/warehouse)
 "TS" = (
 /obj/effect/turf_decal/trimline/brown/corner{
 	dir = 4
@@ -4509,7 +4531,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "TY" = (
 /obj/item/shovel{
 	pixel_x = -5
@@ -4536,7 +4558,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/siding/brown,
 /turf/open/floor/iron,
-/area/mine/storage)
+/area/cargo/warehouse)
 "Ue" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -24259,12 +24281,12 @@ mO
 mO
 mO
 mO
-AF
-AF
+fC
+fC
 bZ
 bZ
 cT
-AF
+fC
 bq
 FS
 bq
@@ -25551,7 +25573,7 @@ bo
 bo
 yQ
 TI
-NT
+RA
 jA
 Ji
 Pe
@@ -25802,11 +25824,11 @@ mO
 mO
 mO
 cg
-AF
+fC
 xB
 oe
 xB
-AF
+fC
 bq
 Kq
 bq

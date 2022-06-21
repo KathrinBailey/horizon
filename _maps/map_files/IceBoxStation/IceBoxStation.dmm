@@ -45854,6 +45854,7 @@
 /area/maintenance/aft)
 "qTG" = (
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/shaft_miner,
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
 "qTI" = (
@@ -49988,6 +49989,7 @@
 /obj/effect/mapping_helpers/smart_pipe/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
 "tiI" = (
