@@ -490,7 +490,6 @@
 	dir = 6
 	},
 /obj/structure/cable,
-/obj/structure/cable,
 /turf/open/floor/circuit,
 /area/mine/maintenance/telecomms/lower)
 "NM" = (
