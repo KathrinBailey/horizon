@@ -562,9 +562,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/eva)
-"fC" = (
-/turf/closed/wall,
-/area/cargo/warehouse)
 "fM" = (
 /obj/machinery/recharge_station,
 /obj/machinery/light/small/directional/west,
@@ -789,6 +786,9 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/service/hydroponics)
+"iB" = (
+/turf/closed/wall,
+/area/cargo/warehouse)
 "iC" = (
 /obj/structure/closet/secure_closet/engineering_welding{
 	req_access = list(54)
@@ -1585,6 +1585,9 @@
 	dir = 1
 	},
 /obj/structure/chair,
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
 "rr" = (
@@ -2565,6 +2568,19 @@
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron,
 /area/mine/eva)
+"Bs" = (
+/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/item/radio/intercom/directional/north{
+	pixel_x = 27
+	},
+/turf/open/floor/iron,
+/area/mine/production)
 "BD" = (
 /obj/item/screwdriver,
 /turf/open/floor/plating/snowed/icemoon,
@@ -4267,19 +4283,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/service/hydroponics)
-"RA" = (
-/obj/effect/mapping_helpers/smart_pipe/simple/scrubbers/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/smart_pipe/simple/supply/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/item/radio/intercom/directional/north{
-	pixel_x = 27
-	},
-/turf/open/floor/iron,
-/area/mine/production)
 "RC" = (
 /obj/structure/rack,
 /turf/open/floor/plating,
@@ -24281,12 +24284,12 @@ mO
 mO
 mO
 mO
-fC
-fC
+iB
+iB
 bZ
 bZ
 cT
-fC
+iB
 bq
 FS
 bq
@@ -25573,7 +25576,7 @@ bo
 bo
 yQ
 TI
-RA
+Bs
 jA
 Ji
 Pe
@@ -25824,11 +25827,11 @@ mO
 mO
 mO
 cg
-fC
+iB
 xB
 oe
 xB
-fC
+iB
 bq
 Kq
 bq
