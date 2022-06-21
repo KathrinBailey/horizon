@@ -33163,6 +33163,7 @@
 	department = "Mining";
 	name = "Mining Requests Console"
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark/textured_large,
 /area/cargo/miningoffice)
 "jWV" = (
