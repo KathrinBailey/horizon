@@ -20278,6 +20278,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/chair/stool,
+/obj/effect/landmark/start/botanist,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "bbg" = (
@@ -20590,25 +20592,7 @@
 /turf/open/floor/iron/dark,
 /area/service/hydroponics)
 "bcc" = (
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northright{
-	name = "Hydroponics Desk";
-	req_access_txt = "35"
-	},
-/obj/item/food/monkeycube,
-/obj/structure/window{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/service/hydroponics)
-"bcd" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/biogenerator,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "HydroBiogenCoverShutters";
-	name = "Shutter"
-	},
+/obj/machinery/hydroponics/constructable,
 /obj/machinery/button/door{
 	dir = 8;
 	id = "jangarage";
@@ -20616,6 +20600,16 @@
 	pixel_x = 22;
 	req_access_txt = "35"
 	},
+/turf/open/floor/iron/dark,
+/area/service/hydroponics)
+"bcd" = (
+/obj/machinery/door/firedoor,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northright{
+	name = "Hydroponics Desk";
+	req_access_txt = "35"
+	},
+/obj/item/food/monkeycube,
 /turf/open/floor/iron/dark,
 /area/service/hydroponics)
 "bce" = (
@@ -46880,12 +46874,16 @@
 	name = "kitchen shutters"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/westright{
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/machinery/door/window/westleft{
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/item/food/grown/potato,
-/obj/item/food/grown/potato,
+/obj/machinery/door/window/eastright{
+	name = "Kitchen Desk";
+	req_access_txt = "28"
+	},
 /turf/open/floor/iron,
 /area/service/kitchen)
 "gcn" = (
@@ -55523,6 +55521,14 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space)
+"qvl" = (
+/obj/machinery/biogenerator,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "HydroBiogenCoverShutters";
+	name = "Shutter"
+	},
+/turf/open/floor/plating,
+/area/service/kitchen)
 "qvx" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -58734,6 +58740,13 @@
 	},
 /turf/open/floor/carpet,
 /area/service/lawoffice)
+"uvd" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/service/hydroponics)
 "uvo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -89767,8 +89780,8 @@ aRN
 aXY
 pIn
 aXS
-uXJ
-bcc
+uvd
+bdm
 aDZ
 bem
 bih
@@ -90021,7 +90034,7 @@ aTY
 aUY
 aVX
 aRN
-bfm
+bcc
 aYQ
 tPx
 bbe
@@ -90279,7 +90292,7 @@ aSK
 aRN
 aRN
 aRN
-bgk
+qvl
 gam
 aZZ
 aRN
